@@ -1,0 +1,19 @@
+Wald-4B
+Copyright 2026 the Wald-4B authors
+
+The weights and the serving code in this repository are licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Base model
+  The weights are derived from Qwen/Qwen3.5-4B-Base (https://huggingface.co/Qwen/Qwen3.5-4B-Base), licensed under the
+  Apache License, Version 2.0, copyright the Qwen team, Alibaba Cloud. Its licence and notices continue to apply.
+
+Third-party code and text in server/
+  server/src/wald_serve/wire.py adapts the request models and the state / option rendering (render, option_text,
+  question_keys, to_record) of Kev (https://github.com/jaredpalmer/kev), Copyright Jared Palmer, licensed under the
+  Apache License, Version 2.0. Modified: the record carries each question's type and keys; unused fields removed.
+
+  server/src/wald_serve/prompt.py contains the sentence STATE_REPEAT, copied verbatim from simple-jev
+  (https://github.com/featherless-ai/simple-jev, commit dae340e, hf-server/hf_prompt_policies.py), licensed under the
+  Apache License, Version 2.0. It is used only by the `repeat_state_plain` prompt format.
+
+No benchmark items or training data are included in this repository.

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="576" viewBox="0 0 900 576" role="img" aria-labelledby="t d">
+<title id="t">Decision Index by area</title>
+<desc id="d">Five area skills for Wald-4B, Jev and the board&#x27;s #4 and #5.</desc>
+
+<style>
+  svg { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8984; --grid:#e6e5e1; --line:#c9c8c2;
+        --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#8b6fd6; --laya:#c2369b; --clm:#9a7b2f; --dot:#b9b8b2; --hl:#e8f0fb; }
+  @media (prefers-color-scheme: dark) {
+    svg { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86; --grid:#2e2e2b; --line:#4a4a45;
+          --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#9d86e8; --laya:#e05cb8; --clm:#c9a24a; --dot:#5c5b56; --hl:#1d2a3b; }
+  }
+  text { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); } .mu { fill: var(--muted); }
+  .h1 { font-size: 16px; font-weight: 600; } .sm { font-size: 11px; } .xs { font-size: 10px; } .b { font-weight: 600; }
+  .grid { stroke: var(--grid); stroke-width: 1; } .axis { stroke: var(--line); stroke-width: 1; }
+</style>
+<rect width="900" height="576" fill="var(--surface)"/>
+<text x="24.0" y="30.0" class="h1" text-anchor="start">Decision Index 0.2.1 by area (chance-corrected skill, 0–1)</text>
+<text x="24.0" y="50.0" class="xs t2" text-anchor="start">Wald-4B v1.0 (4B) vs Jev and the board&#x27;s #4 / #5 entries (27B). Board rows are official full-suite numbers; the Wald row is our stratified-sample read.</text>
+<rect x="24" y="66" width="12" height="12" rx="2" fill="var(--s1)"/>
+<text x="42.0" y="76.0" class="sm" text-anchor="start">Wald-4B v1.0 · effort medium</text>
+<rect x="24" y="82" width="12" height="12" rx="2" fill="var(--s2)"/>
+<text x="42.0" y="92.0" class="sm" text-anchor="start">Jev (board)</text>
+<rect x="24" y="98" width="12" height="12" rx="2" fill="var(--s3)"/>
+<text x="42.0" y="108.0" class="sm" text-anchor="start">#4 simple-jev · Qwen3.8-27B (featherless) (board)</text>
+<rect x="24" y="114" width="12" height="12" rx="2" fill="var(--s4)"/>
+<text x="42.0" y="124.0" class="sm" text-anchor="start">#5 Jebadiah 27B (board)</text>
+<line x1="110.0" y1="140" x2="110.0" y2="546" class="grid"/>
+<text x="110.0" y="560.0" class="xs mu" text-anchor="middle">0.0</text>
+<line x1="230.0" y1="140" x2="230.0" y2="546" class="grid"/>
+<text x="230.0" y="560.0" class="xs mu" text-anchor="middle">0.2</text>
+<line x1="350.0" y1="140" x2="350.0" y2="546" class="grid"/>
+<text x="350.0" y="560.0" class="xs mu" text-anchor="middle">0.4</text>
+<line x1="470.0" y1="140" x2="470.0" y2="546" class="grid"/>
+<text x="470.0" y="560.0" class="xs mu" text-anchor="middle">0.6</text>
+<line x1="590.0" y1="140" x2="590.0" y2="546" class="grid"/>
+<text x="590.0" y="560.0" class="xs mu" text-anchor="middle">0.8</text>
+<text x="100.0" y="176.0" class="sm" text-anchor="end">Knowledge</text>
+<g><title>Wald-4B v1.0 · effort medium · Knowledge: 0.395</title><rect x="110" y="146" width="236.7" height="13" rx="2" fill="var(--s1)"/></g>
+<text x="350.7" y="156.0" class="xs" text-anchor="start">0.39</text>
+<g><title>Jev (board) · Knowledge: 0.514</title><rect x="110" y="162" width="308.4" height="13" rx="2" fill="var(--s2)"/></g>
+<text x="422.4" y="172.0" class="xs" text-anchor="start">0.51</text>
+<g><title>#4 simple-jev · Qwen3.8-27B (featherless) (board) · Knowledge: 0.366</title><rect x="110" y="178" width="219.4" height="13" rx="2" fill="var(--s3)"/></g>
+<text x="333.4" y="188.0" class="xs" text-anchor="start">0.37</text>
+<g><title>#5 Jebadiah 27B (board) · Knowledge: 0.388</title><rect x="110" y="194" width="233.0" height="13" rx="2" fill="var(--s4)"/></g>
+<text x="347.0" y="204.0" class="xs" text-anchor="start">0.39</text>
+<text x="100.0" y="254.0" class="sm" text-anchor="end">Language</text>
+<g><title>Wald-4B v1.0 · effort medium · Language: 0.618</title><rect x="110" y="224" width="370.6" height="13" rx="2" fill="var(--s1)"/></g>
+<text x="484.6" y="234.0" class="xs" text-anchor="start">0.62</text>
+<g><title>Jev (board) · Language: 0.620</title><rect x="110" y="240" width="372.1" height="13" rx="2" fill="var(--s2)"/></g>
+<text x="486.1" y="250.0" class="xs" text-anchor="start">0.62</text>
+<g><title>#4 simple-jev · Qwen3.8-27B (featherless) (board) · Language: 0.621</title><rect x="110" y="256" width="372.5" height="13" rx="2" fill="var(--s3)"/></g>
+<text x="486.5" y="266.0" class="xs" text-anchor="start">0.62</text>
+<g><title>#5 Jebadiah 27B (board) · Language: 0.607</title><rect x="110" y="272" width="364.1" height="13" rx="2" fill="var(--s4)"/></g>
+<text x="478.1" y="282.0" class="xs" text-anchor="start">0.61</text>
+<text x="100.0" y="332.0" class="sm" text-anchor="end">Retrieval</text>
+<g><title>Wald-4B v1.0 · effort medium · Retrieval: 0.519</title><rect x="110" y="302" width="311.6" height="13" rx="2" fill="var(--s1)"/></g>
+<text x="425.6" y="312.0" class="xs" text-anchor="start">0.52</text>
+<g><title>Jev (board) · Retrieval: 0.554</title><rect x="110" y="318" width="332.5" height="13" rx="2" fill="var(--s2)"/></g>
+<text x="446.5" y="328.0" class="xs" text-anchor="start">0.55</text>
+<g><title>#4 simple-jev · Qwen3.8-27B (featherless) (board) · Retrieval: 0.632</title><rect x="110" y="334" width="379.5" height="13" rx="2" fill="var(--s3)"/></g>
+<text x="493.5" y="344.0" class="xs" text-anchor="start">0.63</text>
+<g><title>#5 Jebadiah 27B (board) · Retrieval: 0.539</title><rect x="110" y="350" width="323.3" height="13" rx="2" fill="var(--s4)"/></g>
+<text x="437.3" y="360.0" class="xs" text-anchor="start">0.54</text>
+<text x="100.0" y="410.0" class="sm" text-anchor="end">Tools</text>
+<g><title>Wald-4B v1.0 · effort medium · Tools: 0.782</title><rect x="110" y="380" width="469.2" height="13" rx="2" fill="var(--s1)"/></g>
+<text x="583.2" y="390.0" class="xs" text-anchor="start">0.78</text>
+<g><title>Jev (board) · Tools: 0.751</title><rect x="110" y="396" width="450.5" height="13" rx="2" fill="var(--s2)"/></g>
+<text x="564.5" y="406.0" class="xs" text-anchor="start">0.75</text>
+<g><title>#4 simple-jev · Qwen3.8-27B (featherless) (board) · Tools: 0.762</title><rect x="110" y="412" width="457.3" height="13" rx="2" fill="var(--s3)"/></g>
+<text x="571.3" y="422.0" class="xs" text-anchor="start">0.76</text>
+<g><title>#5 Jebadiah 27B (board) · Tools: 0.781</title><rect x="110" y="428" width="468.8" height="13" rx="2" fill="var(--s4)"/></g>
+<text x="582.8" y="438.0" class="xs" text-anchor="start">0.78</text>
+<text x="100.0" y="488.0" class="sm" text-anchor="end">Arts</text>
+<g><title>Wald-4B v1.0 · effort medium · Arts: 0.306</title><rect x="110" y="458" width="183.5" height="13" rx="2" fill="var(--s1)"/></g>
+<text x="297.5" y="468.0" class="xs" text-anchor="start">0.31</text>
+<g><title>Jev (board) · Arts: 0.377</title><rect x="110" y="474" width="226.0" height="13" rx="2" fill="var(--s2)"/></g>
+<text x="340.0" y="484.0" class="xs" text-anchor="start">0.38</text>
+<g><title>#4 simple-jev · Qwen3.8-27B (featherless) (board) · Arts: 0.365</title><rect x="110" y="490" width="218.9" height="13" rx="2" fill="var(--s3)"/></g>
+<text x="332.9" y="500.0" class="xs" text-anchor="start">0.36</text>
+<g><title>#5 Jebadiah 27B (board) · Arts: 0.387</title><rect x="110" y="506" width="232.4" height="13" rx="2" fill="var(--s4)"/></g>
+<text x="346.4" y="516.0" class="xs" text-anchor="start">0.39</text>
+<line x1="110" y1="140" x2="110" y2="546" class="axis"/>
+</svg>

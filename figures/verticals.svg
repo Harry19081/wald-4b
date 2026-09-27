@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1142" viewBox="0 0 1000 1142" role="img" aria-labelledby="t d">
+<title id="t">Verticals: quick LoRA vs Jev vs zero-shot</title>
+<desc id="d">Grouped bars for 12 tasks with paired differences to Jev.</desc>
+
+<style>
+  svg { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8984; --grid:#e6e5e1; --line:#c9c8c2;
+        --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#8b6fd6; --laya:#c2369b; --clm:#9a7b2f; --dot:#b9b8b2; --hl:#e8f0fb; }
+  @media (prefers-color-scheme: dark) {
+    svg { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86; --grid:#2e2e2b; --line:#4a4a45;
+          --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#9d86e8; --laya:#e05cb8; --clm:#c9a24a; --dot:#5c5b56; --hl:#1d2a3b; }
+  }
+  text { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); } .mu { fill: var(--muted); }
+  .h1 { font-size: 16px; font-weight: 600; } .sm { font-size: 11px; } .xs { font-size: 10px; } .b { font-weight: 600; }
+  .grid { stroke: var(--grid); stroke-width: 1; } .axis { stroke: var(--line); stroke-width: 1; }
+</style>
+<rect width="1000" height="1142" fill="var(--surface)"/>
+<text x="24.0" y="30.0" class="h1" text-anchor="start">Quick LoRA (&lt; $2, &lt; 2 GPU-h per task) on Wald-4B beats Jev on 9 of 12 tasks</text>
+<text x="24.0" y="50.0" class="xs t2" text-anchor="start">Same fixed test items and byte-identical requests for every system. Ours = one LoRA on the task&#x27;s labels, $0.12–$1.81 of GPU time each; the others are zero-shot. Jev cannot be fine-tuned.</text>
+<rect x="24" y="66" width="12" height="12" rx="2" fill="var(--s1)"/>
+<text x="42.0" y="76.0" class="sm" text-anchor="start">Wald-4B v0.9 + LoRA (&lt; $2)</text>
+<rect x="354" y="66" width="12" height="12" rx="2" fill="var(--s2)"/>
+<text x="372.0" y="76.0" class="sm" text-anchor="start">Jev (API, zero-shot)</text>
+<rect x="684" y="66" width="12" height="12" rx="2" fill="var(--s3)"/>
+<text x="702.0" y="76.0" class="sm" text-anchor="start">Wald-4B v0.9 zero-shot</text>
+<rect x="24" y="84" width="12" height="12" rx="2" fill="var(--dot)"/>
+<text x="42.0" y="94.0" class="sm" text-anchor="start">raw Qwen3.5-4B-Base zero-shot</text>
+<rect x="354" y="84" width="12" height="12" rx="2" fill="var(--laya)" fill-opacity="0.38"/>
+<text x="372.0" y="94.0" class="sm mu" text-anchor="start">Laya 421M (zero-shot, Jev&#x27;s wire request)</text>
+<rect x="684" y="84" width="12" height="12" rx="2" fill="var(--clm)" fill-opacity="0.38"/>
+<text x="702.0" y="94.0" class="sm mu" text-anchor="start">CLM-8B (zero-shot, deployment verified)</text>
+<line x1="230.0" y1="124" x2="230.0" y2="1102" class="grid"/>
+<text x="230.0" y="1116.0" class="xs mu" text-anchor="middle">0</text>
+<line x1="318.0" y1="124" x2="318.0" y2="1102" class="grid"/>
+<text x="318.0" y="1116.0" class="xs mu" text-anchor="middle">20</text>
+<line x1="406.0" y1="124" x2="406.0" y2="1102" class="grid"/>
+<text x="406.0" y="1116.0" class="xs mu" text-anchor="middle">40</text>
+<line x1="494.0" y1="124" x2="494.0" y2="1102" class="grid"/>
+<text x="494.0" y="1116.0" class="xs mu" text-anchor="middle">60</text>
+<line x1="582.0" y1="124" x2="582.0" y2="1102" class="grid"/>
+<text x="582.0" y="1116.0" class="xs mu" text-anchor="middle">80</text>
+<line x1="670.0" y1="124" x2="670.0" y2="1102" class="grid"/>
+<text x="670.0" y="1116.0" class="xs mu" text-anchor="middle">100</text>
+<text x="450.0" y="1132.0" class="xs mu" text-anchor="middle">task metric (%)</text>
+<text x="730.0" y="118.0" class="xs t2" text-anchor="start">ours − Jev [95 % CI] · LoRA cost</text>
+<text x="220.0" y="148.0" class="sm" text-anchor="end">RouteLLM routing</text>
+<text x="220.0" y="162.0" class="xs mu" text-anchor="end">needs-strong F1 · n = 500</text>
+<g><title>RouteLLM routing: Wald-4B v0.9 + LoRA (&lt; $2) 26.8</title><rect x="230" y="132" width="117.9" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="351.9" y="141.0" class="xs" text-anchor="start">26.8</text>
+<g><title>RouteLLM routing: Jev (API, zero-shot) 0.0</title><rect x="230" y="144" width="1.5" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>RouteLLM routing: Wald-4B v0.9 zero-shot 11.3</title><rect x="230" y="156" width="49.7" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>RouteLLM routing: raw Qwen3.5-4B-Base zero-shot 33.3</title><rect x="230" y="168" width="146.5" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>RouteLLM routing: Laya 421M (zero-shot, Jev&#x27;s wire request) 25.6</title><rect x="230" y="180" width="112.6" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>RouteLLM routing: CLM-8B (zero-shot, deployment verified) 0.0</title><rect x="230" y="192" width="1.5" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="150.0" class="sm" text-anchor="start">+26.8 [+18.3, +35.4] ▲ · $0.63</text>
+<text x="220.0" y="228.0" class="sm" text-anchor="end">Agent-trajectory safety (hard)</text>
+<text x="220.0" y="242.0" class="xs mu" text-anchor="end">unsafe-class F1 · n = 500</text>
+<g><title>Agent-trajectory safety (hard): Wald-4B v0.9 + LoRA (&lt; $2) 72.2</title><rect x="230" y="212" width="317.7" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="551.7" y="221.0" class="xs" text-anchor="start">72.2</text>
+<g><title>Agent-trajectory safety (hard): Jev (API, zero-shot) 47.0</title><rect x="230" y="224" width="206.8" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>Agent-trajectory safety (hard): Wald-4B v0.9 zero-shot 32.5</title><rect x="230" y="236" width="143.0" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>Agent-trajectory safety (hard): raw Qwen3.5-4B-Base zero-shot 70.1</title><rect x="230" y="248" width="308.4" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>Agent-trajectory safety (hard): Laya 421M (zero-shot, Jev&#x27;s wire request) 13.3</title><rect x="230" y="260" width="58.5" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>Agent-trajectory safety (hard): CLM-8B (zero-shot, deployment verified) 61.7</title><rect x="230" y="272" width="271.5" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="230.0" class="sm" text-anchor="start">+25.2 [+18.3, +32.2] ▲ · $0.15</text>
+<text x="220.0" y="308.0" class="sm" text-anchor="end">BANKING77</text>
+<text x="220.0" y="322.0" class="xs mu" text-anchor="end">macro-F1 · n = 500</text>
+<g><title>BANKING77: Wald-4B v0.9 + LoRA (&lt; $2) 92.8</title><rect x="230" y="292" width="408.3" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="642.3" y="301.0" class="xs" text-anchor="start">92.8</text>
+<g><title>BANKING77: Jev (API, zero-shot) 78.1</title><rect x="230" y="304" width="343.6" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>BANKING77: Wald-4B v0.9 zero-shot 77.4</title><rect x="230" y="316" width="340.6" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>BANKING77: raw Qwen3.5-4B-Base zero-shot 66.8</title><rect x="230" y="328" width="293.9" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>BANKING77: Laya 421M (zero-shot, Jev&#x27;s wire request) 33.9</title><rect x="230" y="340" width="149.2" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>BANKING77: CLM-8B (zero-shot, deployment verified) 0.3</title><rect x="230" y="352" width="1.5" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="310.0" class="sm" text-anchor="start">+14.7 [+12.1, +18.6] ▲ · $0.64</text>
+<text x="220.0" y="388.0" class="sm" text-anchor="end">MetaTool</text>
+<text x="220.0" y="402.0" class="xs mu" text-anchor="end">accuracy · n = 500</text>
+<g><title>MetaTool: Wald-4B v0.9 + LoRA (&lt; $2) 97.0</title><rect x="230" y="372" width="426.8" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="660.8" y="381.0" class="xs" text-anchor="start">97.0</text>
+<g><title>MetaTool: Jev (API, zero-shot) 83.0</title><rect x="230" y="384" width="365.2" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>MetaTool: Wald-4B v0.9 zero-shot 80.4</title><rect x="230" y="396" width="353.8" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>MetaTool: raw Qwen3.5-4B-Base zero-shot 75.8</title><rect x="230" y="408" width="333.5" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>MetaTool: CLM-8B (zero-shot, deployment verified) 34.0</title><rect x="230" y="432" width="149.6" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="390.0" class="sm" text-anchor="start">+14.0 [+10.8, +17.2] ▲ · $0.79</text>
+<text x="220.0" y="468.0" class="sm" text-anchor="end">When2Call</text>
+<text x="220.0" y="482.0" class="xs mu" text-anchor="end">accuracy · n = 500</text>
+<g><title>When2Call: Wald-4B v0.9 + LoRA (&lt; $2) 82.8</title><rect x="230" y="452" width="364.3" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="598.3" y="461.0" class="xs" text-anchor="start">82.8</text>
+<g><title>When2Call: Jev (API, zero-shot) 72.6</title><rect x="230" y="464" width="319.4" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>When2Call: Wald-4B v0.9 zero-shot 68.6</title><rect x="230" y="476" width="301.8" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>When2Call: raw Qwen3.5-4B-Base zero-shot 47.4</title><rect x="230" y="488" width="208.6" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>When2Call: Laya 421M (zero-shot, Jev&#x27;s wire request) 35.6</title><rect x="230" y="500" width="156.6" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>When2Call: CLM-8B (zero-shot, deployment verified) 34.8</title><rect x="230" y="512" width="153.1" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="470.0" class="sm" text-anchor="start">+10.2 [+6.2, +14.2] ▲ · $1.00</text>
+<text x="220.0" y="548.0" class="sm" text-anchor="end">COLD (Chinese)</text>
+<text x="220.0" y="562.0" class="xs mu" text-anchor="end">macro-F1 · n = 5,323</text>
+<g><title>COLD (Chinese): Wald-4B v0.9 + LoRA (&lt; $2) 84.1</title><rect x="230" y="532" width="370.0" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="604.0" y="541.0" class="xs" text-anchor="start">84.1</text>
+<g><title>COLD (Chinese): Jev (API, zero-shot) 75.3</title><rect x="230" y="544" width="331.3" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>COLD (Chinese): Wald-4B v0.9 zero-shot 80.1</title><rect x="230" y="556" width="352.4" height="10" rx="2" fill="var(--s3)"/></g>
+<text x="730.0" y="550.0" class="sm" text-anchor="start">+8.8 [+7.7, +10.0] ▲ · $1.00</text>
+<text x="220.0" y="628.0" class="sm" text-anchor="end">AndroidControl</text>
+<text x="220.0" y="642.0" class="xs mu" text-anchor="end">accuracy · n = 500</text>
+<g><title>AndroidControl: Wald-4B v0.9 + LoRA (&lt; $2) 81.6</title><rect x="230" y="612" width="359.0" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="593.0" y="621.0" class="xs" text-anchor="start">81.6</text>
+<g><title>AndroidControl: Jev (API, zero-shot) 73.4</title><rect x="230" y="624" width="323.0" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>AndroidControl: Wald-4B v0.9 zero-shot 60.6</title><rect x="230" y="636" width="266.6" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>AndroidControl: raw Qwen3.5-4B-Base zero-shot 62.0</title><rect x="230" y="648" width="272.8" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>AndroidControl: CLM-8B (zero-shot, deployment verified) 61.2</title><rect x="230" y="672" width="269.3" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="630.0" class="sm" text-anchor="start">+8.2 [+4.4, +12.4] ▲ · $1.48</text>
+<text x="220.0" y="708.0" class="sm" text-anchor="end">SGD intent</text>
+<text x="220.0" y="722.0" class="xs mu" text-anchor="end">macro-F1 · n = 500</text>
+<g><title>SGD intent: Wald-4B v0.9 + LoRA (&lt; $2) 98.0</title><rect x="230" y="692" width="431.2" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="665.2" y="701.0" class="xs" text-anchor="start">98.0</text>
+<g><title>SGD intent: Jev (API, zero-shot) 92.8</title><rect x="230" y="704" width="408.3" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>SGD intent: Wald-4B v0.9 zero-shot 82.8</title><rect x="230" y="716" width="364.3" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>SGD intent: raw Qwen3.5-4B-Base zero-shot 79.7</title><rect x="230" y="728" width="350.7" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>SGD intent: Laya 421M (zero-shot, Jev&#x27;s wire request) 62.6</title><rect x="230" y="740" width="275.4" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>SGD intent: CLM-8B (zero-shot, deployment verified) 12.7</title><rect x="230" y="752" width="55.9" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="710.0" class="sm" text-anchor="start">+5.2 [+2.9, +8.2] ▲ · $0.83</text>
+<text x="220.0" y="788.0" class="sm" text-anchor="end">ToxicChat</text>
+<text x="220.0" y="802.0" class="xs mu" text-anchor="end">toxic-class F1 · n = 5,029</text>
+<g><title>ToxicChat: Wald-4B v0.9 + LoRA (&lt; $2) 84.9</title><rect x="230" y="772" width="373.6" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="607.6" y="781.0" class="xs" text-anchor="start">84.9</text>
+<g><title>ToxicChat: Jev (API, zero-shot) 80.4</title><rect x="230" y="784" width="353.8" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>ToxicChat: Wald-4B v0.9 zero-shot 73.4</title><rect x="230" y="796" width="323.0" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>ToxicChat: raw Qwen3.5-4B-Base zero-shot 36.2</title><rect x="230" y="808" width="159.3" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>ToxicChat: Laya 421M (zero-shot, Jev&#x27;s wire request) 14.2</title><rect x="230" y="820" width="62.5" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>ToxicChat: CLM-8B (zero-shot, deployment verified) 12.9</title><rect x="230" y="832" width="56.8" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="790.0" class="sm" text-anchor="start">+4.5 [+1.5, +7.5] ▲ · $0.20</text>
+<text x="220.0" y="868.0" class="sm" text-anchor="end">Mind2Web</text>
+<text x="220.0" y="882.0" class="xs mu" text-anchor="end">accuracy · n = 480</text>
+<g><title>Mind2Web: Wald-4B v0.9 + LoRA (&lt; $2) 51.9</title><rect x="230" y="852" width="228.4" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="462.4" y="861.0" class="xs" text-anchor="start">51.9</text>
+<g><title>Mind2Web: Jev (API, zero-shot) 48.5</title><rect x="230" y="864" width="213.4" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>Mind2Web: Wald-4B v0.9 zero-shot 32.3</title><rect x="230" y="876" width="142.1" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>Mind2Web: raw Qwen3.5-4B-Base zero-shot 9.8</title><rect x="230" y="888" width="43.1" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>Mind2Web: Laya 421M (zero-shot, Jev&#x27;s wire request) 2.1</title><rect x="230" y="900" width="9.2" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>Mind2Web: CLM-8B (zero-shot, deployment verified) 3.8</title><rect x="230" y="912" width="16.7" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="870.0" class="sm" text-anchor="start">+3.4 [-1.2, +7.9] n.s. · $1.81</text>
+<text x="220.0" y="948.0" class="sm" text-anchor="end">Prompt injection</text>
+<text x="220.0" y="962.0" class="xs mu" text-anchor="end">injection-class F1 · n = 578</text>
+<g><title>Prompt injection: Wald-4B v0.9 + LoRA (&lt; $2) 79.4</title><rect x="230" y="932" width="349.4" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="583.4" y="941.0" class="xs" text-anchor="start">79.4</text>
+<g><title>Prompt injection: Jev (API, zero-shot) 82.8</title><rect x="230" y="944" width="364.3" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>Prompt injection: Wald-4B v0.9 zero-shot 71.3</title><rect x="230" y="956" width="313.7" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>Prompt injection: raw Qwen3.5-4B-Base zero-shot 31.6</title><rect x="230" y="968" width="139.0" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>Prompt injection: Laya 421M (zero-shot, Jev&#x27;s wire request) 56.6</title><rect x="230" y="980" width="249.0" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>Prompt injection: CLM-8B (zero-shot, deployment verified) 30.6</title><rect x="230" y="992" width="134.6" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="950.0" class="sm" text-anchor="start">-3.4 [-10.1, +3.1] n.s. · $0.12</text>
+<text x="220.0" y="1028.0" class="sm" text-anchor="end">RewardBench</text>
+<text x="220.0" y="1042.0" class="xs mu" text-anchor="end">accuracy · n = 1,000</text>
+<g><title>RewardBench: Wald-4B v0.9 + LoRA (&lt; $2) 83.4</title><rect x="230" y="1012" width="367.0" height="10" rx="2" fill="var(--s1)"/></g>
+<text x="601.0" y="1021.0" class="xs" text-anchor="start">83.4</text>
+<g><title>RewardBench: Jev (API, zero-shot) 90.6</title><rect x="230" y="1024" width="398.6" height="10" rx="2" fill="var(--s2)"/></g>
+<g><title>RewardBench: Wald-4B v0.9 zero-shot 83.7</title><rect x="230" y="1036" width="368.3" height="10" rx="2" fill="var(--s3)"/></g>
+<g><title>RewardBench: raw Qwen3.5-4B-Base zero-shot 65.0</title><rect x="230" y="1048" width="286.0" height="10" rx="2" fill="var(--dot)"/></g>
+<g><title>RewardBench: Laya 421M (zero-shot, Jev&#x27;s wire request) 49.2</title><rect x="230" y="1060" width="216.5" height="10" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<g><title>RewardBench: CLM-8B (zero-shot, deployment verified) 50.3</title><rect x="230" y="1072" width="221.3" height="10" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="730.0" y="1030.0" class="sm" text-anchor="start">-7.2 [-9.4, -5.1] ▼ · $1.49</text>
+<line x1="230" y1="124" x2="230" y2="1102" class="axis"/>
+</svg>

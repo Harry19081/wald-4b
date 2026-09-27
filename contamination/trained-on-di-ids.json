@@ -1,0 +1,3862 @@
+{
+ "schema": "wald/di-trained-on/1",
+ "what": "Decision Index 0.2 / 0.2.1 item ids present in the training data of the submitted checkpoint's lineage (strict match: the whole state in one training record, plus >= 50 % of option text where options are the item's content). Count every one of them as trained on.",
+ "total": 363,
+ "per_benchmark": [
+  {
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "items": 67
+  },
+  {
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "items": 49
+  },
+  {
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "items": 44
+  },
+  {
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "items": 170
+  },
+  {
+   "benchmark_id": 12,
+   "benchmark": "ANLI",
+   "scored_in_0_2_1": "scored",
+   "items": 3
+  },
+  {
+   "benchmark_id": 24,
+   "benchmark": "MMLU",
+   "scored_in_0_2_1": "display only",
+   "items": 6
+  },
+  {
+   "benchmark_id": 26,
+   "benchmark": "ARC-Easy",
+   "scored_in_0_2_1": "display only",
+   "items": 7
+  },
+  {
+   "benchmark_id": 27,
+   "benchmark": "ARC-Challenge",
+   "scored_in_0_2_1": "display only",
+   "items": 4
+  },
+  {
+   "benchmark_id": 28,
+   "benchmark": "WinoGrande",
+   "scored_in_0_2_1": "scored",
+   "items": 2
+  },
+  {
+   "benchmark_id": 33,
+   "benchmark": "SATA-Bench",
+   "scored_in_0_2_1": "scored",
+   "items": 4
+  },
+  {
+   "benchmark_id": 36,
+   "benchmark": "BRIGHT",
+   "scored_in_0_2_1": "scored",
+   "items": 1
+  },
+  {
+   "benchmark_id": 57,
+   "benchmark": "MMLU-Pro",
+   "scored_in_0_2_1": "scored",
+   "items": 6
+  }
+ ],
+ "scans": {
+  "stage 1 (full-parameter decision training corpus)": {
+   "strict_hits_in_trained_files": 177,
+   "blocklist_sha256": "a9dc4133464334273a6326c125744beaf6e44d45eba1d25fae5b61225e1ad4ba",
+   "suite_fingerprints_sha256": "df92bd3ceed2f57df7d25e219a22e18521097db625403b5c3de90226b809b2a5",
+   "files": {
+    "train-00000.jsonl": {
+     "lines": 92013,
+     "sha256": "ed48083526b4b063ee8be3bc921b018ef1ec63d2c308e03d8ee57574c292431b",
+     "strict": 36
+    },
+    "train-00001.jsonl": {
+     "lines": 92531,
+     "sha256": "ac12385f728387d46cb97a9323c42be6e5d5f32ef83f0a257efbf9f8db980bc4",
+     "strict": 44
+    },
+    "train-00002.jsonl": {
+     "lines": 92089,
+     "sha256": "10bbbe85daaafef4d575abc3d12b3738d1484e93caf64129ffbba2b98413f86a",
+     "strict": 44
+    },
+    "train-00003.jsonl": {
+     "lines": 92440,
+     "sha256": "3a883ad81670c1b51dd583e1eaf346e4abe4336cfcd59a15dd1227f831e33052",
+     "strict": 53
+    },
+    "train-00004.jsonl": {
+     "lines": 2900,
+     "sha256": "8b3e1b34ab30c8746f8858047aa31dd39f42a4bdaebe46786e19e9762aa02e9a",
+     "strict": 0
+    }
+   }
+  },
+  "stage 2 (LoRA refinement data)": {
+   "strict_hits_in_trained_files": 42,
+   "blocklist_sha256": "a9dc4133464334273a6326c125744beaf6e44d45eba1d25fae5b61225e1ad4ba",
+   "suite_fingerprints_sha256": "df92bd3ceed2f57df7d25e219a22e18521097db625403b5c3de90226b809b2a5",
+   "files": {
+    "train-f3base-00000.jsonl": {
+     "lines": 18441,
+     "sha256": "9a882f66a815d27bf31264fc19a9680e04bf59340d0b275d87d017925a46a870",
+     "strict": 36
+    },
+    "train-replay-00000.jsonl": {
+     "lines": 6746,
+     "sha256": "b236f01529a76d45dbcf5a049b629fc8c9da2f30eab6e14b615360b248dc608c",
+     "strict": 6
+    },
+    "train-teacher-00000.jsonl": {
+     "lines": 63,
+     "sha256": "ae4ce672535b2fa9a11af0df8f2866e61a2cdbe80042d1f5607778d60e0af98c",
+     "strict": 0
+    }
+   }
+  },
+  "stage 3 (short-thought distillation data)": {
+   "strict_hits_in_trained_files": 158,
+   "blocklist_sha256": "a9dc4133464334273a6326c125744beaf6e44d45eba1d25fae5b61225e1ad4ba",
+   "suite_fingerprints_sha256": "df92bd3ceed2f57df7d25e219a22e18521097db625403b5c3de90226b809b2a5",
+   "files": {
+    "train-final.jsonl": {
+     "lines": 33361,
+     "sha256": "ecaaf022dd5376e6823d2c5f8acd9602e3cc76a06fb582a72cb3287edb311d9e",
+     "strict": 79
+    },
+    "train.jsonl": {
+     "lines": 33361,
+     "sha256": "846caf99110bff0d8c26e35c43aee35da72d44b33b26599b1fb53d9dee762a0d",
+     "strict": 79
+    }
+   }
+  }
+ },
+ "stage_4_targeted_lora": "stage-4 data (Home-appliance generator rows; iSarcasmEval / API-Bank / ContractNLI / VAST / NLI4CT / ACOS / RAGTruth train splits; replay) was checked against the full blocklist and the sample rows before training: 0 hits after filtering",
+ "items": [
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:craft-math-algebra:craft_Math_algebra_query_170:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_109:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_128:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_12:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_13:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_191:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_194:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_194:chunk1",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_213:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_217:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_232:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_232:chunk1",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_234:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_238:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_241:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_257:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_299:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_307:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_323:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_340:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_343:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_343:chunk1",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_343:chunk2",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_34:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_357:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_358:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_363:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_378:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_37:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_386:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_392:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_395:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_406:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_406:chunk1",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_420:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_422:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_439:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_45:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_516:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_516:chunk1",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_570:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_575:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_57:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_57:chunk1",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_580:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_59:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_601:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_603:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_632:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_65:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_667:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_687:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_705:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_705:chunk1",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_734:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_742:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_766:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_781:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_796:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_85:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_86:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_888:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_905:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_90:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_91:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_91:chunk1",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "2:ToolRet-retrieval:ToolRet-retrieval:toolace:toolACE_query_980:chunk0",
+   "benchmark_id": 2,
+   "benchmark": "ToolRet",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: ToolRet aggregates user queries of public tool-calling train sets (ToolACE, Glaive) that are in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1197",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1198",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1246",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1289",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1322",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1332",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1342",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1432",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1437",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1474",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1573",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1616",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1687",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1735",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1817",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1821",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1936",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1946",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:1993",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2083",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2139",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2145",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2149",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2254",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2298",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2331",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2381",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2436",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2441",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2466",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2476",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:250",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:256",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2601",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2605",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2755",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:2821",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:3012",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:3070",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:3074",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:347",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:391",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:450",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:460",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:510",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:888",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:890",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:891",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "4:BANKING77:BANKING77:test:893",
+   "benchmark_id": 4,
+   "benchmark": "BANKING77",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the benchmark's public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1055",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1126",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1132",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1215",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1233",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1252",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1332",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1333",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1487",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1505",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1518",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1809",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:1922",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:2234",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:2236",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:2243",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:2246",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:2372",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:2446",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:2658",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:274",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:2752",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3316",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3321",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3629",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3630",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3631",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3637",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3643",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3644",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3645",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3652",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3658",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3667",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3679",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3705",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3808",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:3865",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:4281",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:4457",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:659",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:671",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:70",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "5:CLINC150+OOS:CLINC150+OOS:test:930",
+   "benchmark_id": 5,
+   "benchmark": "CLINC150+OOS",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence as the test item",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10002",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10008",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10026",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10027",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10060",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10071",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10180",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10345",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10350",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:10548",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:3624",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:3645",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:3661",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:3795",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4005",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4168",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4223",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4296",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4367",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4388",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4422",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4434",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4438",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4497",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4558",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4769",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4807",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:4829",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5056",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5116",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5153",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5192",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5208",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5227",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5240",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5244",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5326",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5451",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5480",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5501",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:5597",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6265",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6566",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6659",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6699",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6733",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6743",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6795",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6872",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:6916",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:7172",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:7209",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:7270",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:7524",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:7566",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:7705",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:7964",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8017",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8023",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8079",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8130",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8131",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8302",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8421",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8525",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8634",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8648",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8691",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8718",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8766",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8807",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8830",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8913",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:8943",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9255",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9256",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9292",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9363",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9411",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9431",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9439",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9484",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9620",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9651",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-0shot:RouterBench-0shot:9801",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10016",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10022",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10040",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10041",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10074",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10085",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10194",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10359",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10364",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:10562",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:3638",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:3659",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:3675",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:3809",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4019",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4182",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4237",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4310",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4381",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4402",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4436",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4448",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4452",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4511",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4572",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4783",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4821",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:4843",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5070",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5130",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5167",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5206",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5222",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5241",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5254",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5258",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5340",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5465",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5494",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5515",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:5611",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6279",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6580",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6673",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6713",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6747",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6757",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6809",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6886",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:6930",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:7186",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:7223",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:7284",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:7538",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:7580",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:7719",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:7978",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8031",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8037",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8093",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8144",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8145",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8316",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8435",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8539",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8648",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8662",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8705",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8732",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8780",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8821",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8844",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8927",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:8957",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9269",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9270",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9306",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9377",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9425",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9445",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9453",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9498",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9634",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9665",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "6:RouterBench-5shot:RouterBench-5shot:9815",
+   "benchmark_id": 6,
+   "benchmark": "RouterBench",
+   "scored_in_0_2_1": "not scored in 0.2.1",
+   "why": "shared upstream source: RouterBench prompts embed GSM8K / MMLU questions that are in our math and QA data",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "12:ANLI:ANLI:test_r2:4bb4236d-e277-443c-9a83-05aa3e1f36ab",
+   "benchmark_id": 12,
+   "benchmark": "ANLI",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream text: the premise text also appears in another public dataset in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "12:ANLI:ANLI:test_r2:5c674fb6-d204-46ff-8ab1-19b483d97f14",
+   "benchmark_id": 12,
+   "benchmark": "ANLI",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream text: the premise text also appears in another public dataset in our data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "12:ANLI:ANLI:test_r3:af91dd15-20c2-4428-9bdf-8eb8eb1ea180",
+   "benchmark_id": 12,
+   "benchmark": "ANLI",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream text: the premise text also appears in another public dataset in our data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "24:MMLU:MMLU:test:4250",
+   "benchmark_id": 24,
+   "benchmark": "MMLU",
+   "scored_in_0_2_1": "display only",
+   "why": "question also present in MMLU auxiliary_train / other public QA sets",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "24:MMLU:MMLU:test:4261",
+   "benchmark_id": 24,
+   "benchmark": "MMLU",
+   "scored_in_0_2_1": "display only",
+   "why": "question also present in MMLU auxiliary_train / other public QA sets",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "24:MMLU:MMLU:test:4274",
+   "benchmark_id": 24,
+   "benchmark": "MMLU",
+   "scored_in_0_2_1": "display only",
+   "why": "question also present in MMLU auxiliary_train / other public QA sets",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "24:MMLU:MMLU:test:4281",
+   "benchmark_id": 24,
+   "benchmark": "MMLU",
+   "scored_in_0_2_1": "display only",
+   "why": "question also present in MMLU auxiliary_train / other public QA sets",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "24:MMLU:MMLU:test:4419",
+   "benchmark_id": 24,
+   "benchmark": "MMLU",
+   "scored_in_0_2_1": "display only",
+   "why": "question also present in MMLU auxiliary_train / other public QA sets",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "24:MMLU:MMLU:test:7920",
+   "benchmark_id": 24,
+   "benchmark": "MMLU",
+   "scored_in_0_2_1": "display only",
+   "why": "question also present in MMLU auxiliary_train / other public QA sets",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "26:ARC-Easy:ARC-Easy:test:CSZ20770",
+   "benchmark_id": 26,
+   "benchmark": "ARC-Easy",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "26:ARC-Easy:ARC-Easy:test:CSZ30768",
+   "benchmark_id": 26,
+   "benchmark": "ARC-Easy",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "26:ARC-Easy:ARC-Easy:test:LEAP__4_10224",
+   "benchmark_id": 26,
+   "benchmark": "ARC-Easy",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "26:ARC-Easy:ARC-Easy:test:MDSA_2013_8_7",
+   "benchmark_id": 26,
+   "benchmark": "ARC-Easy",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "26:ARC-Easy:ARC-Easy:test:Mercury_7172813",
+   "benchmark_id": 26,
+   "benchmark": "ARC-Easy",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "26:ARC-Easy:ARC-Easy:test:NYSEDREGENTS_2012_4_20",
+   "benchmark_id": 26,
+   "benchmark": "ARC-Easy",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "26:ARC-Easy:ARC-Easy:test:NYSEDREGENTS_2012_8_18",
+   "benchmark_id": 26,
+   "benchmark": "ARC-Easy",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "27:ARC-Challenge:ARC-Challenge:test:CSZ_2009_8_CSZ20740",
+   "benchmark_id": 27,
+   "benchmark": "ARC-Challenge",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "27:ARC-Challenge:ARC-Challenge:test:Mercury_406136",
+   "benchmark_id": 27,
+   "benchmark": "ARC-Challenge",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "27:ARC-Challenge:ARC-Challenge:test:Mercury_SC_416167",
+   "benchmark_id": 27,
+   "benchmark": "ARC-Challenge",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "27:ARC-Challenge:ARC-Challenge:test:NYSEDREGENTS_2015_4_29",
+   "benchmark_id": 27,
+   "benchmark": "ARC-Challenge",
+   "scored_in_0_2_1": "display only",
+   "why": "train-split duplicate (ARC train / MMLU auxiliary_train), the board's known duplicates",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "28:WinoGrande:WinoGrande:validation:1193",
+   "benchmark_id": 28,
+   "benchmark": "WinoGrande",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "28:WinoGrande:WinoGrande:validation:876",
+   "benchmark_id": 28,
+   "benchmark": "WinoGrande",
+   "scored_in_0_2_1": "scored",
+   "why": "train-split duplicate: the public train split contains the same sentence",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "33:SATA-Bench:SATA-Bench:test:195",
+   "benchmark_id": 33,
+   "benchmark": "SATA-Bench",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: reading passage from RACE, which is part of MMLU auxiliary_train",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "33:SATA-Bench:SATA-Bench:test:29",
+   "benchmark_id": 33,
+   "benchmark": "SATA-Bench",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: reading passage from RACE, which is part of MMLU auxiliary_train",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "33:SATA-Bench:SATA-Bench:test:295",
+   "benchmark_id": 33,
+   "benchmark": "SATA-Bench",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: reading passage from RACE, which is part of MMLU auxiliary_train",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "33:SATA-Bench:SATA-Bench:test:30",
+   "benchmark_id": 33,
+   "benchmark": "SATA-Bench",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: reading passage from RACE, which is part of MMLU auxiliary_train",
+   "found_in": [
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "36:BRIGHT-retrieval:BRIGHT-retrieval:leetcode:140:chunk0",
+   "benchmark_id": 36,
+   "benchmark": "BRIGHT",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: a public programming problem statement (LeetCode)",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "candidates-v3:57:5457",
+   "benchmark_id": 57,
+   "benchmark": "MMLU-Pro",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: MMLU-Pro includes problems from MATH / TheoremQA; the same problem is in our math data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "candidates-v3:57:8161",
+   "benchmark_id": 57,
+   "benchmark": "MMLU-Pro",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: MMLU-Pro includes problems from MATH / TheoremQA; the same problem is in our math data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)"
+   ]
+  },
+  {
+   "id": "candidates-v3:57:8164",
+   "benchmark_id": 57,
+   "benchmark": "MMLU-Pro",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: MMLU-Pro includes problems from MATH / TheoremQA; the same problem is in our math data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "candidates-v3:57:8273",
+   "benchmark_id": 57,
+   "benchmark": "MMLU-Pro",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: MMLU-Pro includes problems from MATH / TheoremQA; the same problem is in our math data",
+   "found_in": [
+    "stage 1 (full-parameter decision training corpus)"
+   ]
+  },
+  {
+   "id": "candidates-v3:57:8713",
+   "benchmark_id": 57,
+   "benchmark": "MMLU-Pro",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: MMLU-Pro includes problems from MATH / TheoremQA; the same problem is in our math data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  },
+  {
+   "id": "candidates-v3:57:8721",
+   "benchmark_id": 57,
+   "benchmark": "MMLU-Pro",
+   "scored_in_0_2_1": "scored",
+   "why": "shared upstream source: MMLU-Pro includes problems from MATH / TheoremQA; the same problem is in our math data",
+   "found_in": [
+    "stage 2 (LoRA refinement data)",
+    "stage 3 (short-thought distillation data)"
+   ]
+  }
+ ]
+}

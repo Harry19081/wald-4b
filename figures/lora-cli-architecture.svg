@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="602" viewBox="0 0 1000 602" role="img" aria-labelledby="t d">
+<title id="t">The vertical CLI: from a dataset to a calibrated task LoRA on Wald-4B</title>
+<desc id="d">Stage pipeline of the LoRA CLI: task spec, prep, overlap check, audit and optional augmentation on your machine; baseline, train, eval, calibrate and report on a GPU backend; deploy as an adapter behind the same decision API; with leak, audit and cost gates.</desc>
+
+<style>
+  svg { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8984; --grid:#e6e5e1; --line:#c9c8c2;
+        --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#8b6fd6; --dot:#b9b8b2; --hl:#e8f0fb; --band:#f4f4f1; }
+  @media (prefers-color-scheme: dark) {
+    svg { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86; --grid:#2e2e2b; --line:#4a4a45;
+          --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#9d86e8; --dot:#5c5b56; --hl:#1d2a3b; --band:#222220; }
+  }
+  text { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); } .mu { fill: var(--muted); }
+  .h1 { font-size: 16px; font-weight: 600; } .h2 { font-size: 13px; font-weight: 600; }
+  .sm { font-size: 11px; } .xs { font-size: 10px; } .b { font-weight: 600; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10px; }
+  .lane { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; fill: var(--ink2); }
+  .box { fill: var(--surface); stroke: var(--line); stroke-width: 1; }
+  .opt { stroke-dasharray: 4 3; }
+  .band { fill: var(--band); stroke: none; }
+  .arrow { stroke: var(--muted); stroke-width: 1.4; fill: none; }
+</style>
+<rect width="1000" height="602" fill="var(--surface)"/>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<text x="24" y="30" class="h1" text-anchor="start">The vertical CLI: your dataset to a calibrated task LoRA on Wald-4B, compared with Jev on the same items</text>
+<text x="24" y="50" class="xs t2" text-anchor="start">Preview, releasing soon. Every stage is resumable and cached; paid stages print a cost estimate first and run only within your budget.</text>
+<text x="24" y="63" class="xs t2" text-anchor="start">Green: free and deterministic, on your machine. Blue: GPU work on a backend you choose. Orange: gates that stop the pipeline.</text>
+<rect x="12" y="84" width="976" height="156" rx="10" class="band"/>
+<text x="24" y="101" class="lane" text-anchor="start">ON YOUR MACHINE · FREE</text>
+<rect x="24" y="110" width="172" height="118" rx="6" class="box"/>
+<rect x="24" y="110" width="172" height="4" rx="2" fill="var(--s3)"/>
+<text x="36" y="134" class="h2" text-anchor="start">task spec</text>
+<text x="36" y="150" class="mono mu" text-anchor="start">init · inspect · validate</text>
+<text x="36" y="168" class="xs t2" text-anchor="start">A Hugging Face repo pinned</text>
+<text x="36" y="181" class="xs t2" text-anchor="start">to a commit, a URL, or a</text>
+<text x="36" y="194" class="xs t2" text-anchor="start">local jsonl / csv / parquet;</text>
+<text x="36" y="207" class="xs t2" text-anchor="start">labels, question, metric</text>
+<rect x="219" y="110" width="172" height="118" rx="6" class="box"/>
+<rect x="219" y="110" width="172" height="4" rx="2" fill="var(--s3)"/>
+<text x="231" y="134" class="h2" text-anchor="start">prep</text>
+<text x="231" y="150" class="mono mu" text-anchor="start">prep</text>
+<text x="231" y="168" class="xs t2" text-anchor="start">Download, sha256 manifest.</text>
+<text x="231" y="181" class="xs t2" text-anchor="start">Render each item as the</text>
+<text x="231" y="194" class="xs t2" text-anchor="start">exact request Jev receives.</text>
+<text x="231" y="207" class="xs t2" text-anchor="start">Seeded split: train · calib</text>
+<text x="231" y="220" class="xs t2" text-anchor="start">· dev · test; dedupe</text>
+<rect x="414" y="110" width="172" height="118" rx="6" class="box"/>
+<rect x="414" y="110" width="172" height="4" rx="2" fill="var(--s2)"/>
+<text x="426" y="134" class="h2" text-anchor="start">overlap check</text>
+<rect x="540" y="123" width="36" height="15" rx="7.5" fill="var(--s2)" fill-opacity="0.15"/>
+<text x="558" y="134" class="xs b" text-anchor="middle">gate</text>
+<text x="426" y="150" class="mono mu" text-anchor="start">prep</text>
+<text x="426" y="168" class="xs t2" text-anchor="start">Held-out items vs the train</text>
+<text x="426" y="181" class="xs t2" text-anchor="start">pool, Decision Index items</text>
+<text x="426" y="194" class="xs t2" text-anchor="start">and Wald-4B's training data;</text>
+<text x="426" y="207" class="xs t2" text-anchor="start">counts go in the manifest</text>
+<rect x="609" y="110" width="172" height="118" rx="6" class="box"/>
+<rect x="609" y="110" width="172" height="4" rx="2" fill="var(--s2)"/>
+<text x="621" y="134" class="h2" text-anchor="start">audit</text>
+<rect x="735" y="123" width="36" height="15" rx="7.5" fill="var(--s2)" fill-opacity="0.15"/>
+<text x="753" y="134" class="xs b" text-anchor="middle">gate</text>
+<text x="621" y="150" class="mono mu" text-anchor="start">audit · approve</text>
+<text x="621" y="168" class="xs t2" text-anchor="start">Rule checks after every</text>
+<text x="621" y="181" class="xs t2" text-anchor="start">stage, plus a cheap-model</text>
+<text x="621" y="194" class="xs t2" text-anchor="start">review of a sample. A FAIL</text>
+<text x="621" y="207" class="xs t2" text-anchor="start">blocks the next paid stage</text>
+<rect x="804" y="110" width="172" height="118" rx="6" class="box opt"/>
+<rect x="804" y="110" width="172" height="4" rx="2" fill="var(--s3)"/>
+<text x="816" y="134" class="h2" text-anchor="start">augment (optional)</text>
+<text x="816" y="150" class="mono mu" text-anchor="start">augment</text>
+<text x="816" y="168" class="xs t2" text-anchor="start">Soft labels, synthetic or</text>
+<text x="816" y="181" class="xs t2" text-anchor="start">paraphrased rows from your</text>
+<text x="816" y="194" class="xs t2" text-anchor="start">coding agent or any API;</text>
+<text x="816" y="207" class="xs t2" text-anchor="start">re-checked on ingest</text>
+<line x1="198" y1="169.0" x2="217" y2="169.0" class="arrow" marker-end="url(#ah)"/>
+<line x1="393" y1="169.0" x2="412" y2="169.0" class="arrow" marker-end="url(#ah)"/>
+<line x1="588" y1="169.0" x2="607" y2="169.0" class="arrow" marker-end="url(#ah)"/>
+<line x1="783" y1="169.0" x2="802" y2="169.0" class="arrow" marker-end="url(#ah)"/>
+<rect x="12" y="258" width="976" height="156" rx="10" class="band"/>
+<text x="24" y="275" class="lane" text-anchor="start">ON A GPU BACKEND · YOUR SSH BOX, RUNPOD OR MODAL · PAID, ESTIMATE FIRST</text>
+<rect x="24" y="284" width="172" height="118" rx="6" class="box"/>
+<rect x="24" y="284" width="172" height="4" rx="2" fill="var(--s1)"/>
+<text x="36" y="308" class="h2" text-anchor="start">baseline</text>
+<text x="36" y="324" class="mono mu" text-anchor="start">baseline</text>
+<text x="36" y="342" class="xs t2" text-anchor="start">Jev on the same requests</text>
+<text x="36" y="355" class="xs t2" text-anchor="start">(cached), Wald-4B and the</text>
+<text x="36" y="368" class="xs t2" text-anchor="start">raw base zero-shot; optional</text>
+<text x="36" y="381" class="xs t2" text-anchor="start">LLMs and class-prior floors</text>
+<rect x="219" y="284" width="172" height="118" rx="6" class="box"/>
+<rect x="219" y="284" width="172" height="4" rx="2" fill="var(--s1)"/>
+<text x="231" y="308" class="h2" text-anchor="start">train</text>
+<text x="231" y="324" class="mono mu" text-anchor="start">train · watch</text>
+<text x="231" y="342" class="xs t2" text-anchor="start">One LoRA per arm: 300,</text>
+<text x="231" y="355" class="xs t2" text-anchor="start">1,000 or all labels. r32,</text>
+<text x="231" y="368" class="xs t2" text-anchor="start">KL replay keeps the base's</text>
+<text x="231" y="381" class="xs t2" text-anchor="start">other skills. A live watch</text>
+<text x="231" y="394" class="xs t2" text-anchor="start">stops a diverging run</text>
+<rect x="414" y="284" width="172" height="118" rx="6" class="box"/>
+<rect x="414" y="284" width="172" height="4" rx="2" fill="var(--s1)"/>
+<text x="426" y="308" class="h2" text-anchor="start">eval</text>
+<text x="426" y="324" class="mono mu" text-anchor="start">eval</text>
+<text x="426" y="342" class="xs t2" text-anchor="start">One vLLM server: Wald-4B +</text>
+<text x="426" y="355" class="xs t2" text-anchor="start">every adapter, read with</text>
+<text x="426" y="368" class="xs t2" text-anchor="start">the serving reader (letter</text>
+<text x="426" y="381" class="xs t2" text-anchor="start">readout; knockout above</text>
+<text x="426" y="394" class="xs t2" text-anchor="start">26 options)</text>
+<rect x="609" y="284" width="172" height="118" rx="6" class="box"/>
+<rect x="609" y="284" width="172" height="4" rx="2" fill="var(--s1)"/>
+<text x="621" y="308" class="h2" text-anchor="start">calibrate</text>
+<text x="621" y="324" class="mono mu" text-anchor="start">calibrate</text>
+<text x="621" y="342" class="xs t2" text-anchor="start">One temperature per system,</text>
+<text x="621" y="355" class="xs t2" text-anchor="start">fitted on calib, never on</text>
+<text x="621" y="368" class="xs t2" text-anchor="start">test. It changes the</text>
+<text x="621" y="381" class="xs t2" text-anchor="start">confidence, never the</text>
+<text x="621" y="394" class="xs t2" text-anchor="start">answer</text>
+<rect x="804" y="284" width="172" height="118" rx="6" class="box"/>
+<rect x="804" y="284" width="172" height="4" rx="2" fill="var(--s1)"/>
+<text x="816" y="308" class="h2" text-anchor="start">report</text>
+<text x="816" y="324" class="mono mu" text-anchor="start">report · compare</text>
+<text x="816" y="342" class="xs t2" text-anchor="start">Test metric with paired</text>
+<text x="816" y="355" class="xs t2" text-anchor="start">bootstrap CIs vs Jev and</text>
+<text x="816" y="368" class="xs t2" text-anchor="start">the base; ECE and high-</text>
+<text x="816" y="381" class="xs t2" text-anchor="start">confidence errors; dev</text>
+<text x="816" y="394" class="xs t2" text-anchor="start">numbers to pick a config</text>
+<line x1="198" y1="343.0" x2="217" y2="343.0" class="arrow" marker-end="url(#ah)"/>
+<line x1="393" y1="343.0" x2="412" y2="343.0" class="arrow" marker-end="url(#ah)"/>
+<line x1="588" y1="343.0" x2="607" y2="343.0" class="arrow" marker-end="url(#ah)"/>
+<line x1="783" y1="343.0" x2="802" y2="343.0" class="arrow" marker-end="url(#ah)"/>
+<path d="M890.0,230 L890.0,243 L110.0,243 L110.0,282" class="arrow" marker-end="url(#ah)"/>
+<rect x="345" y="297" width="36" height="15" rx="7.5" fill="var(--s2)" fill-opacity="0.15"/>
+<text x="363" y="308" class="xs b" text-anchor="middle">gate</text>
+<rect x="24" y="432" width="562" height="128" rx="6" class="box"/>
+<rect x="24" y="432" width="562" height="4" rx="2" fill="var(--s2)"/>
+<text x="36" y="456" class="h2" text-anchor="start">Guards</text>
+<circle cx="41" cy="474.5" r="3" fill="var(--s2)"/>
+<text x="52" y="478" class="sm"><tspan class="b">Leak gate.</tspan><tspan class="t2"> A test item that near-duplicates a train or calib item stops training.</tspan></text>
+<circle cx="41" cy="494.5" r="3" fill="var(--s2)"/>
+<text x="52" y="498" class="sm"><tspan class="b">Audit gate.</tspan><tspan class="t2"> A FAIL stops every paid stage; only a person can override it (signed).</tspan></text>
+<circle cx="41" cy="514.5" r="3" fill="var(--s2)"/>
+<text x="52" y="518" class="sm"><tspan class="b">Cost gate.</tspan><tspan class="t2"> Paid stages print an estimate and run only with --yes or within --max-usd.</tspan></text>
+<circle cx="41" cy="534.5" r="3" fill="var(--s2)"/>
+<text x="52" y="538" class="sm"><tspan class="b">Agent-ready.</tspan><tspan class="t2"> JSON output, fixed exit codes and a next-step hint on every command.</tspan></text>
+<rect x="609" y="432" width="367" height="128" rx="6" class="box"/>
+<rect x="609" y="432" width="367" height="4" rx="2" fill="var(--s4)"/>
+<text x="621" y="456" class="h2" text-anchor="start">deploy</text>
+<text x="621" y="472" class="mono mu" text-anchor="start">serve · try · latency</text>
+<text x="621" y="490" class="xs t2" text-anchor="start">A PEFT adapter + its temperature, served on</text>
+<text x="621" y="503" class="xs t2" text-anchor="start">Wald-4B behind the same /v1/systemone decision</text>
+<text x="621" y="516" class="xs t2" text-anchor="start">API. The adapter stays a separate file; Wald-4B</text>
+<text x="621" y="529" class="xs t2" text-anchor="start">itself is never changed. try: one item through</text>
+<text x="621" y="542" class="xs t2" text-anchor="start">Jev and your model, side by side</text>
+<line x1="890.0" y1="404" x2="890.0" y2="430" class="arrow" marker-end="url(#ah)"/>
+<text x="24" y="586" class="xs mu" text-anchor="start">Typical cost: one task LoRA takes $0.12–$1.81 of GPU time (under 2 GPU-hours on one RTX PRO 6000). Command names are preview syntax and may change.</text>
+</svg>

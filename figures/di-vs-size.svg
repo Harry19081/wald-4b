@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-labelledby="t d">
+<title id="t">Decision Index vs model size</title>
+<desc id="d">Wald-4B against every sized board entry; Jev as a dashed line.</desc>
+
+<style>
+  svg { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8984; --grid:#e6e5e1; --line:#c9c8c2;
+        --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#8b6fd6; --laya:#c2369b; --clm:#9a7b2f; --dot:#b9b8b2; --hl:#e8f0fb; }
+  @media (prefers-color-scheme: dark) {
+    svg { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86; --grid:#2e2e2b; --line:#4a4a45;
+          --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#9d86e8; --laya:#e05cb8; --clm:#c9a24a; --dot:#5c5b56; --hl:#1d2a3b; }
+  }
+  text { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); } .mu { fill: var(--muted); }
+  .h1 { font-size: 16px; font-weight: 600; } .sm { font-size: 11px; } .xs { font-size: 10px; } .b { font-weight: 600; }
+  .grid { stroke: var(--grid); stroke-width: 1; } .axis { stroke: var(--line); stroke-width: 1; }
+</style>
+<rect width="1000" height="520" fill="var(--surface)"/>
+<text x="24.0" y="30.0" class="h1" text-anchor="start">Decision Index 0.2.1 vs model size: a 4B model among 12–35B entries</text>
+<text x="24.0" y="50.0" class="xs t2" text-anchor="start">Grey: every board entry with a parameter count in its base model name (official full-suite scores). Blue: Wald-4B v1.0 on our 6,948-request stratified sample</text>
+<text x="24.0" y="63.0" class="xs t2" text-anchor="start">(Jev scores 57.19 on that sample vs 57.89 on the board, so the sample reads about 0.7 low). Hollow = reported from a run whose result file is not committed yet.</text>
+<line x1="70" y1="450.0" x2="710" y2="450.0" class="grid"/>
+<text x="62.0" y="454.0" class="xs mu" text-anchor="end">20</text>
+<line x1="70" y1="360.0" x2="710" y2="360.0" class="grid"/>
+<text x="62.0" y="364.0" class="xs mu" text-anchor="end">30</text>
+<line x1="70" y1="270.0" x2="710" y2="270.0" class="grid"/>
+<text x="62.0" y="274.0" class="xs mu" text-anchor="end">40</text>
+<line x1="70" y1="180.0" x2="710" y2="180.0" class="grid"/>
+<text x="62.0" y="184.0" class="xs mu" text-anchor="end">50</text>
+<line x1="70" y1="90.0" x2="710" y2="90.0" class="grid"/>
+<text x="62.0" y="94.0" class="xs mu" text-anchor="end">60</text>
+<line x1="124.1" y1="90" x2="124.1" y2="450" class="grid"/>
+<text x="124.1" y="466.0" class="xs mu" text-anchor="middle">2B</text>
+<line x1="254.6" y1="90" x2="254.6" y2="450" class="grid"/>
+<text x="254.6" y="466.0" class="xs mu" text-anchor="middle">4B</text>
+<line x1="385.0" y1="90" x2="385.0" y2="450" class="grid"/>
+<text x="385.0" y="466.0" class="xs mu" text-anchor="middle">8B</text>
+<line x1="461.3" y1="90" x2="461.3" y2="450" class="grid"/>
+<text x="461.3" y="466.0" class="xs mu" text-anchor="middle">12B</text>
+<line x1="613.9" y1="90" x2="613.9" y2="450" class="grid"/>
+<text x="613.9" y="466.0" class="xs mu" text-anchor="middle">27B</text>
+<line x1="662.7" y1="90" x2="662.7" y2="450" class="grid"/>
+<text x="662.7" y="466.0" class="xs mu" text-anchor="middle">35B</text>
+<text x="390.0" y="484.0" class="xs mu" text-anchor="middle">parameters of the base model (log scale; MoE = total)</text>
+<text x="20.0" y="80.0" class="xs mu" text-anchor="start">index</text>
+<g><title>Jev (hosted API, size undisclosed): 57.91</title><line x1="70" y1="108.8" x2="710" y2="108.8" stroke="var(--s2)" stroke-width="1.5" stroke-dasharray="6 4"/></g>
+<text x="76.0" y="103.8" class="xs" text-anchor="start">Jev 57.91 (hosted API, size undisclosed)</text>
+<g><title>#1 Surogate Rune 26B-A4B v3 (google/gemma-4-26B-A4B-it): 57.44</title><circle cx="607.8" cy="113.0" r="4" fill="var(--dot)"/></g>
+<g><title>#2 Decider chat · Gemma-4-31B (google/gemma-4-31B): 57.33</title><circle cx="637.9" cy="114.0" r="4" fill="var(--dot)"/></g>
+<g><title>#3 AutoJev-27B (Qwen/Qwen3.8-27B): 56.4</title><circle cx="611.9" cy="122.4" r="4" fill="var(--dot)"/></g>
+<g><title>#4 simple-jev · Qwen3.8-27B (featherless) (Qwen/Qwen3.8-27B): 55.74</title><circle cx="612.9" cy="128.3" r="4" fill="var(--dot)"/></g>
+<g><title>#5 Jebadiah 27B (Qwen/Qwen3.8-27B): 54.67</title><circle cx="616.9" cy="138.0" r="4" fill="var(--dot)"/></g>
+<g><title>#6 reflex 27B (Qwen/Qwen3.8-27B): 52.16</title><circle cx="612.9" cy="160.6" r="4" fill="var(--dot)"/></g>
+<g><title>#7 Decider chat · Qwen3.6-27B (Qwen/Qwen3.6-27B): 51.35</title><circle cx="615.9" cy="167.9" r="4" fill="var(--dot)"/></g>
+<g><title>#8 Winnow-12B (google/gemma-4-12B): 50.02</title><circle cx="463.3" cy="179.8" r="4" fill="var(--dot)"/></g>
+<g><title>#9 JoshuaSP diffusiongemma (open-jev) (google/diffusiongemma-26B-A4B-it): 49.47</title><circle cx="606.8" cy="184.8" r="4" fill="var(--dot)"/></g>
+<g><title>#10 Jevfire (Qwen/Qwen3.8-27B): 49.37</title><circle cx="611.9" cy="185.7" r="4" fill="var(--dot)"/></g>
+<g><title>#11 Decider 35B-A3B (Qwen/Qwen3.5-35B-A3B-Base): 47.11</title><circle cx="663.7" cy="206.0" r="4" fill="var(--dot)"/></g>
+<g><title>#12 JPT-9B (Qwen/Qwen3.5-9B-Base): 46.89</title><circle cx="404.2" cy="208.0" r="4" fill="var(--dot)"/></g>
+<g><title>#13 Decision 1.0 Lux (Qwen/Qwen3.5-9B-Base): 43.49</title><circle cx="408.2" cy="238.6" r="4" fill="var(--dot)"/></g>
+<g><title>#14 Xor (Qwen/Qwen3.6-35B-A3B): 41.48</title><circle cx="664.7" cy="256.7" r="4" fill="var(--dot)"/></g>
+<g><title>#15 Decider 4B (Qwen/Qwen3.5-4B-Base): 40.7</title><circle cx="256.6" cy="263.7" r="4" fill="var(--dot)"/></g>
+<g><title>#16 Jev-Omni (google/gemma-4-12B): 40.53</title><circle cx="464.3" cy="265.2" r="4" fill="var(--dot)"/></g>
+<g><title>#17 djev (google/diffusiongemma-26B-A4B-it): 40.28</title><circle cx="608.8" cy="267.5" r="4" fill="var(--dot)"/></g>
+<g><title>#18 Winnow-E4B (google/gemma-4-E4B): 39.89</title><circle cx="257.6" cy="271.0" r="4" fill="var(--dot)"/></g>
+<g><title>#19 Hopper (Qwen/Qwen3.5-4B-Base): 39.67</title><circle cx="257.6" cy="273.0" r="4" fill="var(--dot)"/></g>
+<g><title>#20 Bespoke Nimble 9B v2 (Qwen/Qwen3.5-9B-Base): 39.57</title><circle cx="409.2" cy="273.9" r="4" fill="var(--dot)"/></g>
+<g><title>#21 JevK5 (Qwen/Qwen3.5-4B-Base): 38.81</title><circle cx="252.6" cy="280.7" r="4" fill="var(--dot)"/></g>
+<g><title>#22 lev (Qwen/Qwen3.5-4B-Base): 38.54</title><circle cx="256.6" cy="283.1" r="4" fill="var(--dot)"/></g>
+<g><title>#23 Kev 9B (Qwen/Qwen3.5-9B-Base): 38.48</title><circle cx="405.2" cy="283.7" r="4" fill="var(--dot)"/></g>
+<g><title>#24 Intern-Decision-4B (Qwen/Qwen3.5-4B-Base): 37.81</title><circle cx="252.6" cy="289.7" r="4" fill="var(--dot)"/></g>
+<g><title>#25 razorback16 openjev diffusiongemma (NVFP4, vLLM) (google/diffusiongemma-26B-A4B-it): 37.25</title><circle cx="606.8" cy="294.8" r="4" fill="var(--dot)"/></g>
+<g><title>#26 NeoHorse-Jev-4B (Qwen/Qwen3.5-4B-Base): 36.75</title><circle cx="253.6" cy="299.2" r="4" fill="var(--dot)"/></g>
+<g><title>#27 Solomon v1.1 (Qwen/Qwen3.8-27B): 36.43</title><circle cx="611.9" cy="302.1" r="4" fill="var(--dot)"/></g>
+<g><title>#28 Kev 4B (Qwen/Qwen3.5-4B-Base): 34.64</title><circle cx="254.6" cy="318.2" r="4" fill="var(--dot)"/></g>
+<g><title>#29 Decision 1.0 Nox (Qwen/Qwen3.5-4B-Base): 34.36</title><circle cx="251.6" cy="320.8" r="4" fill="var(--dot)"/></g>
+<g><title>#30 Jobe (Qwen/Qwen3.5-4B-Base): 32.35</title><circle cx="257.6" cy="338.8" r="4" fill="var(--dot)"/></g>
+<g><title>#31 mmastrac diffusiongemma (vLLM PR 57250) (google/diffusiongemma-26B-A4B-it): 32.24</title><circle cx="604.8" cy="339.8" r="4" fill="var(--dot)"/></g>
+<g><title>#32 open-jev (pngwn) (Qwen/Qwen3.5-4B-Base): 29.91</title><circle cx="252.6" cy="360.8" r="4" fill="var(--dot)"/></g>
+<g><title>#33 Tev1-4B-experimental (Qwen/Qwen3.5-4B-Base): 29.24</title><circle cx="257.6" cy="366.8" r="4" fill="var(--dot)"/></g>
+<g><title>#34 Decider 2B (Qwen/Qwen3.5-2B-Base): 28.97</title><circle cx="124.1" cy="369.3" r="4" fill="var(--dot)"/></g>
+<g><title>#35 openvons (Qwen/Qwen3-4B-Instruct-2507): 28.42</title><circle cx="257.6" cy="374.2" r="4" fill="var(--dot)"/></g>
+<g><title>#37 Metask-Jev-4B (Qwen/Qwen3.5-4B-Base): 26.89</title><circle cx="252.6" cy="388.0" r="4" fill="var(--dot)"/></g>
+<g><title>#38 SemIf (Qwen/Qwen3.5-4B-Base): 25.94</title><circle cx="257.6" cy="396.5" r="4" fill="var(--dot)"/></g>
+<g><title>#39 Decision 1.0 Sol (Qwen/Qwen3.5-2B-Base): 25.32</title><circle cx="121.1" cy="402.1" r="4" fill="var(--dot)"/></g>
+<g><title>#40 mini-jev (Qwen/Qwen3-4B-Instruct-2507): 20.98</title><circle cx="252.6" cy="441.2" r="4" fill="var(--dot)"/></g>
+<g><title>#41 Bosun v3.1 1.7B (Qwen/Qwen3-1.7B-Base): 20.1</title><circle cx="96.6" cy="449.1" r="4" fill="var(--dot)"/></g>
+<g><title>#42 Intern-Decision-2B (Qwen/Qwen3.5-2B-Base): 19.38</title><circle cx="127.1" cy="455.6" r="4" fill="var(--dot)"/></g>
+<g><title>#43 JPT-0.8B (Qwen/Qwen3.5-0.8B-Base): 19.22</title><circle cx="-49.3" cy="457.0" r="4" fill="var(--dot)"/></g>
+<g><title>#44 Decision 1.0 Eos (Qwen/Qwen3.5-0.8B-Base): 18.41</title><circle cx="-51.3" cy="464.3" r="4" fill="var(--dot)"/></g>
+<g><title>#45 Kev 0.8B (Qwen/Qwen3.5-0.8B-Base): 14.6</title><circle cx="-48.3" cy="498.6" r="4" fill="var(--dot)"/></g>
+<g><title>#46 Bosun v3.1 0.6B (Qwen/Qwen3-0.6B-Base): 14.32</title><circle cx="-101.4" cy="501.1" r="4" fill="var(--dot)"/></g>
+<g><title>#47 Tev1-0.8B-experimental (Qwen/Qwen3.5-0.8B-Base): 12.85</title><circle cx="-45.3" cy="514.4" r="4" fill="var(--dot)"/></g>
+<g><title>#48 Intern-Decision-0.8B (Qwen/Qwen3.5-0.8B-Base): 11.94</title><circle cx="-50.3" cy="522.5" r="4" fill="var(--dot)"/></g>
+<g><title>#49 MoJev (Qwen/Qwen3.5-0.8B-Base): 11.69</title><circle cx="-46.3" cy="524.8" r="4" fill="var(--dot)"/></g>
+<g><title>#53 CLM-v0.1-8B (Qwen/Qwen3-8B-Base): 7.4</title><circle cx="382.0" cy="563.4" r="4" fill="var(--dot)"/></g>
+<g><title>#55 LFM2.5-2.6B-RLCD (LiquidAI/LFM2.5-2.6B-Base): 6.76</title><circle cx="175.5" cy="569.2" r="4" fill="var(--dot)"/></g>
+<g><title>#63 Qwen-2.5-1B-RLCD (Qwen/Qwen2.5-1.5B): 3.78</title><circle cx="71.0" cy="596.0" r="4" fill="var(--dot)"/></g>
+<g><title>#64 Lumma-Fev-0.6B (FrontiersMind/Lumma-0.6B-Base): 2.97</title><circle cx="-103.4" cy="603.3" r="4" fill="var(--dot)"/></g>
+<text x="615.8" y="116.0" class="xs t2" text-anchor="start">#1 Surogate Rune 26B-A4B v3 57.44</text>
+<text x="645.9" y="128.0" class="xs t2" text-anchor="start">#2 Decider chat · Gemma-4-31B 57.33</text>
+<text x="619.9" y="140.0" class="xs t2" text-anchor="start">#3 AutoJev-27B 56.4</text>
+<text x="620.9" y="152.0" class="xs t2" text-anchor="start">#4 simple-jev · Qwen3.8-27B (featherless) 55.74</text>
+<text x="624.9" y="164.0" class="xs t2" text-anchor="start">#5 Jebadiah 27B 54.67</text>
+<text x="671.7" y="209.0" class="xs t2" text-anchor="start">#11 Decider 35B-A3B 47.11</text>
+<text x="264.6" y="266.7" class="xs t2" text-anchor="start">#15 Decider 4B 40.7</text>
+<text x="265.6" y="278.7" class="xs t2" text-anchor="start">#19 Hopper 39.67</text>
+<text x="260.6" y="290.7" class="xs t2" text-anchor="start">#21 JevK5 38.81</text>
+<g><title>Wald-4B v1.0 · effort medium: 53.91 (committed)</title><circle cx="268.6" cy="144.8" r="6" fill="var(--s1)" stroke="var(--s1)" stroke-width="2.5"/></g>
+<text x="278.6" y="148.8" class="sm b" text-anchor="start">Wald-4B v1.0 · effort medium 53.91</text>
+<line x1="70" y1="90" x2="70" y2="450" class="axis"/>
+</svg>

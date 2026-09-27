@@ -1,0 +1,22 @@
+[project]
+name = "wald-serve"
+version = "0.1.0"
+description = "TypeSafe POST /v1/systemone server for Wald-4B: option-letter readout over vLLM, effort gate, knockout, calibration"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2.5"]
+
+[project.optional-dependencies]
+vllm = ["vllm==0.30.0"]
+test = ["pytest>=8"]
+
+[project.scripts]
+wald-serve = "wald_serve.server:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

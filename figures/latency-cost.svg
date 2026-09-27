@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="380" viewBox="0 0 1000 380" role="img" aria-labelledby="t d">
+<title id="t">Latency and cost vs Jev</title>
+<desc id="d">Median latency and dollars per 1,000 decisions, Wald-4B vs Jev.</desc>
+
+<style>
+  svg { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#8a8984; --grid:#e6e5e1; --line:#c9c8c2;
+        --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#8b6fd6; --laya:#c2369b; --clm:#9a7b2f; --dot:#b9b8b2; --hl:#e8f0fb; }
+  @media (prefers-color-scheme: dark) {
+    svg { --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#8f8e86; --grid:#2e2e2b; --line:#4a4a45;
+          --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#9d86e8; --laya:#e05cb8; --clm:#c9a24a; --dot:#5c5b56; --hl:#1d2a3b; }
+  }
+  text { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; fill: var(--ink); }
+  .t2 { fill: var(--ink2); } .mu { fill: var(--muted); }
+  .h1 { font-size: 16px; font-weight: 600; } .sm { font-size: 11px; } .xs { font-size: 10px; } .b { font-weight: 600; }
+  .grid { stroke: var(--grid); stroke-width: 1; } .axis { stroke: var(--line); stroke-width: 1; }
+</style>
+<rect width="1000" height="380" fill="var(--surface)"/>
+<text x="24.0" y="30.0" class="h1" text-anchor="start">Latency and cost per decision vs Jev</text>
+<text x="24.0" y="50.0" class="xs t2" text-anchor="start">Left: median serial latency (ms). Right: $ per 1,000 decisions. Wald-4B on one RTX PRO 6000 (self-hosted GPU-hour cost at measured throughput); Jev at API list price.</text>
+<text x="210.0" y="114.0" class="sm" text-anchor="end">one question, one pass (c = 1)</text>
+<g><title>one question, one pass (c = 1): Wald-4B 26 ms</title><rect x="220" y="100" width="5.9" height="13" rx="2" fill="var(--s1)"/></g>
+<text x="229.9" y="110.0" class="xs" text-anchor="start">Wald-4B 26 ms</text>
+<text x="210.0" y="184.0" class="sm" text-anchor="end">When2Call request</text>
+<g><title>When2Call request: Wald-4B 56 ms</title><rect x="220" y="170" width="12.7" height="13" rx="2" fill="var(--s1)"/></g>
+<text x="236.7" y="180.0" class="xs" text-anchor="start">Wald-4B 56 ms</text>
+<g><title>When2Call request: Jev 541 ms</title><rect x="220" y="186" width="123.0" height="13" rx="2" fill="var(--s2)"/></g>
+<text x="347.0" y="196.0" class="xs" text-anchor="start">Jev 541 ms</text>
+<g><title>When2Call request: Laya 894 ms</title><rect x="220" y="202" width="203.2" height="13" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<text x="427.2" y="212.0" class="xs mu" text-anchor="start">Laya 894 ms</text>
+<g><title>When2Call request: CLM-8B 1060 ms</title><rect x="220" y="218" width="240.9" height="13" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="464.9" y="228.0" class="xs mu" text-anchor="start">CLM-8B 1060 ms</text>
+<text x="210.0" y="254.0" class="sm" text-anchor="end">BANKING77 request (77 options)</text>
+<g><title>BANKING77 request (77 options): Wald-4B 176 ms</title><rect x="220" y="240" width="40.0" height="13" rx="2" fill="var(--s1)"/></g>
+<text x="264.0" y="250.0" class="xs" text-anchor="start">Wald-4B 176 ms</text>
+<g><title>BANKING77 request (77 options): Jev 702 ms</title><rect x="220" y="256" width="159.5" height="13" rx="2" fill="var(--s2)"/></g>
+<text x="383.5" y="266.0" class="xs" text-anchor="start">Jev 702 ms</text>
+<g><title>BANKING77 request (77 options): Laya 898 ms</title><rect x="220" y="272" width="204.1" height="13" rx="2" fill="var(--laya)" fill-opacity="0.38"/></g>
+<text x="428.1" y="282.0" class="xs mu" text-anchor="start">Laya 898 ms</text>
+<g><title>BANKING77 request (77 options): CLM-8B 1057 ms</title><rect x="220" y="288" width="240.2" height="13" rx="2" fill="var(--clm)" fill-opacity="0.38"/></g>
+<text x="464.2" y="298.0" class="xs mu" text-anchor="start">CLM-8B 1057 ms</text>
+<text x="730.0" y="111.0" class="sm" text-anchor="end">Wald-4B fp8, batched</text>
+<g><title>Wald-4B fp8, batched: $0.0073 per 1,000 decisions</title><rect x="740" y="100" width="32.4" height="14" rx="2" fill="var(--s1)"/></g>
+<text x="776.4" y="111.0" class="xs" text-anchor="start">$0.0073</text>
+<text x="730.0" y="151.0" class="sm" text-anchor="end">Wald-4B multi-tenant, c = 32</text>
+<g><title>Wald-4B multi-tenant, c = 32: $0.0067 per 1,000 decisions</title><rect x="740" y="140" width="29.8" height="14" rx="2" fill="var(--s1)"/></g>
+<text x="773.8" y="151.0" class="xs" text-anchor="start">$0.0067</text>
+<text x="730.0" y="191.0" class="sm" text-anchor="end">Jev API</text>
+<g><title>Jev API: $0.04 per 1,000 decisions</title><rect x="740" y="180" width="177.8" height="14" rx="2" fill="var(--s2)"/></g>
+<text x="921.8" y="191.0" class="xs" text-anchor="start">$0.0400</text>
+<text x="590.0" y="240.0" class="sm b" text-anchor="start">Jev costs about 5.5× more per decision.</text>
+<text x="24.0" y="366.0" class="xs mu" text-anchor="start">Laya: its own server, as measured in the same vertical runs. CLM-8B: latency and cost not committed yet. Not every system was measured on the same GPU; see the model card.</text>
+</svg>
