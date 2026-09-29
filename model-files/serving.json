@@ -1,6 +1,6 @@
 {
- "effort": "medium",
- "prompt_format": "repeat_state_plain",
- "max_model_len": 131072,
- "temperature": "temperature.json"
+  "effort": "high",
+  "prompt_format": "repeat_state_plain",
+  "max_model_len": 131072,
+  "temperature": "temperature.json"
 }

@@ -1,3 +1,5 @@
+> Historical v1.0 documentation. Use HF revision `v1.0-legacy` and each adapter's recorded parent. These results and adapters are not validated on the current 22D0-f7 default.
+
 # One LoRA for all verticals? (observation, 2026-09-27)
 
 **中文摘要：** 用一个 LoRA 代替每个任务各自一个 LoRA：在 13 个 vertical 的训练数据（外加几个 Decision Index 弱项的训练数据）上混训一个 LoRA，

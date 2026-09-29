@@ -1,201 +1,170 @@
----
-license: apache-2.0
-base_model: Qwen/Qwen3.5-4B-Base
-base_model_relation: finetune
-language:
-- en
-tags:
-- decision-model
-- calibration
-- typesafe
-- decision-index
-pipeline_tag: text-generation
----
-
 <div align="center">
-  <h1>Wald-4B v1.0</h1>
-  <p><strong>A calibrated decision model: one forward pass turns a state and a question into a probability for every option.</strong></p>
+  <h1>Wald-Q4B v1.1</h1>
+  <p><strong>Decide directly. Think when needed. Return probabilities.</strong></p>
+  <p><a href="README.md">English</a> · <a href="docs/readmes/README.zh.md">简体中文</a> · <a href="https://huggingface.co/Harry19081/Wald-4B">Weights on Hugging Face</a> · <a href="docs/api.md">API</a></p>
 </div>
 
-**W**ait **A** bit, **L**ook, then **D**ecide. Sure? Decide now. Not sure? Look once more. Also named after Abraham Wald (1902–1950), who founded sequential analysis: stop as soon as the evidence is enough.
+**Wald-Q4B v1.1 is an open-weight 4B decision model: give it a state and a set of options, and it returns a calibrated probability for every option.** It is for developers who build agents and pipelines and need a fast, self-hosted component to pick a tool, route a request, classify an input or decide whether to ask the user. Unlike a chat model, it does not write an answer you have to parse. It reads the options in one pass (33 ms median on one RTX PRO 6000 with effort `none`) and can optionally think first. It serves a Jev-compatible `POST /v1/systemone` API, is built on Qwen3.5-4B-Base and is released under Apache-2.0.
 
----
+Wald-Q4B is an independent, self-hosted alternative to TypeSafe's hosted Jev API. It is not Jev, contains no Jev weights, and is not affiliated with or endorsed by TypeSafe AI. The Hugging Face repository is `Harry19081/Wald-4B` (earlier name: Wald-4B).
 
-<p align="center"><a href="README.md">English</a> · <a href="docs/readmes/README.zh.md">简体中文</a></p>
-
----
-
-**Wald-4B turns a decision into one forward pass.** Give it a state and a question, and it returns a calibrated
-probability for every option: which tool to call, whether to ask the user, which intent, whether an output is safe. Act
-above 0.9, ask a person below 0.6, and send the cases in between to a larger model. Under effort `medium` it thinks
-(≤ 512 tokens) only when its top probability is below 0.7, about one question in nine; the answer is always a
-distribution, never parsed text.
+**W**ait **A** bit, **L**ook, then **D**ecide. Also named after Abraham Wald, the pioneer of sequential analysis: stop when the evidence is enough.
 
 ## At a glance
 
-- **Decision Index 0.2.1: 53.91** (sample estimate), #6 of 67 on the board and the best 4B entry ([Decision Index](#decision-index-021)).
-- **XL hidden split: 63.2**, #2 behind Jev and the best 4B ([XL](#xl-hidden-split)).
-- **Your task for under $2:** one LoRA beats Jev on 9 of 12 public tasks ([Verticals](#verticals-a-quick-lora-per-task)).
-- **~50 ms per decision** at p50, about 1/5 of Jev's price per 1k decisions ([Latency and cost](#latency-and-cost)).
+- **4B parameters**, built on Qwen3.5-4B-Base; BF16 weights (8.4 GB).
+- **Every option gets a probability.** Question types: `choice` (1–255 named options), `noul` (yes/no) and `score` (ordered levels).
+- **Adjustable thinking:** `none`, `low`, `medium`, `high`, or several thoughts with `high-k`.
+- **Decision Index 0.2.1: 54.59** on the complete suite with `high`; 150,317 requests, all successful. Author-run, pending maintainer validation.
+- **JevBench public set: 203/231** with `none`, ECE 0.041, p50 33 ms / p95 168 ms. Self-scored with JevBench's own harness.
+- **Self-hosted API:** `POST /v1/systemone`, up to 131,072 prompt tokens.
 
-![Decision Index vs model size](figures/di-vs-size.svg)
+## Quick start
+
+On a Linux machine with an NVIDIA GPU and [`uv`](https://docs.astral.sh/uv/):
+
+```sh
+hf download Harry19081/Wald-4B --revision v1.1 --local-dir ./Wald-Q4B
+cd Wald-Q4B
+EFFORT=none ./run.sh "$PWD"     # one pass, lowest latency
+# ./run.sh "$PWD"               # default: high, the evaluated Decision Index configuration
+```
+
+```sh
+curl http://localhost:8000/v1/systemone \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "state": "The customer wants to return a damaged kettle.",
+    "effort": "medium",
+    "questions": {
+      "route": {
+        "type": "choice",
+        "instructions": "Choose the support queue.",
+        "criteria": {
+          "returns": "Returns and refunds",
+          "delivery": "Delivery tracking",
+          "other": "Other enquiries"
+        }
+      }
+    }
+  }'
+```
+
+The answer for `route` contains the chosen key and a probability for each of `returns`, `delivery` and `other`. Request and response fields, yes/no and score questions, and a clarification example: [API reference](docs/api.md). `GET /health` reports the effective policy. The server uses vLLM 0.30.0 and the included `wald-serve` package; Docker and exact evaluation settings are in [RUNBOOK.md](RUNBOOK.md). Generic text-generation calls do not reproduce the decision API's readout.
+
+## Thinking effort
+
+Start with `none` for direct decisions, `medium` for confidence-gated thinking, or `high` for the evaluated v1.1 configuration.
+
+| Effort | When it thinks | Thought budget |
+|---|---|---|
+| `none` | Direct option readout | No generated thought |
+| `low` | Top initial probability < 0.5 | Up to 512 tokens |
+| `medium` | Top initial probability < 0.7 | Up to 512 tokens |
+| **`high` (default)** | Every eligible question | Up to 512 tokens |
+| `high-k2` … `high-k8` | Multiple thoughts; average their answer distributions | Up to 512 tokens per thought |
+
+Thinking applies to questions with 2–26 options when context space permits. Larger option sets use grouped readout and a final winner comparison; if a thought cannot fit, the initial answer is kept. Increasing effort spends more computation; it does not guarantee a better answer. **54.59 applies to `high` only; 203/231 applies to `none` only.**
+
+Set the server default with `EFFORT=medium ./run.sh "$PWD"`, or override it per request with `"effort": "none"`.
 
 ## How it works
 
-A 4B model built on Qwen/Qwen3.5-4B-Base @ `1001bb4d826a52d1f399e183466143f4da7b741b`: full-parameter decision training,
-then three merged LoRAs (refinement with KL replay, short-thought distillation, task coverage). Each question becomes one
-plain prompt with no chat template and no new tokens. The state is written twice (format `repeat_state_plain`; the
-second copy is introduced by one fixed sentence, see NOTICE), then:
+Wald first reads option-letter logits from a plain prompt and turns them into a probability distribution. If the effort policy asks for thinking, it generates a short thought and reads the options again. Bucketed temperature scaling calibrates the returned probabilities.
 
-```
-Question: {instructions}
-(A) {option 1}
-(B) {option 2}
-Answer: (
-```
-
-The option-letter logits at the last position give the distribution. Above 26 options, options are read in ⌈n / 26⌉
-chunks and the chunk winners are read again (knockout). A temperature per (question type, option count), fitted on our own
-held-out rows, changes confidence only. The prompt format, the policy and the context limit are fixed in `serving.json`
-and are the same for every benchmark.
-
-**Training data** (not released): four stages over 84 public sources (83 datasets read through their train splits only, NLI4CT also its dev split,
-plus the Decision Index kit's MIT Home-appliance generator), code-generated and code-labelled decision items, and KL
-replay of earlier rows. Part of the data is synthetic: items and short thoughts written or labelled by much larger
-frontier LLMs — far above 120B parameters where the size is published. Every source, and how Decision Index items
-were screened: [CONTAMINATION.md](CONTAMINATION.md).
+v1.1 combines full-parameter decision training, LoRA refinement, short-thought distillation and RLCD. Training uses **WaldGen**, our generated decision corpus, together with public training datasets. [Data sources](PROVENANCE.md) · [Evaluation notes](CONTAMINATION.md)
 
 ## Benchmarks
 
-What we measured: the Decision Index 0.2.1 (the board), XL (a decision benchmark with a hidden split), task LoRAs on
-public verticals, and serving latency. All numbers are our own reads, zero-shot unless marked, with the same requests
-for every system; rows marked *board* are the official leaderboard's.
+| Benchmark | Configuration | Result | Status |
+|---|---|---:|---|
+| **Decision Index 0.2.1 — complete suite** | v1.1 · `high` | **54.59** | Author-run; [PR #30](https://github.com/apolinario/decision-index/pull/30) awaits maintainer validation |
+| **JevBench public set (231 items)** | v1.1 · `none` | **203/231** (87.9%) · ECE 0.041 · Brier 0.188 | Self-scored; [issue #146](https://github.com/fstandhartinger/jevbench/issues/146) asks the maintainers to measure it |
 
-### Decision Index 0.2.1
+**Decision Index:** 150,317/150,317 requests succeeded, including HLE. Measured on one RTX PRO 6000 96 GB with the pinned reproduction kit. [Full results](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results/tree/805716601b2466be324ed6716407b4c3d9267faa/runs/wald-q4b-22d0-f7-full021) · [Per-benchmark scores](evaluation/benchmark-summary.json) · [Reproduction guide](RUNBOOK.md)
 
-Our read is a **stratified sample of 6,948 requests** (37,469 questions; the kit's own sampler and seed; HLE not
-rebuilt), scored with the 0.2.1 rules. Jev reads 57.19 on this sample against its board 57.89, so the sample reads about
-0.7 points low. Board rows are official full-suite numbers ([board](https://huggingface.co/spaces/multimodalart/jev-decision-index)).
+**JevBench:** JevBench's own CLI (`fstandhartinger/jevbench` at `9ec6f15a`, `typesafe` adapter) against the packaged server on loopback, one request at a time, on one RTX PRO 6000. Easy 48/48, original 72/72, hard 83/111; no tokens generated. With `medium`: 205/231, p95 1.80 s. The public items were used as a development scoreboard (never as training data), so this is not a held-out result. The JevBench leaderboard publishes a score only after its maintainers run the model themselves.
 
-| system | size | Decision Index 0.2.1 | source |
-|---|---|---|---|
-| Jev (hosted API, jev-1.13.0) | undisclosed | 57.19 [55.29, 58.60] · board 57.89 | ours, sample · board |
-| simple-jev · Qwen3.8-27B (board #4) · Jebadiah 27B (#5) | 27B | 55.74 · 54.67 | board |
-| **Wald-4B v1.0 · effort medium** | 4B | **53.91** [51.87, 55.27] | ours, sample |
-| reflex 27B (board #6) · Decider chat · Qwen3.6-27B (#7) | 27B | 52.16 · 51.35 | board |
-| Qwen3.8-27B, untrained, our letter readout (one pass) | 27B | 47.78 [45.95, 49.17] | ours, sample |
-| Decider 35B-A3B (board #11) | 35B-A3B | 47.11 | board |
-| Decider 4B (board #15) | 4B | 40.70 | board |
-| Kev 9B (board #23) · Kev 4B (#28) | 9B · 4B | 38.48 · 34.64 | board |
+### Latency
 
-53.91 places #6 on the 67-entry board (between Jebadiah 27B and reflex 27B); against Jev on the same sample it is
-−3.3 [−4.9, −1.8]. On the same 4B base it is +19.3 over Kev 4B.
+With `none`, the JevBench run above measured **33 ms median and 168 ms p95** per decision. A 32-request serial preflight of `high` measured **821 ms median** on the same GPU; this small preflight is not a full-suite latency result or the Decision Index maintainers' admission test. Effort, context length, option count and concurrency all affect speed.
 
-![Decision Index by area](figures/di-areas.svg)
+## Related projects and how Wald compares
 
-**Disclosures.** 363 Decision Index item ids reached our training data through public train splits or shared upstream
-sources (never a test split); counting them wrong gives **53.62**. Home appliance scores 1.00 (skill): the last stage
-trained on new households from the benchmark's own MIT generator (new seed, 0 shared states); with Home appliance held
-at the parent build's answers the index is 51.57 [49.56, 52.95]. Details: [CONTAMINATION.md](CONTAMINATION.md).
+Several projects implement or approximate structured decisions with calibrated option probabilities. The names below belong to their owners; Wald is not affiliated with any of them.
 
-**Same-request suite.** JevBench public 231 (accuracy %): Wald-4B v1.0 **88.3** (packaged server), Jev 86.6, raw
-Qwen3.5-4B-Base 67.5, Laya 421M 58.0, CLM-8B 39.0. CLM-8B and Laya have no Decision Index read.
+- **[Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev)** is TypeSafe AI's hosted decision model behind the `/v1/systemone` API; its weights are closed. Wald accepts the same request shape and runs on your own GPU.
+- **[Kev](https://github.com/jaredpalmer/kev)** by Jared Palmer is an open-weight project that adds a LoRA and a pointer head to Qwen3.5 base models (0.8B, 4B and 9B). Wald's request parsing adapts Kev's Apache-2.0 code ([NOTICE](NOTICE)); Wald reads option letters from the language-model head instead of a separate head.
+- **[Laya](https://huggingface.co/convaiinnovations/laya)** ([code](https://github.com/NandhaKishorM/laya)) is an open-weight 421M ModernBERT-large encoder with a decision head. It is much smaller than Wald and reads up to 512 tokens.
 
-### XL (hidden split)
+**JevBench public set, same 231 items (identical dataset hash), JevBench CLI, run by us:**
 
-A decision benchmark we built (13 families; ranked on a hidden split of 1,895 items, chance-corrected composite XL-Int).
-We are its authors, so no number is independent; our models score far higher on its public split than on the hidden one,
-so only the hidden split is reported.
+| System | How it was run | Correct |
+|---|---|---:|
+| Wald-Q4B v1.1 · `none` | Self-hosted, RTX PRO 6000, 2026-09-29 | 203/231 |
+| Jev (`jev-1.13.0`) | TypeSafe's hosted API, 2026-09-25 | 200/231 |
+| Laya (English checkpoint `55cf4c4e`) | Self-hosted, NVIDIA L4, 2026-09-26 | 134/231 |
 
-| system | XL-Int (hidden) | rank |
-|---|---:|---:|
-| Jev (API, v1.13) | 73.0 [69.8, 75.9] | #1 |
-| **Wald-4B v1.0 · effort medium** | **63.2** [60.0, 66.4] | **#2**, best 4B |
-| Cygnet (gemma-4-12B-it + shim) | 59.8 [56.7, 62.7] | #4 |
-| Laya 421M · CLM-8B | 13.4 · 12.7 | #24 · #25 |
+A 3-item difference on 231 items is within run-to-run and sampling noise. The public items informed Wald's development, and 52 of the 231 states are longer than Laya's 512-token window.
 
-### Verticals: a quick LoRA per task
+**Decision Index 0.2.1:**
 
-![Verticals](figures/verticals.svg)
+| System | Index | Source |
+|---|---:|---|
+| Jev (`jev-1.13.0`) | 57.91 | [Leaderboard](https://huggingface.co/spaces/multimodalart/jev-decision-index), maintainer-run (data of 2026-09-28) |
+| Wald-Q4B v1.1 · `high` | 54.59 | Author-run complete suite; not on the leaderboard yet ([PR #30](https://github.com/apolinario/decision-index/pull/30)) |
+| Kev 9B | 38.48 | Leaderboard, maintainer-run (data of 2026-09-28) |
+| Kev 4B | 34.64 | Leaderboard, maintainer-run (data of 2026-09-28) |
 
-One LoRA on the task's labels costs $0.12–$1.81 of GPU time (< 2 GPU-hours); every other system is zero-shot on the
-same fixed test items and byte-identical requests. Differences to Jev are paired bootstrap 95 % CIs; ▲ = the CI excludes
-0. These reads use the pre-release build v0.9 (see Versioning).
+Leaderboard rows are scored by the maintainers; Wald's number is self-run with the official kit and may change after validation.
 
-| task (metric) | Wald-4B v0.9 + LoRA | Jev |
-|---|---:|---:|
-| MetaTool (tool selection, accuracy) | **97.0** | 83.0 |
-| BANKING77 (77 intents, macro-F1) | **92.8** | 78.1 |
-| AndroidControl (phone-agent action, accuracy) | **85.8**¹ | 73.4 |
-| ToxicChat (toxic-class F1) | **84.9** | 80.4 |
-| COLD, Chinese offensive language (macro-F1, full 5,323-item test) | **84.1** [83.2, 85.1] | 75.3 |
-| When2Call (call / ask / refuse, accuracy) | **83.0**² | 72.6 |
+## FAQ
 
-¹ Trained on all training steps; the figure shows the first all-labels arm (81.6). ² Best of 8 LoRA configurations read
-on test; the dev-selected one scores 82.6. COLD: paired +8.8 [7.7, 10.0]; 83.8 on the 4,823 items not used for
-temperature fitting; ties the best published 83.7.
+**Is there an open-source alternative to Jev?** Wald-Q4B is one open-weight option: Apache-2.0 weights and serving code that you run yourself, with a Jev-compatible `/v1/systemone` API. Kev and Laya (above) are other open projects. Wald is independent and is not a TypeSafe release.
 
-#### With few labels, starting from Wald beats LoRA on the raw base
+**Can I use a Jev client with a self-hosted model?** Point the client at your own endpoint. The included server accepts `state` plus typed `questions` (`choice`, `noul`, `score`) at `POST /v1/systemone` and answers with TypeSafe's answer keys. It does not check API keys. See the [API reference](docs/api.md).
 
-Same LoRA recipe, labels and test items; Wald-4B (v0.9) minus raw Qwen3.5-4B-Base, points, paired 95 % CIs.
-**Bold** = the CI excludes 0.
+**How do I route tools or decide whether to ask the user?** Send the conversation or task as `state`. For tool routing, ask a `choice` question whose options are your tools. To decide whether to ask a clarifying question, ask a `noul` question such as "Is the request specific enough to act on without asking?" Act when the probability is high, ask when it is low, and set both thresholds on your own validation data. The model picks the tool; it does not write the tool's arguments.
 
-| task (metric) | 0 labels (zero-shot) | 300 labels |
-|---|---:|---:|
-| When2Call (accuracy) | **+21.2** [17.0, 25.2] | +2.0 [−0.2, 4.2] |
-| BANKING77 (macro-F1) | **+10.9** [7.6, 14.7] | **+4.4** [2.0, 7.2] |
-| SGD intent (macro-F1) | +2.8 (n.s.) | −0.1 |
+**How calibrated are the probabilities?** On the JevBench public set with `none`, expected calibration error is 0.041 (10 bins) and the Brier score is 0.188. Temperatures were fitted on held-out rows of our own development data, with no JevBench items and with known Decision Index matches excluded. A confidence is not a guarantee; check calibration on your task.
 
-### Latency and cost
+**Does it run on a single GPU or a laptop?** The shipped server needs one NVIDIA GPU on Linux (vLLM 0.30.0); the BF16 weights are 8.4 GB. The v1.1 measurements come from an RTX PRO 6000 96 GB; earlier builds of the same 4B architecture have also been served with vLLM on a 24 GB NVIDIA L4 at a 16K context limit. CPU, Apple Silicon and laptop setups are not supported by the shipped server and have not been tested.
 
-![Latency and cost](figures/latency-cost.svg)
+**Kev vs Wald, or Laya vs Wald?** All three are open-weight. Kev adds a pointer head and LoRA to Qwen3.5 base models; Laya is a small encoder with a decision head; Wald is a fully trained 4B decoder with optional thinking. Our same-protocol measurements are in the tables above. Choose on your own task, latency budget and hardware.
 
-One question, one pass, serial: p50 26 ms on one RTX PRO 6000 (51 ms on an H100). Batched: 115 decisions/s (fp8), about
-$0.007 per 1,000 decisions at the GPU-hour price; the Jev API lists $0.04. Under `medium` the median stays at the
-one-pass level and the p95 is about one second. Measured on v0.9, which has the same architecture and serving path.
+**Can I fine-tune it for my task?** It is a standard Transformers checkpoint, so common LoRA tooling applies. For v1.0 we trained per-task LoRAs for $0.12–$1.81 of GPU time each; that tooling is not public yet, and those adapters are not validated on v1.1 ([v1.0 notes](history/v1.0/README.md)).
 
-## Train your own task LoRA (CLI, releasing soon)
-
-Every vertical above was made with one CLI, which we plan to release soon. It splits a labelled dataset with fixed seeds,
-checks the test items for leaks, trains a LoRA on Wald-4B on a GPU you choose, reads the same test items with your LoRA,
-Jev and zero-shot baselines, and serves the adapter behind the same `/v1/systemone` API.
-
-![Architecture of the vertical CLI](figures/lora-cli-architecture.svg)
-
-Stages, guards, costs and a command preview: [docs/lora-cli.md](docs/lora-cli.md).
-
-## Serving
-
-```sh
-docker build -t wald-serve .
-docker run --gpus all -v /path/to/Wald-4B:/model:ro -p 8000:8000 wald-serve   # ready when GET /health is {"ok": true}
-```
-
-Without Docker: `./run.sh /path/to/Wald-4B`. The server takes `--effort` (`none | low | medium | high | high-k<k>`), and a
-request may carry `"effort"` to override it. Declared: effort `medium`, prompt format `repeat_state_plain`, 131,072
-tokens per question prompt (longer → HTTP 422, never truncated), 1–255 options. Commands, limits and runtimes:
-[RUNBOOK.md](RUNBOOK.md). Weights: bf16, `model.safetensors` sha256
-`dabeb7bc3f43bf6ea7d20ecfdac8758b3945517a991809a5772988829598e893`; every file's sha256 is in `MANIFEST.json`.
+**What is the license?** Apache-2.0 for the weights and code. The base model, Qwen3.5-4B-Base, is also Apache-2.0. Some public training sources have their own terms or no stated licence; they are listed in [PROVENANCE.md](PROVENANCE.md). The model and code licence does not grant rights in those texts.
 
 ## Limits
 
-- Our non-regression gate against the parent build has no failing metric. Two losses exceed the tolerance but are not
-  significant after correction: XL long_policy −6.7 [−11.6, −2.0] and JevBench public 231 −2.6 [−5.2, 0.0] (plain-prompt
-  read).
-- The temperature table is the parent build's, the one the measured Decision Index read used.
-- Our Decision Index read used a 16,384-token context; prompts longer than that were counted unsupported there and are
-  answered by the packaged server.
+Confidence is not a guarantee of correctness; validate thresholds on your own task. Oversized prompts are rejected rather than truncated. Known exact training overlaps were filtered, but semantic overlap and pretraining contamination are not ruled out; development used visible benchmark samples. Source-text rights vary. See [evaluation notes](CONTAMINATION.md) and [source attribution](PROVENANCE.md).
 
 ## Versioning
 
-| version | status | checkpoint | base | date | policy | prompt format |
-|---|---|---|---|---|---|---|
-| **v1.0** | current release | internal build 021A0-f10 | Qwen/Qwen3.5-4B-Base | 2026-09-27 | effort `medium` | `repeat_state_plain` |
-| v0.9 | pre-release; the vertical LoRAs and latency above | internal build 015D0-f4 | Qwen/Qwen3.5-4B-Base | 2026-09-26 | effort `medium` | plain |
+| Version | Checkpoint | Default effort |
+|---|---|---|
+| **v1.1 — current** | `022D0-f7` | `high` |
+| [v1.0 — archive](https://huggingface.co/Harry19081/Wald-4B/tree/v1.0) | `021A0-f10` | `medium` |
 
-v1.x = serving or LoRA refreshes on the same base generation; v2.0 = a new base generation.
+The v1.0 model card retains its XL, task-LoRA and latency reports, and the [v1.0 walkthrough slides](https://claude.ai/artifact/XfCHVaCuj9A5ectrpaWzV5) describe v1.0 only. Those measurements belong to their documented builds.
+
+## Citation
+
+Wald-Q4B v1.1 (2026), an open-weight 4B decision model with calibrated option probabilities. https://huggingface.co/Harry19081/Wald-4B
+
+```bibtex
+@misc{wald_q4b_2026,
+  title        = {Wald-Q4B v1.1: an open-weight 4B decision model with calibrated option probabilities},
+  author       = {{Wald-4B authors}},
+  year         = {2026},
+  howpublished = {\url{https://huggingface.co/Harry19081/Wald-4B}},
+  note         = {Revision v1.1}
+}
+```
+
+Machine-readable: [CITATION.cff](CITATION.cff) · [llms.txt](llms.txt) · [model-info.json](model-info.json)
 
 ---
 
-Apache-2.0 (weights and code), subject to the licence of the base model Qwen/Qwen3.5-4B-Base (Apache-2.0, © the Qwen
-team, Alibaba Cloud). Third-party notices: [NOTICE](NOTICE).
+[Model](https://huggingface.co/Harry19081/Wald-4B) · [GitHub](https://github.com/Harry19081/wald-4b) · [Decision Index results](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results) · Apache-2.0 for weights and code. [Third-party notices](NOTICE) · [Training-data usage notes](PROVENANCE.md)

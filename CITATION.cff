@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use Wald-Q4B, please cite it as below."
+type: software
+title: "Wald-Q4B v1.1: an open-weight 4B decision model with calibrated option probabilities"
+abstract: >-
+  Wald-Q4B is an open-weight 4B decision model built on Qwen3.5-4B-Base. Given a
+  state and typed questions (choice, yes/no, score), it returns a calibrated
+  probability for every option through a Jev-compatible POST /v1/systemone API,
+  in one pass or after an optional short thought. Weights and serving code are
+  Apache-2.0. Independent project; not affiliated with TypeSafe AI.
+authors:
+  - name: "Wald-4B authors"
+    alias: Harry19081
+    website: "https://huggingface.co/Harry19081"
+version: "v1.1"
+date-released: "2026-09-29"
+license: Apache-2.0
+url: "https://huggingface.co/Harry19081/Wald-4B"
+repository-code: "https://github.com/Harry19081/wald-4b"
+repository-artifact: "https://huggingface.co/Harry19081/Wald-4B"
+keywords:
+  - decision model
+  - calibrated probabilities
+  - tool selection
+  - agent routing
+  - classification
+  - Jev-compatible API
+  - Qwen3.5

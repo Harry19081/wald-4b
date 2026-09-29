@@ -1,0 +1,19 @@
+{
+  "server_tests": {
+    "passed": 24,
+    "includes": "generated-request prompt/answer parity with reference; fake vLLM",
+    "gpu_rerun": false
+  },
+  "result_archive_scan": {
+    "rows": 150317,
+    "request_payload_fields": 0,
+    "generated_reasoning_fields": 0,
+    "raw_answer_fields": [
+      "mode",
+      "keys",
+      "A",
+      "B"
+    ]
+  },
+  "serial_750_gate": "maintainer verification pending"
+}

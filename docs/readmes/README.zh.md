@@ -1,173 +1,170 @@
 <div align="center">
-  <h1>Wald-4B v1.0</h1>
-  <p><strong>经过校准的决策模型：一次前向，把状态和问题变成每个选项的概率。</strong></p>
+  <h1>Wald-Q4B v1.1</h1>
+  <p><strong>直接决策，按需思考，返回概率。</strong></p>
+  <p><a href="../../README.md">English</a> · <a href="README.zh.md">简体中文</a> · <a href="https://huggingface.co/Harry19081/Wald-4B">Weights on Hugging Face</a> · <a href="../api.md">API</a></p>
 </div>
 
-**W**ait **A** bit, **L**ook, then **D**ecide（等一下，看一眼，再决定）：有把握，立刻决定；没把握，再看一眼。名字也取自 Abraham Wald（1902–1950），序贯分析的创立者：证据够了就停下来做决定。
+**Wald-Q4B v1.1 是一个开放权重的 4B 决策模型：给它一段状态和一组选项，它为每个选项返回校准过的概率。** 它面向构建 agent 和数据流水线的开发者：需要一个快速、可自行部署的组件来选择工具、路由请求、分类输入，或判断是否需要向用户澄清。和聊天模型不同，它不生成需要再解析的答案，而是一遍读出所有选项的概率（effort `none` 时单张 RTX PRO 6000 上中位延迟 33 ms），也可以先思考再回答。它提供与 Jev 兼容的 `POST /v1/systemone` API，基于 Qwen3.5-4B-Base，以 Apache-2.0 发布。
 
----
+Wald-Q4B 是 TypeSafe 托管 Jev API 之外、可自行部署的独立替代方案。它不是 Jev，不含 Jev 权重，与 TypeSafe AI 没有隶属或背书关系。Hugging Face 仓库为 `Harry19081/Wald-4B`（旧名 Wald-4B）。
 
-<p align="center"><a href="../../README.md">English</a> · <a href="README.zh.md">简体中文</a></p>
-
----
-
-**Wald-4B 把一次决策变成一次前向。** 给它一段状态和一个问题，它为每个选项返回一个校准过的概率：调哪个工具、要不要问用户、
-属于哪个意图、输出是否安全。概率高于 0.9 直接执行，低于 0.6 交给人，中间的交给更大的模型。在 `medium` 档位下，只有最高概率
-低于 0.7 时它才先想一想（不超过 512 token），大约九题一次；输出始终是概率分布，不解析文本。
+**W**ait **A** bit, **L**ook, then **D**ecide：稍等一下，看清楚，再决定。名字也致敬序贯分析先驱 Abraham Wald：证据足够时就停止。
 
 ## 一览
 
-- **Decision Index 0.2.1：53.91**（样本估计），67 条榜单中排第 6，4B 中第一（见下文“基准测试”）。
-- **XL 隐藏集：63.2**，第 2，仅次于 Jev，4B 中第一。
-- **你的任务，不到 $2**：每个任务一个 LoRA，12 个公开任务中 9 个超过 Jev。
-- **每次决策约 50 ms**（p50），每千次决策的价格约为 Jev 的 1/5。
+- **4B 参数**，基于 Qwen3.5-4B-Base，BF16 权重（8.4 GB）。
+- **每个选项都有概率。** 题型：`choice`（1–255 个命名选项）、`noul`（是/否）、`score`（有序等级）。
+- **可调思考程度**：`none`、`low`、`medium`、`high`，以及多次思考的 `high-k`。
+- **完整 Decision Index 0.2.1：54.59**，使用 `high`，150,317 个请求全部成功。作者自测，等待维护者验证。
+- **JevBench 公开集：203/231**，使用 `none`，ECE 0.041，p50 33 ms / p95 168 ms。用 JevBench 自己的评测工具自评。
+- **可自行部署的 API**：`POST /v1/systemone`，最多 131,072 个提示 token。
 
-![Decision Index 与模型大小](../../figures/di-vs-size.svg)
+## 快速开始
 
-## 工作原理
-
-基于 Qwen/Qwen3.5-4B-Base @ `1001bb4d826a52d1f399e183466143f4da7b741b` 的 4B 模型：先做全参数决策训练，再合并三个 LoRA
-（带 KL 回放的精调、短思考蒸馏、任务覆盖）。每个问题变成一条纯文本提示，不用对话模板，不加新 token。状态写两遍（格式
-`repeat_state_plain`；第二遍由一句固定的话引出，见 NOTICE），然后是：
-
-```
-Question: {instructions}
-(A) {option 1}
-(B) {option 2}
-Answer: (
-```
-
-最后一个位置上选项字母的 logits 给出分布。超过 26 个选项时，按 ⌈n / 26⌉ 块分别读，再把各块的胜者读一次（淘汰赛）。
-每个（题型、选项数）一个温度，在我们自己的留出数据上拟合，只改变置信度。提示格式、策略和上下文上限都固定在 `serving.json`
-里，所有基准一律相同。
-
-**训练数据**（不公开）：四个阶段，用到 84 个公开来源（83 个数据集，只读训练切分，NLI4CT 另读了 dev 切分；外加 Decision Index 工具包里 MIT 许可的
-Home-appliance 生成器）、由代码生成并由代码标注的决策题，以及对早先数据的 KL 回放。其中一部分是合成数据：题目和短思考
-由大得多的前沿大模型编写或标注——凡公开了参数量的都远超 120B。全部来源及 Decision Index 题目的筛查方法见
-[CONTAMINATION.md](../../CONTAMINATION.md)。
-
-## 基准测试
-
-我们测了四项：Decision Index 0.2.1（榜单）、XL（带隐藏集的决策基准）、公开垂直任务上的 LoRA，以及服务延迟。除非标注
-“榜单”，所有数字都是我们自己的读数，默认零样本，所有系统收到相同的请求。
-
-### Decision Index 0.2.1
-
-我们读的是 **6,948 个请求的分层样本**（37,469 个问题；用工具包自带的采样器和种子；未重建 HLE），按 0.2.1 规则计分。
-Jev 在这个样本上是 57.19，榜单全量是 57.89，所以样本大约偏低 0.7 分。榜单行是官方全量数字
-（[榜单](https://huggingface.co/spaces/multimodalart/jev-decision-index)）。
-
-| 系统 | 规模 | Decision Index 0.2.1 | 来源 |
-|---|---|---|---|
-| Jev（托管 API，jev-1.13.0） | 未公开 | 57.19 [55.29, 58.60] · 榜单 57.89 | 我们的样本 · 榜单 |
-| simple-jev · Qwen3.8-27B（榜单第 4）· Jebadiah 27B（第 5） | 27B | 55.74 · 54.67 | 榜单 |
-| **Wald-4B v1.0 · medium** | 4B | **53.91** [51.87, 55.27] | 我们的样本 |
-| reflex 27B（榜单第 6）· Decider chat · Qwen3.6-27B（第 7） | 27B | 52.16 · 51.35 | 榜单 |
-| Qwen3.8-27B，未训练，用我们的字母读出（一遍） | 27B | 47.78 [45.95, 49.17] | 我们的样本 |
-| Decider 35B-A3B（榜单第 11） | 35B-A3B | 47.11 | 榜单 |
-| Decider 4B（榜单第 15） | 4B | 40.70 | 榜单 |
-| Kev 9B（榜单第 23）· Kev 4B（第 28） | 9B · 4B | 38.48 · 34.64 | 榜单 |
-
-53.91 在 67 条榜单中排第 6（在 Jebadiah 27B 与 reflex 27B 之间）；在同一样本上比 Jev 低 3.3 [−4.9, −1.8]。
-同样是 4B 底座，比 Kev 4B 高 19.3。
-
-![Decision Index 分大类](../../figures/di-areas.svg)
-
-**披露。** 有 363 个 Decision Index 题目 id 通过公开训练切分或共同的上游来源进入了我们的训练数据（从未用过测试切分）；
-把它们全部记错，得分为 **53.62**。Home appliance 得 1.00（skill）：最后一个阶段用该基准自己的 MIT 生成器造了新的家庭数据来训练
-（新种子，与测试数据没有共享状态）；把 Home appliance 换回父版本的答案，指数为 51.57 [49.56, 52.95]。详见
-[CONTAMINATION.md](../../CONTAMINATION.md)。
-
-**同请求套件。** JevBench public 231（准确率 %）：Wald-4B v1.0 **88.3**（打包后的服务），Jev 86.6，未训练的
-Qwen3.5-4B-Base 67.5，Laya 421M 58.0，CLM-8B 39.0。CLM-8B 和 Laya 没有 Decision Index 读数。
-
-### XL（隐藏集）
-
-我们自己构建的决策基准（13 个题族；按 1,895 题的隐藏集排名，指标为机会校正后的综合分 XL-Int）。我们是它的作者，
-所以没有一个数字是独立的；我们的模型在公开集上的得分远高于隐藏集，因此只报告隐藏集。
-
-| 系统 | XL-Int（隐藏集） | 名次 |
-|---|---:|---:|
-| Jev（API，v1.13） | 73.0 [69.8, 75.9] | 第 1 |
-| **Wald-4B v1.0 · medium** | **63.2** [60.0, 66.4] | **第 2**，4B 中第一 |
-| Cygnet（gemma-4-12B-it + shim） | 59.8 [56.7, 62.7] | 第 4 |
-| Laya 421M · CLM-8B | 13.4 · 12.7 | 第 24 · 第 25 |
-
-### 垂直任务：每个任务一个快速 LoRA
-
-![垂直任务](../../figures/verticals.svg)
-
-用任务标签训练一个 LoRA，花费 $0.12–$1.81 的 GPU 时间（不到 2 GPU 小时）；其他系统都是零样本，用同一批固定测试题和逐字节
-相同的请求。与 Jev 的差值为配对 bootstrap 95 % 置信区间；▲ 表示区间不含 0。这些读数来自预发布版本 v0.9（见“版本”）。
-
-| 任务（指标） | Wald-4B v0.9 + LoRA | Jev |
-|---|---:|---:|
-| MetaTool（工具选择，准确率） | **97.0** | 83.0 |
-| BANKING77（77 个意图，宏 F1） | **92.8** | 78.1 |
-| AndroidControl（手机智能体动作，准确率） | **85.8**¹ | 73.4 |
-| ToxicChat（有害类 F1） | **84.9** | 80.4 |
-| COLD，中文冒犯语言（宏 F1，完整 5,323 题测试集） | **84.1** [83.2, 85.1] | 75.3 |
-| When2Call（调用 / 追问 / 拒绝，准确率） | **83.0**² | 72.6 |
-
-¹ 用全部训练步训练的臂；图中是第一个全标签臂（81.6）。² 8 个 LoRA 配置中在测试集上最好的一个；按 dev 选出的配置为 82.6。
-COLD：配对差 +8.8 [7.7, 10.0]；在未用于温度拟合的 4,823 题上为 83.8；与已发表的最好结果 83.7 持平。
-
-#### 标签很少时，从 Wald 起步胜过在原始底座上训 LoRA
-
-相同的 LoRA 配方、标签和测试题；表中为 Wald-4B（v0.9）减去原始 Qwen3.5-4B-Base 的分差，配对 95 % 置信区间。
-**加粗**表示区间不含 0。
-
-| 任务（指标） | 0 个标签（零样本） | 300 个标签 |
-|---|---:|---:|
-| When2Call（准确率） | **+21.2** [17.0, 25.2] | +2.0 [−0.2, 4.2] |
-| BANKING77（宏 F1） | **+10.9** [7.6, 14.7] | **+4.4** [2.0, 7.2] |
-| SGD intent（宏 F1） | +2.8（不显著） | −0.1 |
-
-### 延迟与成本
-
-![延迟与成本](../../figures/latency-cost.svg)
-
-单个问题、一遍、串行：一张 RTX PRO 6000 上 p50 为 26 ms（H100 上 51 ms）。批处理：115 次决策/秒（fp8），按 GPU 小时价格
-约 $0.007 / 千次决策；Jev API 标价 $0.04。`medium` 下中位延迟与一遍相同，p95 约 1 秒。测于 v0.9，架构与服务路径相同。
-
-## 训练你自己的任务 LoRA（CLI，即将发布）
-
-上面每个垂直任务都是用同一个 CLI 做的，我们计划很快发布。它用固定种子切分带标签的数据集，检查测试题泄漏，在你选的 GPU 上
-基于 Wald-4B 训练 LoRA，用你的 LoRA、Jev 和零样本基线读同一批测试题，并把适配器放在同样的 `/v1/systemone` API 后面提供服务。
-
-![垂直任务 CLI 架构](../../figures/lora-cli-architecture.svg)
-
-阶段、防护、成本和命令预览：[docs/lora-cli.md](../lora-cli.md)（英文）。
-
-## 服务
+在装有 NVIDIA GPU 和 [`uv`](https://docs.astral.sh/uv/) 的 Linux 机器上：
 
 ```sh
-docker build -t wald-serve .
-docker run --gpus all -v /path/to/Wald-4B:/model:ro -p 8000:8000 wald-serve   # GET /health 返回 {"ok": true} 即就绪
+hf download Harry19081/Wald-4B --revision v1.1 --local-dir ./Wald-Q4B
+cd Wald-Q4B
+EFFORT=none ./run.sh "$PWD"     # 一遍读出，延迟最低
+# ./run.sh "$PWD"               # 默认 high，即 Decision Index 的评测配置
 ```
 
-不用 Docker：`./run.sh /path/to/Wald-4B`。服务端接受 `--effort`（`none | low | medium | high | high-k<k>`），请求里也可以带
-`"effort"` 覆盖。声明配置：effort `medium`，提示格式 `repeat_state_plain`，每个问题提示最多 131,072 token（更长返回 HTTP 422，
-从不截断），1–255 个选项。命令、上限和运行时间见 [RUNBOOK.md](../../RUNBOOK.md)（英文）。权重为 bf16，
-`model.safetensors` 的 sha256 为 `dabeb7bc3f43bf6ea7d20ecfdac8758b3945517a991809a5772988829598e893`；每个文件的 sha256 见 `MANIFEST.json`。
+```sh
+curl http://localhost:8000/v1/systemone \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "state": "The customer wants to return a damaged kettle.",
+    "effort": "medium",
+    "questions": {
+      "route": {
+        "type": "choice",
+        "instructions": "Choose the support queue.",
+        "criteria": {
+          "returns": "Returns and refunds",
+          "delivery": "Delivery tracking",
+          "other": "Other enquiries"
+        }
+      }
+    }
+  }'
+```
 
-## 局限
+`route` 的答案包含选中的键，以及 `returns`、`delivery`、`other` 各自的概率。请求与响应字段、是非题和评分题、澄清判断示例见 [API 说明](../api.md)。`GET /health` 返回当前生效策略。服务使用 vLLM 0.30.0 和仓库内的 `wald-serve`；Docker 与精确评测配置见 [RUNBOOK.md](../../RUNBOOK.md)。普通文本生成接口不会复现决策 API 的读出流程。
 
-- 对父版本的不退步门槛没有失败项。两项下降超出容差，但多重校正后不显著：XL long_policy −6.7 [−11.6, −2.0]，
-  JevBench public 231 −2.6 [−5.2, 0.0]（plain 提示的读数）。
-- 温度表沿用父版本的，也就是 Decision Index 实测读数所用的那张。
-- 我们的 Decision Index 读数用的是 16,384 token 上下文；超出的提示当时记为不支持，打包后的服务会作答。
+## 思考程度
+
+直接决策可从 `none` 开始；按置信度触发思考用 `medium`；复现 v1.1 的评测配置用 `high`。
+
+| Effort | 何时思考 | 思考预算 |
+|---|---|---|
+| `none` | 直接读取选项概率 | 不生成思考文本 |
+| `low` | 初次最高概率 < 0.5 | 最多 512 token |
+| `medium` | 初次最高概率 < 0.7 | 最多 512 token |
+| **`high`（默认）** | 每个符合条件的问题 | 最多 512 token |
+| `high-k2` … `high-k8` | 多次思考，平均答案分布 | 每次最多 512 token |
+
+思考适用于 2–26 个选项且上下文空间足够的问题。更多选项采用分组读取，再比较各组优胜项；若放不下思考文本，则保留初次答案。提高 effort 会增加计算量，但不保证每道题都更准确。**54.59 仅对应 `high`；203/231 仅对应 `none`。**
+
+通过 `EFFORT=medium ./run.sh "$PWD"` 设置服务默认值，也可在单次请求中传入 `"effort": "none"` 覆盖。
+
+## 如何工作
+
+Wald 先从普通文本提示末尾读取选项字母的 logits，得到初始概率。如果 effort 策略触发思考，就生成一段短思考，再读取选项。返回的概率经过分桶温度校准。
+
+v1.1 结合全参数决策训练、LoRA 精修、短思考蒸馏和 RLCD。训练使用我们的自生成决策语料 **WaldGen**，并混合公开训练数据。[数据来源](../../PROVENANCE.md) · [评测说明](../../CONTAMINATION.md)
+
+## 评测
+
+| 基准 | 配置 | 结果 | 状态 |
+|---|---|---:|---|
+| **Decision Index 0.2.1 完整套件** | v1.1 · `high` | **54.59** | 作者自测；[PR #30](https://github.com/apolinario/decision-index/pull/30) 等待维护者验证 |
+| **JevBench 公开集（231 题）** | v1.1 · `none` | **203/231**（87.9%）· ECE 0.041 · Brier 0.188 | 自评；[issue #146](https://github.com/fstandhartinger/jevbench/issues/146) 请维护者自行测量 |
+
+**Decision Index：** 150,317/150,317 个请求全部成功，包含 HLE。在单张 RTX PRO 6000 96 GB 上使用固定版本的复现工具运行。[完整结果](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results/tree/805716601b2466be324ed6716407b4c3d9267faa/runs/wald-q4b-22d0-f7-full021) · [分项成绩](../../evaluation/benchmark-summary.json) · [复现指南](../../RUNBOOK.md)
+
+**JevBench：** 使用 JevBench 自己的命令行工具（`fstandhartinger/jevbench` @ `9ec6f15a`，`typesafe` 适配器），在单张 RTX PRO 6000 上通过本机回环逐条请求打包服务。easy 48/48、original 72/72、hard 83/111；不生成任何 token。`medium` 为 205/231，p95 1.80 s。公开题在开发中被用作计分板（从未作为训练数据），因此这不是留出集结果。JevBench 排行榜只在维护者自己跑过模型后才公布分数。
+
+### 速度
+
+使用 `none` 时，上述 JevBench 运行的单次决策**中位延迟 33 ms、p95 168 ms**。`high` 在同一 GPU 上的 32 请求串行预检中，**中位延迟为 821 ms**；这只是小规模预检，不代表完整套件延迟或 Decision Index 维护者的准入测试。effort、上下文长度、选项数量和并发都会影响速度。
+
+## 相关项目与对比
+
+多个项目在做带校准选项概率的结构化决策。以下名称归各自所有者；Wald 与它们都没有隶属关系。
+
+- **[Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev)** 是 TypeSafe AI 通过 `/v1/systemone` API 提供的托管决策模型，权重不公开。Wald 接受相同的请求格式，运行在你自己的 GPU 上。
+- **[Kev](https://github.com/jaredpalmer/kev)** 是 Jared Palmer 的开放权重项目，在 Qwen3.5 基座（0.8B、4B、9B）上加 LoRA 和指针头。Wald 的请求解析改编自 Kev 的 Apache-2.0 代码（见 [NOTICE](../../NOTICE)）；Wald 从语言模型头读取选项字母，不使用单独的头。
+- **[Laya](https://huggingface.co/convaiinnovations/laya)**（[代码](https://github.com/NandhaKishorM/laya)）是开放权重的 421M ModernBERT-large 编码器加决策头。它比 Wald 小得多，最多读取 512 个 token。
+
+**JevBench 公开集，同一批 231 题（数据集哈希相同），JevBench 命令行工具，由我们运行：**
+
+| 系统 | 运行方式 | 答对 |
+|---|---|---:|
+| Wald-Q4B v1.1 · `none` | 自行部署，RTX PRO 6000，2026-09-29 | 203/231 |
+| Jev（`jev-1.13.0`） | TypeSafe 托管 API，2026-09-25 | 200/231 |
+| Laya（英文 checkpoint `55cf4c4e`） | 自行部署，NVIDIA L4，2026-09-26 | 134/231 |
+
+231 题上 3 题的差距在多次运行和抽样的噪声范围内。公开题影响过 Wald 的开发；231 题中有 52 题的状态超过 Laya 的 512 token 窗口。
+
+**Decision Index 0.2.1：**
+
+| 系统 | 指数 | 来源 |
+|---|---:|---|
+| Jev（`jev-1.13.0`） | 57.91 | [排行榜](https://huggingface.co/spaces/multimodalart/jev-decision-index)，维护者运行（2026-09-28 数据） |
+| Wald-Q4B v1.1 · `high` | 54.59 | 作者自测完整套件；尚未上榜（[PR #30](https://github.com/apolinario/decision-index/pull/30)） |
+| Kev 9B | 38.48 | 排行榜，维护者运行（2026-09-28 数据） |
+| Kev 4B | 34.64 | 排行榜，维护者运行（2026-09-28 数据） |
+
+排行榜各行由维护者评分；Wald 的分数是用官方工具自测的，验证后可能变化。
+
+## 常见问题
+
+**有开源的 Jev 替代品吗？** Wald-Q4B 是一个开放权重的选择：Apache-2.0 的权重和服务代码，自己部署，提供与 Jev 兼容的 `/v1/systemone` API。Kev 和 Laya（见上）是其他开放项目。Wald 是独立项目，不是 TypeSafe 的发布。
+
+**能用 Jev 客户端调用自部署模型吗？** 把客户端指向你自己的端点。内置服务在 `POST /v1/systemone` 接收 `state` 和带类型的 `questions`（`choice`、`noul`、`score`），按 TypeSafe 的答案键返回。服务不校验 API key。见 [API 说明](../api.md)。
+
+**如何做工具路由，或判断是否需要向用户提问？** 把对话或任务作为 `state` 发送。工具路由：提一个 `choice` 问题，选项就是你的工具。是否澄清：提一个 `noul` 问题，例如“这个请求是否足够具体，可以不问就执行？”概率高就执行，概率低就提问，两个阈值都在你自己的验证数据上确定。模型只选工具，不生成工具参数。
+
+**概率校准得怎么样？** 在 JevBench 公开集上使用 `none`，期望校准误差为 0.041（10 个分桶），Brier 分数为 0.188。温度是在我们自己开发数据的留出行上拟合的，不含 JevBench 题目，并排除了已知的 Decision Index 匹配项。置信度不是保证，请在你的任务上检查校准。
+
+**能在单张 GPU 或笔记本上运行吗？** 内置服务需要 Linux 上的一张 NVIDIA GPU（vLLM 0.30.0）；BF16 权重为 8.4 GB。v1.1 的测量来自 RTX PRO 6000 96 GB；同一 4B 架构的早期版本也曾用 vLLM 在 24 GB 的 NVIDIA L4 上以 16K 上下文上限运行。内置服务不支持 CPU、Apple Silicon 和笔记本环境，也没有测试过。
+
+**Kev 和 Wald、Laya 和 Wald 怎么选？** 三者都开放权重。Kev 在 Qwen3.5 基座上加指针头和 LoRA；Laya 是带决策头的小型编码器；Wald 是完整训练的 4B 解码器，可选思考。我们在同一协议下的测量见上表。请根据你自己的任务、延迟预算和硬件选择。
+
+**能针对我的任务微调吗？** 它是标准的 Transformers checkpoint，常见的 LoRA 工具都适用。v1.0 时我们为单个任务训练 LoRA，每个花费 $0.12–$1.81 的 GPU 时间；这套工具尚未公开，这些 adapter 也未在 v1.1 上验证（[v1.0 说明](../../history/v1.0/README.md)）。
+
+**许可证是什么？** 权重与代码为 Apache-2.0。基座 Qwen3.5-4B-Base 也是 Apache-2.0。部分公开训练数据有各自的条款或没有注明许可证，列在 [PROVENANCE.md](../../PROVENANCE.md)。模型与代码的许可证不授予这些文本的权利。
+
+## 使用限制
+
+置信度不保证正确性，应在自己的任务上验证阈值。超过上下文限制的提示会被拒绝，不会截断。已过滤已知的严格训练重叠，但无法排除语义重叠和预训练污染；开发过程中使用了可见的基准样本。各来源文本的使用权不同，详见[评测说明](../../CONTAMINATION.md)与[来源声明](../../PROVENANCE.md)。
 
 ## 版本
 
-| 版本 | 状态 | 检查点 | 底座 | 日期 | 策略 | 提示格式 |
-|---|---|---|---|---|---|---|
-| **v1.0** | 当前版本 | 内部版本 021A0-f10 | Qwen/Qwen3.5-4B-Base | 2026-09-27 | effort `medium` | `repeat_state_plain` |
-| v0.9 | 预发布；上文的垂直任务 LoRA 和延迟 | 内部版本 015D0-f4 | Qwen/Qwen3.5-4B-Base | 2026-09-26 | effort `medium` | plain |
+| 版本 | Checkpoint | 默认 effort |
+|---|---|---|
+| **v1.1 — 当前版本** | `022D0-f7` | `high` |
+| [v1.0 — 历史版本](https://huggingface.co/Harry19081/Wald-4B/tree/v1.0) | `021A0-f10` | `medium` |
 
-v1.x = 同一底座代上的服务或 LoRA 更新；v2.0 = 新的底座代。
+v1.0 模型卡保留其 XL、任务 LoRA 和延迟报告，[v1.0 讲解幻灯片](https://claude.ai/artifact/XfCHVaCuj9A5ectrpaWzV5)只描述 v1.0。这些测量属于各自注明的模型版本。
+
+## 引用
+
+Wald-Q4B v1.1 (2026), an open-weight 4B decision model with calibrated option probabilities. https://huggingface.co/Harry19081/Wald-4B
+
+```bibtex
+@misc{wald_q4b_2026,
+  title        = {Wald-Q4B v1.1: an open-weight 4B decision model with calibrated option probabilities},
+  author       = {{Wald-4B authors}},
+  year         = {2026},
+  howpublished = {\url{https://huggingface.co/Harry19081/Wald-4B}},
+  note         = {Revision v1.1}
+}
+```
+
+机器可读：[CITATION.cff](../../CITATION.cff) · [llms.txt](../../llms.txt) · [model-info.json](../../model-info.json)
 
 ---
 
-Apache-2.0（权重和代码），同时受底座模型 Qwen/Qwen3.5-4B-Base 许可约束（Apache-2.0，© 阿里云通义千问团队）。第三方声明：
-[NOTICE](../../NOTICE)。
+[模型](https://huggingface.co/Harry19081/Wald-4B) · [GitHub](https://github.com/Harry19081/wald-4b) · [Decision Index 结果](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results) · 权重与代码：Apache-2.0。[第三方声明](../../NOTICE) · [训练数据使用说明](../../PROVENANCE.md)

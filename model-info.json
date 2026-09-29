@@ -1,0 +1,107 @@
+{
+  "name": "Wald-Q4B",
+  "version": "v1.1",
+  "aliases": [
+    "Wald-4B"
+  ],
+  "checkpoint": "022D0-f7",
+  "description": "Open-weight 4B decision model that returns a calibrated probability for every option through a Jev-compatible POST /v1/systemone API; one pass or optional thinking; self-hosted. Independent, not affiliated with TypeSafe AI.",
+  "base_model": "Qwen/Qwen3.5-4B-Base",
+  "model_url": "https://huggingface.co/Harry19081/Wald-4B",
+  "weights_revision": "50f94ecd5d6e7e8459e9c198ef811bfaba12a3fe",
+  "weights_tag": "v1.1",
+  "weight_precision": "BF16",
+  "parameter_scale": "4B",
+  "license": "Apache-2.0 (weights and code); see PROVENANCE.md for source-data usage limitations",
+  "use_cases": [
+    "tool selection",
+    "agent routing",
+    "classification",
+    "clarification decisions"
+  ],
+  "endpoint": "POST /v1/systemone",
+  "input_fields": [
+    "state",
+    "questions",
+    "effort"
+  ],
+  "output": "per-option probabilities",
+  "default_effort": "high",
+  "efforts": {
+    "none": {
+      "gate": 0,
+      "generated_thoughts": 0
+    },
+    "low": {
+      "gate": 0.5,
+      "max_thought_tokens": 512
+    },
+    "medium": {
+      "gate": 0.7,
+      "max_thought_tokens": 512
+    },
+    "high": {
+      "gate": 1.01,
+      "max_thought_tokens": 512
+    },
+    "high-k2..high-k8": {
+      "thoughts": "2..8",
+      "max_tokens_per_thought": 512
+    }
+  },
+  "thinking_scope": "2–26 options and sufficient context; wider sets use grouped readout; insufficient thought space retains initial answer",
+  "evaluation": {
+    "benchmark": "Decision Index",
+    "edition": "0.2.1",
+    "scope": "complete suite",
+    "score": 54.59,
+    "metric": "balanced_skill",
+    "requests": 150317,
+    "ok": 150317,
+    "effort": "high",
+    "hardware": "NVIDIA RTX PRO 6000 96 GB",
+    "status": "author-run; maintainer validation pending",
+    "submission": "https://github.com/apolinario/decision-index/pull/30"
+  },
+  "documentation_languages": [
+    "en",
+    "zh"
+  ],
+  "docs": {
+    "en": "README.md",
+    "zh": "docs/readmes/README.zh.md",
+    "serving": "RUNBOOK.md",
+    "sources": "PROVENANCE.md",
+    "evaluation_notes": "CONTAMINATION.md",
+    "api": "docs/api.md",
+    "citation": "CITATION.cff",
+    "llms": "llms.txt"
+  },
+  "affiliation": "Independent; not affiliated with TypeSafe AI",
+  "evaluations": [
+    {
+      "benchmark": "JevBench",
+      "split": "public",
+      "items": 231,
+      "effort": "none",
+      "correct": 203,
+      "accuracy": 0.8788,
+      "ece": 0.041,
+      "brier": 0.188,
+      "latency_p50_ms": 33,
+      "latency_p95_ms": 168,
+      "hardware": "NVIDIA RTX PRO 6000 96 GB",
+      "harness": "fstandhartinger/jevbench@9ec6f15a (jevbench.cli, typesafe adapter, serial, loopback)",
+      "status": "self-scored; public items were a development scoreboard, not held out; leaderboard measurement requested",
+      "request": "https://github.com/fstandhartinger/jevbench/issues/146"
+    }
+  ],
+  "links": {
+    "model": "https://huggingface.co/Harry19081/Wald-4B",
+    "github": "https://github.com/Harry19081/wald-4b",
+    "results_dataset": "https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results",
+    "decision_index_submission": "https://github.com/apolinario/decision-index/pull/30",
+    "jevbench_request": "https://github.com/fstandhartinger/jevbench/issues/146",
+    "api": "https://huggingface.co/Harry19081/Wald-4B/blob/main/docs/api.md"
+  }
+}

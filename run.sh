@@ -2,7 +2,7 @@
 # One command, no Docker: create a Python 3.12 environment with vLLM 0.30.0 and wald-serve, then serve the weights on
 # 0.0.0.0:${PORT:-8000} (POST /v1/systemone, GET /health). Needs a Linux CUDA machine and `uv`.
 #
-#   ./run.sh /path/to/Wald-4B                  # declared policy from serving.json (effort medium)
+#   ./run.sh /path/to/Wald-4B                  # declared policy from serving.json (effort high)
 #   EFFORT=high ./run.sh /path/to/Wald-4B      # another policy: none | low | medium | high | high-k<k>
 set -euo pipefail
 MODEL=${1:?usage: run.sh <weights dir>}

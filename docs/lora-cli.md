@@ -1,3 +1,5 @@
+> Historical v1.0 documentation. Use HF revision `v1.0-legacy` and each adapter's recorded parent. These results and adapters are not validated on the current 22D0-f7 default.
+
 # Fine-tune Wald-4B on your task (CLI, releasing soon)
 
 > **Preview.** The CLI is not public yet; we plan to release it soon. The commands below are preview syntax and may

@@ -1,0 +1,11 @@
+{
+  "requests": 32,
+  "median_ms": 821.3,
+  "p95_ms": 3759.7,
+  "max_ms": 3967.4,
+  "admission_threshold_ms": 1000,
+  "passes_sample_median_threshold": true,
+  "official_latency_requests_required": 750,
+  "official_latency_eligible": false,
+  "note": "32-request preflight sample; official 750-request serial median gate has not run"
+}
