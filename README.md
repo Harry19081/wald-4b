@@ -1,12 +1,12 @@
 <div align="center">
   <h1>Wald-Q4B v1.1</h1>
   <p><strong>Decide directly. Think when needed. Return probabilities.</strong></p>
-  <p><a href="README.md">English</a> · <a href="docs/readmes/README.zh.md">简体中文</a> · <a href="https://huggingface.co/Harry19081/Wald-4B">Weights on Hugging Face</a> · <a href="docs/api.md">API</a></p>
+  <p><a href="README.md">English</a> · <a href="docs/readmes/README.zh.md">简体中文</a> · <a href="https://huggingface.co/org2ai/Wald-4B">Weights on Hugging Face</a> · <a href="docs/api.md">API</a></p>
 </div>
 
 **Wald-Q4B v1.1 is an open-weight 4B decision model: give it a state and a set of options, and it returns a calibrated probability for every option.** It is for developers who build agents and pipelines and need a fast, self-hosted component to pick a tool, route a request, classify an input or decide whether to ask the user. Unlike a chat model, it does not write an answer you have to parse. It reads the options in one pass (33 ms median on one RTX PRO 6000 with effort `none`) and can optionally think first. It serves a Jev-compatible `POST /v1/systemone` API, is built on Qwen3.5-4B-Base and is released under Apache-2.0.
 
-Wald-Q4B is an independent, self-hosted alternative to TypeSafe's hosted Jev API. It is not Jev, contains no Jev weights, and is not affiliated with or endorsed by TypeSafe AI. The Hugging Face repository is `Harry19081/Wald-4B` (earlier name: Wald-4B).
+Wald-Q4B is an independent, self-hosted alternative to TypeSafe's hosted Jev API. It is not Jev, contains no Jev weights, and is not affiliated with or endorsed by TypeSafe AI. The Hugging Face repository is `org2ai/Wald-4B` (earlier name: Wald-4B; moved from `Harry19081/Wald-4B` on 2026-10-01, old links redirect).
 
 **W**ait **A** bit, **L**ook, then **D**ecide. Also named after Abraham Wald, the pioneer of sequential analysis: stop when the evidence is enough.
 
@@ -24,7 +24,7 @@ Wald-Q4B is an independent, self-hosted alternative to TypeSafe's hosted Jev API
 On a Linux machine with an NVIDIA GPU and [`uv`](https://docs.astral.sh/uv/):
 
 ```sh
-hf download Harry19081/Wald-4B --revision v1.1 --local-dir ./Wald-Q4B
+hf download org2ai/Wald-4B --revision v1.1 --local-dir ./Wald-Q4B
 cd Wald-Q4B
 EFFORT=none ./run.sh "$PWD"     # one pass, lowest latency
 # ./run.sh "$PWD"               # default: high, the evaluated Decision Index configuration
@@ -81,7 +81,7 @@ v1.1 combines full-parameter decision training, LoRA refinement, short-thought d
 | **Decision Index 0.2.1 — complete suite** | v1.1 · `high` | **54.59** | Author-run; [PR #30](https://github.com/apolinario/decision-index/pull/30) awaits maintainer validation |
 | **JevBench public set (231 items)** | v1.1 · `none` | **203/231** (87.9%) · ECE 0.041 · Brier 0.188 | Self-scored; [issue #146](https://github.com/fstandhartinger/jevbench/issues/146) asks the maintainers to measure it |
 
-**Decision Index:** 150,317/150,317 requests succeeded, including HLE. Measured on one RTX PRO 6000 96 GB with the pinned reproduction kit. [Full results](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results/tree/805716601b2466be324ed6716407b4c3d9267faa/runs/wald-q4b-22d0-f7-full021) · [Per-benchmark scores](evaluation/benchmark-summary.json) · [Reproduction guide](RUNBOOK.md)
+**Decision Index:** 150,317/150,317 requests succeeded, including HLE. Measured on one RTX PRO 6000 96 GB with the pinned reproduction kit. [Full results](https://huggingface.co/datasets/org2ai/Wald-Q4B-decision-index-results/tree/805716601b2466be324ed6716407b4c3d9267faa/runs/wald-q4b-22d0-f7-full021) · [Per-benchmark scores](evaluation/benchmark-summary.json) · [Reproduction guide](RUNBOOK.md)
 
 **JevBench:** JevBench's own CLI (`fstandhartinger/jevbench` at `9ec6f15a`, `typesafe` adapter) against the packaged server on loopback, one request at a time, on one RTX PRO 6000. Easy 48/48, original 72/72, hard 83/111; no tokens generated. With `medium`: 205/231, p95 1.80 s. The public items were used as a development scoreboard (never as training data), so this is not a held-out result. The JevBench leaderboard publishes a score only after its maintainers run the model themselves.
 
@@ -145,20 +145,20 @@ Confidence is not a guarantee of correctness; validate thresholds on your own ta
 | Version | Checkpoint | Default effort |
 |---|---|---|
 | **v1.1 — current** | `022D0-f7` | `high` |
-| [v1.0 — archive](https://huggingface.co/Harry19081/Wald-4B/tree/v1.0) | `021A0-f10` | `medium` |
+| [v1.0 — archive](https://huggingface.co/org2ai/Wald-4B/tree/v1.0) | `021A0-f10` | `medium` |
 
 The v1.0 model card retains its XL, task-LoRA and latency reports, and the [v1.0 walkthrough slides](https://claude.ai/artifact/XfCHVaCuj9A5ectrpaWzV5) describe v1.0 only. Those measurements belong to their documented builds.
 
 ## Citation
 
-Wald-Q4B v1.1 (2026), an open-weight 4B decision model with calibrated option probabilities. https://huggingface.co/Harry19081/Wald-4B
+Wald-Q4B v1.1 (2026), an open-weight 4B decision model with calibrated option probabilities. https://huggingface.co/org2ai/Wald-4B
 
 ```bibtex
 @misc{wald_q4b_2026,
   title        = {Wald-Q4B v1.1: an open-weight 4B decision model with calibrated option probabilities},
   author       = {{Wald-4B authors}},
   year         = {2026},
-  howpublished = {\url{https://huggingface.co/Harry19081/Wald-4B}},
+  howpublished = {\url{https://huggingface.co/org2ai/Wald-4B}},
   note         = {Revision v1.1}
 }
 ```
@@ -167,4 +167,4 @@ Machine-readable: [CITATION.cff](CITATION.cff) · [llms.txt](llms.txt) · [model
 
 ---
 
-[Model](https://huggingface.co/Harry19081/Wald-4B) · [GitHub](https://github.com/Harry19081/wald-4b) · [Decision Index results](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results) · Apache-2.0 for weights and code. [Third-party notices](NOTICE) · [Training-data usage notes](PROVENANCE.md)
+[Model](https://huggingface.co/org2ai/Wald-4B) · [GitHub](https://github.com/org2AI/wald-4b) · [Decision Index results](https://huggingface.co/datasets/org2ai/Wald-Q4B-decision-index-results) · Apache-2.0 for weights and code. [Third-party notices](NOTICE) · [Training-data usage notes](PROVENANCE.md)

@@ -7,7 +7,7 @@ Download the immutable HF tag 22D0-f7 (or the full HF commit in the submission) 
 ## Convenient packaged server
 
 ```sh
-hf download Harry19081/Wald-4B --revision v1.1 --local-dir ./Wald-Q4B-22D
+hf download org2ai/Wald-4B --revision v1.1 --local-dir ./Wald-Q4B-22D
 cd Wald-Q4B-22D
 ./run.sh "$PWD"
 ```

@@ -15,9 +15,9 @@ authors:
 version: "v1.1"
 date-released: "2026-09-29"
 license: Apache-2.0
-url: "https://huggingface.co/Harry19081/Wald-4B"
-repository-code: "https://github.com/Harry19081/wald-4b"
-repository-artifact: "https://huggingface.co/Harry19081/Wald-4B"
+url: "https://huggingface.co/org2ai/Wald-4B"
+repository-code: "https://github.com/org2AI/wald-4b"
+repository-artifact: "https://huggingface.co/org2ai/Wald-4B"
 keywords:
   - decision model
   - calibrated probabilities

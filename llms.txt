@@ -3,7 +3,7 @@
 > Open-weight 4B decision model. Given a state and typed questions (choice, yes/no, score), it returns a calibrated probability for every option through a Jev-compatible `POST /v1/systemone` API. Built on Qwen3.5-4B-Base; Apache-2.0 weights and serving code; self-hosted on one NVIDIA GPU with vLLM. Independent project, not affiliated with or endorsed by TypeSafe AI.
 
 Key facts:
-- Hugging Face repository: Harry19081/Wald-4B (current release tag `v1.1`; earlier name Wald-4B). GitHub: Harry19081/wald-4b.
+- Hugging Face repository: org2ai/Wald-4B (current release tag `v1.1`; earlier name Wald-4B; moved from Harry19081/Wald-4B on 2026-10-01, old URLs redirect). GitHub: org2AI/wald-4b.
 - Uses: tool selection, agent routing, classification, deciding whether to ask the user a clarifying question.
 - Effort levels: `none` (one pass, no generated tokens), `low`, `medium`, `high` (default), `high-k2`…`high-k8`.
 - JevBench public set (231 items), effort `none`: 203/231, ECE 0.041, p50 33 ms / p95 168 ms on one RTX PRO 6000. Self-scored with JevBench's harness; the public items were a development scoreboard, not held out. Leaderboard row requested in fstandhartinger/jevbench issue #146.
@@ -11,21 +11,21 @@ Key facts:
 
 ## Docs
 
-- [Model card](https://huggingface.co/Harry19081/Wald-4B): what it is, benchmarks, comparisons with Jev, Kev and Laya, FAQ, limits
-- [API reference](https://huggingface.co/Harry19081/Wald-4B/blob/main/docs/api.md): request and response JSON with examples
-- [RUNBOOK.md](https://huggingface.co/Harry19081/Wald-4B/blob/main/RUNBOOK.md): serving and exact evaluation settings
-- [Chinese model card](https://huggingface.co/Harry19081/Wald-4B/blob/main/docs/readmes/README.zh.md)
+- [Model card](https://huggingface.co/org2ai/Wald-4B): what it is, benchmarks, comparisons with Jev, Kev and Laya, FAQ, limits
+- [API reference](https://huggingface.co/org2ai/Wald-4B/blob/main/docs/api.md): request and response JSON with examples
+- [RUNBOOK.md](https://huggingface.co/org2ai/Wald-4B/blob/main/RUNBOOK.md): serving and exact evaluation settings
+- [Chinese model card](https://huggingface.co/org2ai/Wald-4B/blob/main/docs/readmes/README.zh.md)
 
 ## Evidence
 
-- [Decision Index results dataset](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results): untouched responses and scores
+- [Decision Index results dataset](https://huggingface.co/datasets/org2ai/Wald-Q4B-decision-index-results): untouched responses and scores
 - [Decision Index submission PR #30](https://github.com/apolinario/decision-index/pull/30)
 - [JevBench request issue #146](https://github.com/fstandhartinger/jevbench/issues/146)
-- [model-info.json](https://huggingface.co/Harry19081/Wald-4B/blob/main/model-info.json): machine-readable facts
+- [model-info.json](https://huggingface.co/org2ai/Wald-4B/blob/main/model-info.json): machine-readable facts
 
 ## Optional
 
-- [PROVENANCE.md](https://huggingface.co/Harry19081/Wald-4B/blob/main/PROVENANCE.md): training-data sources and their terms
-- [CONTAMINATION.md](https://huggingface.co/Harry19081/Wald-4B/blob/main/CONTAMINATION.md): evaluation caveats
-- [CITATION.cff](https://huggingface.co/Harry19081/Wald-4B/blob/main/CITATION.cff)
-- [Server source](https://github.com/Harry19081/wald-4b/tree/main/server)
+- [PROVENANCE.md](https://huggingface.co/org2ai/Wald-4B/blob/main/PROVENANCE.md): training-data sources and their terms
+- [CONTAMINATION.md](https://huggingface.co/org2ai/Wald-4B/blob/main/CONTAMINATION.md): evaluation caveats
+- [CITATION.cff](https://huggingface.co/org2ai/Wald-4B/blob/main/CITATION.cff)
+- [Server source](https://github.com/org2AI/wald-4b/tree/main/server)

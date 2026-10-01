@@ -7,7 +7,7 @@
   "checkpoint": "022D0-f7",
   "description": "Open-weight 4B decision model that returns a calibrated probability for every option through a Jev-compatible POST /v1/systemone API; one pass or optional thinking; self-hosted. Independent, not affiliated with TypeSafe AI.",
   "base_model": "Qwen/Qwen3.5-4B-Base",
-  "model_url": "https://huggingface.co/Harry19081/Wald-4B",
+  "model_url": "https://huggingface.co/org2ai/Wald-4B",
   "weights_revision": "50f94ecd5d6e7e8459e9c198ef811bfaba12a3fe",
   "weights_tag": "v1.1",
   "weight_precision": "BF16",
@@ -97,11 +97,11 @@
     }
   ],
   "links": {
-    "model": "https://huggingface.co/Harry19081/Wald-4B",
-    "github": "https://github.com/Harry19081/wald-4b",
-    "results_dataset": "https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results",
+    "model": "https://huggingface.co/org2ai/Wald-4B",
+    "github": "https://github.com/org2AI/wald-4b",
+    "results_dataset": "https://huggingface.co/datasets/org2ai/Wald-Q4B-decision-index-results",
     "decision_index_submission": "https://github.com/apolinario/decision-index/pull/30",
     "jevbench_request": "https://github.com/fstandhartinger/jevbench/issues/146",
-    "api": "https://huggingface.co/Harry19081/Wald-4B/blob/main/docs/api.md"
+    "api": "https://huggingface.co/org2ai/Wald-4B/blob/main/docs/api.md"
   }
 }

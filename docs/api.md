@@ -2,7 +2,7 @@
 
 Wald-Q4B's server, `wald-serve`, exposes one decision endpoint, `POST /v1/systemone`. Its request and answer shapes follow TypeSafe's `/v1/systemone` format, so clients written for Jev can point at a self-hosted Wald server. Wald is independent and is not affiliated with TypeSafe AI.
 
-Start the server with `./run.sh "$PWD"` in the downloaded model directory ([model card](https://huggingface.co/Harry19081/Wald-4B), [RUNBOOK.md](https://huggingface.co/Harry19081/Wald-4B/blob/main/RUNBOOK.md)). It listens on port 8000 and does not check API keys.
+Start the server with `./run.sh "$PWD"` in the downloaded model directory ([model card](https://huggingface.co/org2ai/Wald-4B), [RUNBOOK.md](https://huggingface.co/org2ai/Wald-4B/blob/main/RUNBOOK.md)). It listens on port 8000 and does not check API keys.
 
 ## Endpoints
 
@@ -145,4 +145,4 @@ answer = r.json()["answers"]["route"]
 print(answer["choice"], answer["probabilities"])
 ```
 
-Source: [`server/src/wald_serve/wire.py`](https://huggingface.co/Harry19081/Wald-4B/blob/main/server/src/wald_serve/wire.py) (request shapes) and [`server.py`](https://huggingface.co/Harry19081/Wald-4B/blob/main/server/src/wald_serve/server.py) (endpoints).
+Source: [`server/src/wald_serve/wire.py`](https://huggingface.co/org2ai/Wald-4B/blob/main/server/src/wald_serve/wire.py) (request shapes) and [`server.py`](https://huggingface.co/org2ai/Wald-4B/blob/main/server/src/wald_serve/server.py) (endpoints).

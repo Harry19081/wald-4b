@@ -1,12 +1,12 @@
 <div align="center">
   <h1>Wald-Q4B v1.1</h1>
   <p><strong>直接决策，按需思考，返回概率。</strong></p>
-  <p><a href="../../README.md">English</a> · <a href="README.zh.md">简体中文</a> · <a href="https://huggingface.co/Harry19081/Wald-4B">Weights on Hugging Face</a> · <a href="../api.md">API</a></p>
+  <p><a href="../../README.md">English</a> · <a href="README.zh.md">简体中文</a> · <a href="https://huggingface.co/org2ai/Wald-4B">Weights on Hugging Face</a> · <a href="../api.md">API</a></p>
 </div>
 
 **Wald-Q4B v1.1 是一个开放权重的 4B 决策模型：给它一段状态和一组选项，它为每个选项返回校准过的概率。** 它面向构建 agent 和数据流水线的开发者：需要一个快速、可自行部署的组件来选择工具、路由请求、分类输入，或判断是否需要向用户澄清。和聊天模型不同，它不生成需要再解析的答案，而是一遍读出所有选项的概率（effort `none` 时单张 RTX PRO 6000 上中位延迟 33 ms），也可以先思考再回答。它提供与 Jev 兼容的 `POST /v1/systemone` API，基于 Qwen3.5-4B-Base，以 Apache-2.0 发布。
 
-Wald-Q4B 是 TypeSafe 托管 Jev API 之外、可自行部署的独立替代方案。它不是 Jev，不含 Jev 权重，与 TypeSafe AI 没有隶属或背书关系。Hugging Face 仓库为 `Harry19081/Wald-4B`（旧名 Wald-4B）。
+Wald-Q4B 是 TypeSafe 托管 Jev API 之外、可自行部署的独立替代方案。它不是 Jev，不含 Jev 权重，与 TypeSafe AI 没有隶属或背书关系。Hugging Face 仓库为 `org2ai/Wald-4B`（旧名 Wald-4B；2026-10-01 从 `Harry19081/Wald-4B` 迁来，旧链接自动跳转）。
 
 **W**ait **A** bit, **L**ook, then **D**ecide：稍等一下，看清楚，再决定。名字也致敬序贯分析先驱 Abraham Wald：证据足够时就停止。
 
@@ -24,7 +24,7 @@ Wald-Q4B 是 TypeSafe 托管 Jev API 之外、可自行部署的独立替代方�
 在装有 NVIDIA GPU 和 [`uv`](https://docs.astral.sh/uv/) 的 Linux 机器上：
 
 ```sh
-hf download Harry19081/Wald-4B --revision v1.1 --local-dir ./Wald-Q4B
+hf download org2ai/Wald-4B --revision v1.1 --local-dir ./Wald-Q4B
 cd Wald-Q4B
 EFFORT=none ./run.sh "$PWD"     # 一遍读出，延迟最低
 # ./run.sh "$PWD"               # 默认 high，即 Decision Index 的评测配置
@@ -81,7 +81,7 @@ v1.1 结合全参数决策训练、LoRA 精修、短思考蒸馏和 RLCD。训�
 | **Decision Index 0.2.1 完整套件** | v1.1 · `high` | **54.59** | 作者自测；[PR #30](https://github.com/apolinario/decision-index/pull/30) 等待维护者验证 |
 | **JevBench 公开集（231 题）** | v1.1 · `none` | **203/231**（87.9%）· ECE 0.041 · Brier 0.188 | 自评；[issue #146](https://github.com/fstandhartinger/jevbench/issues/146) 请维护者自行测量 |
 
-**Decision Index：** 150,317/150,317 个请求全部成功，包含 HLE。在单张 RTX PRO 6000 96 GB 上使用固定版本的复现工具运行。[完整结果](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results/tree/805716601b2466be324ed6716407b4c3d9267faa/runs/wald-q4b-22d0-f7-full021) · [分项成绩](../../evaluation/benchmark-summary.json) · [复现指南](../../RUNBOOK.md)
+**Decision Index：** 150,317/150,317 个请求全部成功，包含 HLE。在单张 RTX PRO 6000 96 GB 上使用固定版本的复现工具运行。[完整结果](https://huggingface.co/datasets/org2ai/Wald-Q4B-decision-index-results/tree/805716601b2466be324ed6716407b4c3d9267faa/runs/wald-q4b-22d0-f7-full021) · [分项成绩](../../evaluation/benchmark-summary.json) · [复现指南](../../RUNBOOK.md)
 
 **JevBench：** 使用 JevBench 自己的命令行工具（`fstandhartinger/jevbench` @ `9ec6f15a`，`typesafe` 适配器），在单张 RTX PRO 6000 上通过本机回环逐条请求打包服务。easy 48/48、original 72/72、hard 83/111；不生成任何 token。`medium` 为 205/231，p95 1.80 s。公开题在开发中被用作计分板（从未作为训练数据），因此这不是留出集结果。JevBench 排行榜只在维护者自己跑过模型后才公布分数。
 
@@ -145,20 +145,20 @@ v1.1 结合全参数决策训练、LoRA 精修、短思考蒸馏和 RLCD。训�
 | 版本 | Checkpoint | 默认 effort |
 |---|---|---|
 | **v1.1 — 当前版本** | `022D0-f7` | `high` |
-| [v1.0 — 历史版本](https://huggingface.co/Harry19081/Wald-4B/tree/v1.0) | `021A0-f10` | `medium` |
+| [v1.0 — 历史版本](https://huggingface.co/org2ai/Wald-4B/tree/v1.0) | `021A0-f10` | `medium` |
 
 v1.0 模型卡保留其 XL、任务 LoRA 和延迟报告，[v1.0 讲解幻灯片](https://claude.ai/artifact/XfCHVaCuj9A5ectrpaWzV5)只描述 v1.0。这些测量属于各自注明的模型版本。
 
 ## 引用
 
-Wald-Q4B v1.1 (2026), an open-weight 4B decision model with calibrated option probabilities. https://huggingface.co/Harry19081/Wald-4B
+Wald-Q4B v1.1 (2026), an open-weight 4B decision model with calibrated option probabilities. https://huggingface.co/org2ai/Wald-4B
 
 ```bibtex
 @misc{wald_q4b_2026,
   title        = {Wald-Q4B v1.1: an open-weight 4B decision model with calibrated option probabilities},
   author       = {{Wald-4B authors}},
   year         = {2026},
-  howpublished = {\url{https://huggingface.co/Harry19081/Wald-4B}},
+  howpublished = {\url{https://huggingface.co/org2ai/Wald-4B}},
   note         = {Revision v1.1}
 }
 ```
@@ -167,4 +167,4 @@ Wald-Q4B v1.1 (2026), an open-weight 4B decision model with calibrated option pr
 
 ---
 
-[模型](https://huggingface.co/Harry19081/Wald-4B) · [GitHub](https://github.com/Harry19081/wald-4b) · [Decision Index 结果](https://huggingface.co/datasets/Harry19081/Wald-Q4B-decision-index-results) · 权重与代码：Apache-2.0。[第三方声明](../../NOTICE) · [训练数据使用说明](../../PROVENANCE.md)
+[模型](https://huggingface.co/org2ai/Wald-4B) · [GitHub](https://github.com/org2AI/wald-4b) · [Decision Index 结果](https://huggingface.co/datasets/org2ai/Wald-Q4B-decision-index-results) · 权重与代码：Apache-2.0。[第三方声明](../../NOTICE) · [训练数据使用说明](../../PROVENANCE.md)
