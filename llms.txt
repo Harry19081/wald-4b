@@ -1,13 +1,14 @@
-# Wald-Q4B v1.1
+# Wald-Q4B v1.2
 
 > Open-weight 4B decision model. Given a state and typed questions (choice, yes/no, score), it returns a calibrated probability for every option through a Jev-compatible `POST /v1/systemone` API. Built on Qwen3.5-4B-Base; Apache-2.0 weights and serving code; self-hosted on one NVIDIA GPU with vLLM. Independent project, not affiliated with or endorsed by TypeSafe AI.
 
 Key facts:
-- Hugging Face repository: org2ai/Wald-4B (current release tag `v1.1`; earlier name Wald-4B; moved from Harry19081/Wald-4B on 2026-10-01, old URLs redirect). GitHub: org2AI/wald-4b.
+- Hugging Face repository: org2ai/Wald-4B (earlier name Wald-4B; moved from Harry19081/Wald-4B on 2026-10-01, old URLs redirect). Releases: `v1.2` (tag `v1.2`, robustness release, checkpoint 02600-f19; also the weights on `main` since 2026-10-01) and `v1.1` (tag `v1.1`, general release, checkpoint 022D0-f7). Pin a revision when downloading. GitHub: org2AI/wald-4b.
 - Uses: tool selection, agent routing, classification, deciding whether to ask the user a clarifying question.
-- Effort levels: `none` (one pass, no generated tokens), `low`, `medium`, `high` (default), `high-k2`…`high-k8`.
-- JevBench public set (231 items), effort `none`: 203/231, ECE 0.041, p50 33 ms / p95 168 ms on one RTX PRO 6000. Self-scored with JevBench's harness; the public items were a development scoreboard, not held out. Leaderboard row requested in fstandhartinger/jevbench issue #146.
-- Decision Index 0.2.1 complete suite, effort `high`: 54.59 balanced-skill index. Author-run; submission apolinario/decision-index PR #30 awaits maintainer validation.
+- Effort levels: `none` (one pass, no generated tokens), `low`, `medium`, `high`, `high-k2`…`high-k8`. Default effort: `high` for v1.1, `none` for v1.2. v1.2 is a one-pass model; thinking is evaluated on v1.1.
+- v1.2 robustness (JevAdvBench, 812 questions, nine attack types, effort `none`, self-run): mean flip rate 4.6 % (v1.1 9.2 %, Jev 1.13 6.1 %). Cost: clean accuracy on the 143 human-reviewed questions 76.2 % (v1.1 79.0 %).
+- JevBench public set (231 items), effort `none`: v1.2 204/231, ECE 0.045; v1.1 203/231, ECE 0.041, p50 33 ms / p95 168 ms on one RTX PRO 6000. Self-scored with JevBench's harness; the public items were a development scoreboard, not held out. Leaderboard row for v1.1 requested in fstandhartinger/jevbench issue #146; v1.2 is not submitted.
+- Decision Index 0.2.1 complete suite, v1.1 with effort `high`: 54.59 balanced-skill index (v1.2 has no complete-suite run). Author-run; submission apolinario/decision-index PR #30 awaits maintainer validation.
 
 ## Docs
 
@@ -21,6 +22,7 @@ Key facts:
 - [Decision Index results dataset](https://huggingface.co/datasets/org2ai/Wald-Q4B-decision-index-results): untouched responses and scores
 - [Decision Index submission PR #30](https://github.com/apolinario/decision-index/pull/30)
 - [JevBench request issue #146](https://github.com/fstandhartinger/jevbench/issues/146)
+- [v1.2 evaluation summary](https://huggingface.co/org2ai/Wald-4B/blob/v1.2/evaluation/v1.2/summary.json): robustness and non-regression numbers for v1.2
 - [model-info.json](https://huggingface.co/org2ai/Wald-4B/blob/main/model-info.json): machine-readable facts
 
 ## Optional

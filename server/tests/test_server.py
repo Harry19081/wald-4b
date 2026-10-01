@@ -12,7 +12,7 @@ from pathlib import Path
 import pytest
 
 from fakevllm import FakeVLLM
-from wald_serve.engine import (POLICIES, Client, answer, bucket_key, chunks, load_tables, policy, temper, temperature,
+from wald_serve.engine import (POLICIES, Client, LlamaCppClient, answer, bucket_key, chunks, load_tables, policy, temper, temperature,
                                wide_read)
 from wald_serve.prompt import STATE_REPEAT, format_prompt, question_prompt
 from wald_serve.server import make_handler
@@ -249,3 +249,47 @@ def test_thought_that_does_not_fit_falls_back(fake):
     cl = Client(fake.url, "wald", 400)   # the prompt fits, prompt + 512-token budget does not
     a, u = answer(cl, q, policy("high"), {})
     assert a["q"]["mode"] == "A" and u["output_tokens"] == 0
+
+
+def test_llamacpp_client_matches_vllm_client(fake):
+    vl, lc = Client(fake.url, "wald", 100_000), LlamaCppClient(fake.url, "wald", 100_000)
+    assert lc.letter_ids == vl.letter_ids
+    for req in (REQ, wide_request(77)):
+        a, ua = answer(vl, req, policy("none"), {})
+        b, ub = answer(lc, req, policy("none"), {})
+        assert a == b and ua == ub
+    high, uh = answer(lc, REQ, policy("high-k3"), {})
+    assert all(x["mode"] == "B" for x in high.values()) and uh["output_tokens"] > 0
+    check_wire(REQ, {"answers": high})
+
+
+def test_llamacpp_capacity_is_422(fake):
+    cl = LlamaCppClient(fake.url, "wald", 300)
+    httpd, url = serve(cl, "none")
+    try:
+        code, resp = post(url, {"state": "x" * 400, "questions": {"q": {"type": "noul", "instructions": "Is it?"}}})
+        assert code == 422 and "maximum context length" in resp["error"]
+    finally:
+        httpd.shutdown()
+
+
+def test_gguf_reads_serving_json_beside_the_file(tmp_path, monkeypatch):
+    import wald_serve.server as srv
+    (tmp_path / "serving.json").write_text(json.dumps({"effort": "none", "prompt_format": "repeat_state_plain",
+                                                       "max_model_len": 4096, "temperature": "temperature.json"}))
+    (tmp_path / "temperature.json").write_text(json.dumps(TABLE))
+    seen = {}
+    monkeypatch.setattr(srv, "launch_llama", lambda *a: seen.update(launch=a))
+    monkeypatch.setattr(srv, "LlamaCppClient", lambda *a, **k: seen.update(client=(a, k)))
+
+    class Stop(Exception):
+        pass
+
+    def fake_http(addr, handler):
+        seen["handler"] = handler
+        raise Stop
+    monkeypatch.setattr(srv, "ThreadingHTTPServer", fake_http)
+    with pytest.raises(Stop):
+        srv.main(["--gguf", str(tmp_path / "Wald-4B-Q8_0.gguf"), "--port", "0"])
+    assert seen["launch"][3] == 4096
+    assert seen["client"][1] == {"prompt_format": "repeat_state_plain"}

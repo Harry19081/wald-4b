@@ -1,0 +1,89 @@
+{
+  "schema": "wald-q4b-release-check/1",
+  "release": "Wald-Q4B v1.2",
+  "revision": "v1.2",
+  "commit": "db376d325c9eeb884d172e8ca9f3502d104936bb",
+  "date": "2026-10-01",
+  "weights": {
+    "hub_lfs_sha256": {
+      "model-00001-of-00002.safetensors": "0b15067f769e7388bd598aabafa2ea3211a3a0c4e49e47d07c4f65c65ffc25dd",
+      "model-00002-of-00002.safetensors": "7cff102b314edeb3dc5abfa7063f72ad3e888884da237601239dc3582074120a"
+    },
+    "equal_to_recorded_merged_checkpoint": true
+  },
+  "tree": {
+    "files": 69,
+    "bytes": 8432242541,
+    "unchanged_from_main_at_1f960412": 54,
+    "new_files": [
+      "evaluation/v1.2/summary.json"
+    ]
+  },
+  "anonymous_download": {
+    "route": "hf-mirror.com, no token",
+    "files": 69,
+    "manifest_entries_checked": 60,
+    "manifest_sha256_mismatches": 0
+  },
+  "jevbench_public_231_effort_none": {
+    "how": "JevBench CLI (fstandhartinger/jevbench@9ec6f15a, typesafe adapter, serial, loopback) against wald-serve 0.1.0 + vLLM 0.30.0 on one RTX 5090; effort none taken from the release serving.json (/health: effort none)",
+    "pre_release_read_2026-09-30": {
+      "correct": 204,
+      "of": 231,
+      "tiers": {
+        "easy": "48/48",
+        "original": "72/72",
+        "hard": "84/111"
+      },
+      "ece": 0.045,
+      "brier": 0.191,
+      "generated_tokens": 0
+    },
+    "download_model_files_only": {
+      "correct": 204,
+      "of": 231,
+      "tiers": {
+        "easy": "48/48",
+        "original": "72/72",
+        "hard": "84/111"
+      },
+      "ece": 0.045,
+      "brier": 0.191,
+      "generated_tokens": 0,
+      "same_option_as_pre_release_read": 231,
+      "max_abs_probability_difference": 0.0083,
+      "directory": "only config, tokenizer, chat template, the two weight shards, temperature.json and serving.json of the download"
+    },
+    "download_complete_directory_read_1": {
+      "correct": 204,
+      "of": 231,
+      "tiers": {
+        "easy": "48/48",
+        "original": "72/72",
+        "hard": "84/111"
+      },
+      "ece": 0.053,
+      "brier": 0.191,
+      "generated_tokens": 0,
+      "same_option_as_pre_release_read": 229,
+      "max_abs_probability_difference": 0.0271,
+      "directory": "the complete downloaded repository"
+    },
+    "download_complete_directory_read_2": {
+      "correct": 205,
+      "of": 231,
+      "tiers": {
+        "easy": "48/48",
+        "original": "72/72",
+        "hard": "85/111"
+      },
+      "ece": 0.053,
+      "brier": 0.191,
+      "generated_tokens": 0,
+      "same_option_as_pre_release_read": 230,
+      "max_abs_probability_difference": 0.0217,
+      "directory": "the complete downloaded repository, separate server start"
+    },
+    "note": "The model files are byte-identical in all reads. From the complete repository directory almost every probability moves slightly (mean absolute difference 0.0013) and one or two near-tied items change option; from a directory with only the model files the pre-release read is reproduced. The cause of this difference is not yet explained."
+  }
+}

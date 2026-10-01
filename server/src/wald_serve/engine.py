@@ -136,16 +136,18 @@ class Client:
     def ids(self, text: str) -> list[int]:
         return self.post("/tokenize", {"model": self.served, "prompt": text, "add_special_tokens": False})["tokens"]
 
-    def readout(self, ids: list[int], n: int):
-        """-> (softmax over the first n letters, total letter mass)."""
-        if len(ids) + 1 > self.max_len:
-            raise Capacity(f"prompt of {len(ids)} tokens is longer than the maximum context length {self.max_len}")
-        want = [t for L in self.letter_ids[:n] for t in L]
+    def letter_logprobs(self, ids: list[int], want: list[int]) -> dict:
         body = {"model": self.served, "prompt": ids, "max_tokens": 1, "temperature": 0.0, "logprobs": 20,
                 "logprob_token_ids": want, "return_tokens_as_token_ids": True}
         r = self.post("/v1/completions", body)
         top = r["choices"][0]["logprobs"]["top_logprobs"][0]
-        lp = {int(k.split(":", 1)[1]): v for k, v in top.items() if k.startswith("token_id:") and v is not None and v > -9999}
+        return {int(k.split(":", 1)[1]): v for k, v in top.items() if k.startswith("token_id:") and v is not None and v > -9999}
+
+    def readout(self, ids: list[int], n: int):
+        """-> (softmax over the first n letters, total letter mass)."""
+        if len(ids) + 1 > self.max_len:
+            raise Capacity(f"prompt of {len(ids)} tokens is longer than the maximum context length {self.max_len}")
+        lp = self.letter_logprobs(ids, [t for L in self.letter_ids[:n] for t in L])
         floor = min(lp.values()) - 2.0 if lp else -30.0
         z = [math.log(sum(math.exp(lp.get(t, floor)) for t in L)) for L in self.letter_ids[:n]]
         m = max(z)
@@ -165,6 +167,33 @@ class Client:
             return [c.get("text") or "" for c in r["choices"]], ntok
         c = r["choices"][0]
         return c.get("text") or "", ntok
+
+
+class LlamaCppClient(Client):
+    """The same reads over llama.cpp's `llama-server` (GGUF weights): token ids in, raw next-token logprobs out.
+    llama-server reports the top `n_probs` tokens only, so a letter outside them gets the same floor as in vLLM."""
+
+    N_PROBS = 100
+
+    def ids(self, text: str) -> list[int]:
+        return self.post("/tokenize", {"content": text, "add_special": False, "parse_special": False})["tokens"]
+
+    def letter_logprobs(self, ids: list[int], want: list[int]) -> dict:
+        body = {"prompt": ids, "n_predict": 1, "temperature": 0.0, "n_probs": self.N_PROBS, "post_sampling_probs": False,
+                "cache_prompt": True, "samplers": ["top_k"], "top_k": 1}
+        r = self.post("/completion", body)
+        top = r["completion_probabilities"][0]["top_logprobs"]
+        return {int(t["id"]): float(t["logprob"]) for t in top}
+
+    def generate(self, ids: list[int], max_tokens: int, seed: int, n: int = 1):
+        texts, ntok = [], 0
+        for i in range(n):
+            body = {"prompt": ids, "n_predict": max_tokens, "temperature": 0.6, "top_p": 0.95, "top_k": 20, "min_p": 0.0,
+                    "seed": seed + i, "stop": [STOP], "cache_prompt": True}
+            r = self.post("/completion", body)
+            texts.append(r.get("content") or "")
+            ntok += int(r.get("tokens_predicted") or 0)
+        return (texts[0] if n == 1 else texts), ntok
 
 
 # --- one question -----------------------------------------------------------------------------------------------------

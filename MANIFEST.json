@@ -1,7 +1,7 @@
 {
   "CONTAMINATION.md": {
-    "bytes": 930,
-    "sha256": "1f2eb3e028e40fc2baeb5e6f48d706493c09dffd5b23c18147b132063fe2e581"
+    "bytes": 2047,
+    "sha256": "108d33ec5188b608e8b293d18ba1bb975b9849638644a682616ca8816b4e1fd1"
   },
   "Dockerfile": {
     "bytes": 1201,
@@ -12,20 +12,20 @@
     "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c"
   },
   "NOTICE": {
-    "bytes": 1347,
-    "sha256": "0131c7b4b198ca2befcd123f0ec0078fa13a078d4c447c258adac0ea41911027"
+    "bytes": 1553,
+    "sha256": "e1f68705275e9539d5d28e0dc20eae470169af869c308a90378db3ede83dd644"
   },
   "PROVENANCE.md": {
-    "bytes": 977,
-    "sha256": "953551e746a887044cc0ce65dec9b96ea3a763d69fda7d3a296f524bb37bca19"
+    "bytes": 2077,
+    "sha256": "69225fb813578b0d4f9e453a9f0c140c848ec354cf6cca877bcae828c082d3d7"
   },
   "README.md": {
-    "bytes": 16370,
-    "sha256": "0964da2ec2e05dfa5f46b0008c1fe912f5dddf50a5876cc8970dd3b2baa67cf9"
+    "bytes": 29939,
+    "sha256": "5f02a79558567e33186c0d1e4d462b70a0fa2d960080c2af27b2e08567eb8b98"
   },
   "RUNBOOK.md": {
-    "bytes": 2718,
-    "sha256": "a6a790547d72fdc843842e109d5d1b138bea0d542b1e516fc7917612d5ada2e1"
+    "bytes": 4980,
+    "sha256": "8ff79f40f2399cb21b08f27cacb223c88f419d5d55307259fca1166cab132639"
   },
   "chat_template.jinja": {
     "bytes": 7756,
@@ -44,8 +44,8 @@
     "sha256": "e385b92e333eaaa9395a09daf26c09420645bee242456552a55500db45919bc7"
   },
   "docs/readmes/README.zh.md": {
-    "bytes": 13881,
-    "sha256": "bc2d14f2e64189657b2142fb19e54d94215be4751fcf30113a7cd30c37c40ef8"
+    "bytes": 25676,
+    "sha256": "667a7db8482decc260fdf2538de52365f3e130984a173554fb7483e1f5f02d26"
   },
   "evaluation/benchmark-summary.json": {
     "bytes": 36014,
@@ -85,15 +85,15 @@
   },
   "model-00001-of-00002.safetensors": {
     "bytes": 4972947968,
-    "sha256": "da734796f724511e86abffb00d21a7cc6e249047f60e567c10ad064e83a0810f"
+    "sha256": "0b15067f769e7388bd598aabafa2ea3211a3a0c4e49e47d07c4f65c65ffc25dd"
   },
   "model-00002-of-00002.safetensors": {
     "bytes": 3438610328,
-    "sha256": "3ac28e54c66a3370138bf6ca3be7c3ed3d90b751f5017f24dbfd91e846ce919c"
+    "sha256": "7cff102b314edeb3dc5abfa7063f72ad3e888884da237601239dc3582074120a"
   },
   "model-files/serving.json": {
     "bytes": 128,
-    "sha256": "ffe91e4ad89f007666e84328b0168755bb4a887b366a6a87c89bf94aace38f9e"
+    "sha256": "6b4de526ca4c939b626932dcd10d6167e21a68b1e77a090d7a5a87c7c3a353b1"
   },
   "model.safetensors.index.json": {
     "bytes": 41993,
@@ -140,52 +140,52 @@
     "sha256": "d5b7b3e62d43c5f0dae4779f723b1eb4408aa9c21fcbdb6ed65e1da049dd050a"
   },
   "server/README.md": {
-    "bytes": 849,
-    "sha256": "e32014b15ad7e0aa37623d7a5c4561d68f5cd25c9f5514339a8e36d886c1b36f"
+    "bytes": 1678,
+    "sha256": "2ca738dcacd770e7c490ceeb59f2f11df7515f5bc56784eb9d476af4c7145b4d"
   },
   "server/pyproject.toml": {
-    "bytes": 565,
-    "sha256": "f5d1763d77797fab431a8d05b1a457278d5468f1487636545ae290c4b6e7ff53"
+    "bytes": 578,
+    "sha256": "0fd8155bfa466e0f7a95fddce986ab881cce9260187c1620884fa27e5008dfbe"
   },
   "server/src/wald_serve/__init__.py": {
     "bytes": 139,
-    "sha256": "6794303c203fd5ae4dc9246eb4ce75be8006a6e058c9c7f572896e1b880ab961"
+    "sha256": "7db760d45fae0f1d9cea6dbd3e1421a2627a92020981ae3cd56ab57181423aac"
   },
   "server/src/wald_serve/__main__.py": {
     "bytes": 51,
     "sha256": "540fd0a5992ca535482a9d44b2e268ce3a39bb47a0576f301214afa5ef4494b9"
   },
   "server/src/wald_serve/engine.py": {
-    "bytes": 13300,
-    "sha256": "09672d5a560ab5f5f2b9f432d176f6a151b7fcce5ea7729763e8f50af1d6231a"
+    "bytes": 14814,
+    "sha256": "40fbea84c4c5b93ef888da44508d4fec2677c58732a09d731f0bcf17c2b48dd6"
   },
   "server/src/wald_serve/prompt.py": {
     "bytes": 4192,
     "sha256": "bb45a10734f2546eb1ea1bd7e8b5717ecd8305a4aded0b816f80cd7e85188f7a"
   },
   "server/src/wald_serve/server.py": {
-    "bytes": 7195,
-    "sha256": "6eaf25b7b9eecf3d375b7f9b87ed4b16de211af7e5689966287c76e1e7733cfd"
+    "bytes": 8878,
+    "sha256": "49fb06ee52eb2ebe7059404432386d02e049556003acb7d2f6494ba92d4b9703"
   },
   "server/src/wald_serve/wire.py": {
     "bytes": 3670,
     "sha256": "836ce54ce93016a98f94a6beaa508cc03982e24c3d3b4d62b8ef667389cd14af"
   },
   "server/tests/fakevllm.py": {
-    "bytes": 2895,
-    "sha256": "e1a6c2cdf113d491bad0cb8efc292d1323c16ee70609ee0dfe81a8fab222a08e"
+    "bytes": 4167,
+    "sha256": "9fb222a21bc2b17221e5a1a3605973b4f71730db9bbfede439bd3388b91e2570"
   },
   "server/tests/test_parity.py": {
     "bytes": 4392,
     "sha256": "cd1e4142090076114f2b07efce49fdc5466e302a5c79996b993f3833a3457566"
   },
   "server/tests/test_server.py": {
-    "bytes": 11924,
-    "sha256": "8f8fecbcff18abb6b44da743f6e041472124ba4188881f9e75845348e46ca405"
+    "bytes": 13844,
+    "sha256": "46f2007e9743bfeb0f7f79fca093cf444a70df1bfc348229f34cd251f88a19b3"
   },
   "serving.json": {
     "bytes": 128,
-    "sha256": "ffe91e4ad89f007666e84328b0168755bb4a887b366a6a87c89bf94aace38f9e"
+    "sha256": "6b4de526ca4c939b626932dcd10d6167e21a68b1e77a090d7a5a87c7c3a353b1"
   },
   "temperature.json": {
     "bytes": 4348,
@@ -220,19 +220,43 @@
     "sha256": "ad20de47de5bbe7f72417f3d87e6f72aae7987fab913eb814b818e4a4bbc6e1e"
   },
   "model-info.json": {
-    "bytes": 3436,
-    "sha256": "4afd88d67874d61ddea72e4ceaf6e0ace4199f2ef5f87cb00fe5df4abc87f00b"
+    "bytes": 6145,
+    "sha256": "ab370eedeaed830d92310b952993c99ff5cef4068a95d74ea7fa9ce6efb9f06d"
   },
   "llms.txt": {
-    "bytes": 2537,
-    "sha256": "a814eeca0112086b1740378a16173b27c86c240c5222abaaf7fa33287bdd71f1"
+    "bytes": 3316,
+    "sha256": "4aed0ca0177819e0f6f3b04b34f8021810d83c09c0e5b9a684188fd76c638dcb"
   },
   "CITATION.cff": {
-    "bytes": 1075,
-    "sha256": "4fab11f4e20a79e69a4ebbf23573abe3a8cd9a374bd5ab11e7e4206a4f070bf1"
+    "bytes": 1063,
+    "sha256": "75f7dd132f937aee40b8867032bb10d961bbba15fb525744c67debc272e85d1d"
   },
   "docs/api.md": {
-    "bytes": 6085,
-    "sha256": "e2e349bc9d17f01e0d52835f664808f94a6d9c88dd120ba49c9f25af47c235b8"
+    "bytes": 6069,
+    "sha256": "9f6a43a76824c38285856c8fb1cee632e0fa5d3c830d450fbd1120258e54997d"
+  },
+  "evaluation/v1.2/summary.json": {
+    "bytes": 6991,
+    "sha256": "1c4231985191eb1f7916baf13dd621d3e5655f192dbad2f842f998f8ba8ffaf5"
+  },
+  "evaluation/v1.2/release-check.json": {
+    "bytes": 3036,
+    "sha256": "0de642d7c1ddb2ececafce16c06ae2d2eb0e663ec94b4afcfab605a61aadfb70"
+  },
+  "Wald-4B-v1.2-Q4_K_M.gguf": {
+    "bytes": 2708804000,
+    "sha256": "e843f7658793b9f3effb3a4941cd67f80707a07b468aaaf94d440613751d76fa"
+  },
+  "Wald-4B-v1.2-Q5_K_M.gguf": {
+    "bytes": 3074986400,
+    "sha256": "6fecc4e7655adb71e8c642ce5018f967564ba259852d562ecd3109386542b0cb"
+  },
+  "Wald-4B-v1.2-Q6_K.gguf": {
+    "bytes": 3464055200,
+    "sha256": "5870f15f3b2eef773f672e56bb36e343a95e32fd09baaf7c9ce8b0da1e5dd897"
+  },
+  "Wald-4B-v1.2-Q8_0.gguf": {
+    "bytes": 4482402720,
+    "sha256": "09c02494ebdfb7d088a2c76726eb2b290a438dbc5658c3be16da8333fddd6038"
   }
 }

@@ -1,15 +1,14 @@
 {
   "name": "Wald-Q4B",
-  "version": "v1.1",
+  "version": "v1.2",
   "aliases": [
     "Wald-4B"
   ],
-  "checkpoint": "022D0-f7",
-  "description": "Open-weight 4B decision model that returns a calibrated probability for every option through a Jev-compatible POST /v1/systemone API; one pass or optional thinking; self-hosted. Independent, not affiliated with TypeSafe AI.",
+  "checkpoint": "02600-f19",
+  "description": "Open-weight 4B decision model that returns a calibrated probability for every option through a Jev-compatible POST /v1/systemone API; one pass or optional thinking; self-hosted. Independent, not affiliated with TypeSafe AI. v1.2 is the robustness release: v1.1 plus one merged LoRA stage against distracting and adversarial text.",
   "base_model": "Qwen/Qwen3.5-4B-Base",
   "model_url": "https://huggingface.co/org2ai/Wald-4B",
-  "weights_revision": "50f94ecd5d6e7e8459e9c198ef811bfaba12a3fe",
-  "weights_tag": "v1.1",
+  "weights_tag": "v1.2",
   "weight_precision": "BF16",
   "parameter_scale": "4B",
   "license": "Apache-2.0 (weights and code); see PROVENANCE.md for source-data usage limitations",
@@ -26,7 +25,7 @@
     "effort"
   ],
   "output": "per-option probabilities",
-  "default_effort": "high",
+  "default_effort": "none",
   "efforts": {
     "none": {
       "gate": 0,
@@ -51,17 +50,58 @@
   },
   "thinking_scope": "2–26 options and sufficient context; wider sets use grouped readout; insufficient thought space retains initial answer",
   "evaluation": {
-    "benchmark": "Decision Index",
-    "edition": "0.2.1",
-    "scope": "complete suite",
-    "score": 54.59,
-    "metric": "balanced_skill",
-    "requests": 150317,
-    "ok": 150317,
-    "effort": "high",
-    "hardware": "NVIDIA RTX PRO 6000 96 GB",
-    "status": "author-run; maintainer validation pending",
-    "submission": "https://github.com/apolinario/decision-index/pull/30"
+    "jevadvbench": {
+      "questions": 812,
+      "attack_types": 9,
+      "effort": "none",
+      "mean_flip_rate_pct": 4.6,
+      "v1_1_mean_flip_rate_pct": 9.2,
+      "jev_1_13_mean_flip_rate_pct": 6.1,
+      "paired_diff_vs_v1_1_pp": [
+        -4.6,
+        -5.5,
+        -3.6
+      ],
+      "clean_accuracy_143_human_reviewed_pct": 76.2,
+      "v1_1_clean_accuracy_pct": 79.0,
+      "clean_paired_diff_vs_v1_1_pp": [
+        -2.8,
+        -6.2,
+        -0.6
+      ],
+      "harness": "JevAdvBench/JevAdvBench@3218e05 request bytes and analysis code",
+      "status": "self-run; not submitted"
+    },
+    "jevbench_public": {
+      "items": 231,
+      "effort": "none",
+      "correct": 204,
+      "accuracy": 0.8831,
+      "ece": 0.045,
+      "brier": 0.191,
+      "hardware": "NVIDIA RTX 5090 32 GB",
+      "harness": "fstandhartinger/jevbench@9ec6f15a (jevbench.cli, typesafe adapter, serial, loopback)",
+      "status": "self-scored; public items were a development scoreboard, not held out; not submitted",
+      "thinking_check": {
+        "medium_correct": 198,
+        "high_correct": 198,
+        "runs_each": 1
+      }
+    },
+    "decision_index_sample": {
+      "edition": "0.2.1",
+      "requests": 6948,
+      "read": "one pass",
+      "balanced_skill": 50.03,
+      "v1_1_balanced_skill": 49.76,
+      "paired_diff": [
+        0.27,
+        -0.36,
+        1.05
+      ],
+      "status": "sample only; no complete-suite run for v1.2"
+    },
+    "details": "https://huggingface.co/org2ai/Wald-4B/blob/v1.2/evaluation/v1.2/summary.json"
   },
   "documentation_languages": [
     "en",
@@ -80,20 +120,36 @@
   "affiliation": "Independent; not affiliated with TypeSafe AI",
   "evaluations": [
     {
-      "benchmark": "JevBench",
-      "split": "public",
-      "items": 231,
-      "effort": "none",
-      "correct": 203,
-      "accuracy": 0.8788,
-      "ece": 0.041,
-      "brier": 0.188,
-      "latency_p50_ms": 33,
-      "latency_p95_ms": 168,
-      "hardware": "NVIDIA RTX PRO 6000 96 GB",
-      "harness": "fstandhartinger/jevbench@9ec6f15a (jevbench.cli, typesafe adapter, serial, loopback)",
-      "status": "self-scored; public items were a development scoreboard, not held out; leaderboard measurement requested",
-      "request": "https://github.com/fstandhartinger/jevbench/issues/146"
+      "note": "v1.1 results (not this revision's weights)",
+      "decision_index_complete_suite": {
+        "benchmark": "Decision Index",
+        "edition": "0.2.1",
+        "scope": "complete suite",
+        "score": 54.59,
+        "metric": "balanced_skill",
+        "requests": 150317,
+        "ok": 150317,
+        "effort": "high",
+        "hardware": "NVIDIA RTX PRO 6000 96 GB",
+        "status": "author-run; maintainer validation pending",
+        "submission": "https://github.com/apolinario/decision-index/pull/30"
+      },
+      "jevbench_public": {
+        "benchmark": "JevBench",
+        "split": "public",
+        "items": 231,
+        "effort": "none",
+        "correct": 203,
+        "accuracy": 0.8788,
+        "ece": 0.041,
+        "brier": 0.188,
+        "latency_p50_ms": 33,
+        "latency_p95_ms": 168,
+        "hardware": "NVIDIA RTX PRO 6000 96 GB",
+        "harness": "fstandhartinger/jevbench@9ec6f15a (jevbench.cli, typesafe adapter, serial, loopback)",
+        "status": "self-scored; public items were a development scoreboard, not held out; leaderboard measurement requested",
+        "request": "https://github.com/fstandhartinger/jevbench/issues/146"
+      }
     }
   ],
   "links": {
@@ -102,6 +158,19 @@
     "results_dataset": "https://huggingface.co/datasets/org2ai/Wald-Q4B-decision-index-results",
     "decision_index_submission": "https://github.com/apolinario/decision-index/pull/30",
     "jevbench_request": "https://github.com/fstandhartinger/jevbench/issues/146",
-    "api": "https://huggingface.co/org2ai/Wald-4B/blob/main/docs/api.md"
-  }
+    "api": "https://huggingface.co/org2ai/Wald-4B/blob/main/docs/api.md",
+    "evaluation_summary": "https://huggingface.co/org2ai/Wald-4B/blob/v1.2/evaluation/v1.2/summary.json"
+  },
+  "weights_sha256": {
+    "model-00001-of-00002.safetensors": "0b15067f769e7388bd598aabafa2ea3211a3a0c4e49e47d07c4f65c65ffc25dd",
+    "model-00002-of-00002.safetensors": "7cff102b314edeb3dc5abfa7063f72ad3e888884da237601239dc3582074120a"
+  },
+  "parent_release": {
+    "version": "v1.1",
+    "checkpoint": "022D0-f7",
+    "tag": "v1.1",
+    "revision": "50f94ecd5d6e7e8459e9c198ef811bfaba12a3fe"
+  },
+  "thinking_note": "v1.2 is a one-pass model. On the JevBench public set it scored 198/231 with medium and with high (one run each) against 204/231 with none. Thinking efforts are evaluated on v1.1.",
+  "training_data_note": "perturbed copies of v1.1 training questions; inserted texts written by Claude Haiku (Anthropic) from our templates; targets are v1.1 answers on the clean questions; no JevAdvBench text"
 }

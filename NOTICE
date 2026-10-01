@@ -19,3 +19,5 @@ Third-party code and text in server/
 No benchmark items or training data are included in this repository.
 
 2026-09-29 release: Wald-Q4B 022D0-f7. See PROVENANCE.md for later training-source rights limitations; the code/base license does not grant rights to third-party training texts.
+
+2026-10-01 release: Wald-Q4B v1.2 (02600-f19), a robustness LoRA stage merged into Wald-Q4B 022D0-f7. The inserted training texts of this stage were written by Claude Haiku (Anthropic); see PROVENANCE.md.

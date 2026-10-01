@@ -1,0 +1,268 @@
+{
+  "schema": "wald-q4b-release-evaluation/1",
+  "release": "Wald-Q4B v1.2",
+  "checkpoint": "02600-f19",
+  "parent": "Wald-Q4B v1.1 (022D0-f7, revision v1.1)",
+  "date": "2026-10-01",
+  "status": "All numbers are self-run and self-reported. Nothing here is a leaderboard result and nothing was submitted for v1.2.",
+  "configuration": "packaged wald-serve 0.1.0 + vLLM 0.30.0, BF16, effort none (one pass), prompt format repeat_state_plain, v1.1 temperature table; one NVIDIA RTX 5090 32 GB unless noted",
+  "weights_sha256": {
+    "model-00001-of-00002.safetensors": "0b15067f769e7388bd598aabafa2ea3211a3a0c4e49e47d07c4f65c65ffc25dd",
+    "model-00002-of-00002.safetensors": "7cff102b314edeb3dc5abfa7063f72ad3e888884da237601239dc3582074120a"
+  },
+  "jevadvbench": {
+    "benchmark": {
+      "repo": "JevAdvBench/JevAdvBench@3218e05",
+      "paper": "arXiv 2609.31142",
+      "questions": 812,
+      "scenarios": 66,
+      "attack_variants": 9744,
+      "data_licence": "CC BY-NC 4.0 (used for evaluation only; no items are redistributed here)"
+    },
+    "metric": "flip = the decision on the attacked question differs from the same model's decision on the clean question; % of 812 questions; 95% scenario-cluster bootstrap intervals (66 clusters, 2,000 resamples), the authors' analysis code",
+    "jev_column": "jev-1.13.0 responses as released with the benchmark, scored by the same code",
+    "flip_rate_pct": {
+      "Q1": {
+        "name": "word edits",
+        "jev_1_13": 1.0,
+        "v1_1": 1.6,
+        "v1_2": 1.6,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": 0.0,
+          "ci95": [
+            -0.8,
+            0.8
+          ]
+        }
+      },
+      "Q2": {
+        "name": "paraphrase",
+        "jev_1_13": 1.5,
+        "v1_1": 1.6,
+        "v1_2": 1.4,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": -0.2,
+          "ci95": [
+            -1.1,
+            0.5
+          ]
+        }
+      },
+      "Q3": {
+        "name": "unrelated sentences in the question",
+        "jev_1_13": 4.6,
+        "v1_1": 14.9,
+        "v1_2": 4.6,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": -10.3,
+          "ci95": [
+            -13.5,
+            -7.2
+          ]
+        }
+      },
+      "T1": {
+        "name": "unrelated note in the state",
+        "jev_1_13": 2.2,
+        "v1_1": 2.8,
+        "v1_2": 1.7,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": -1.1,
+          "ci95": [
+            -2.4,
+            0.0
+          ]
+        }
+      },
+      "T2": {
+        "name": "observer's opinion in the state",
+        "jev_1_13": 12.1,
+        "v1_1": 16.9,
+        "v1_2": 5.5,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": -11.3,
+          "ci95": [
+            -14.6,
+            -8.2
+          ]
+        }
+      },
+      "T3": {
+        "name": "opinion through an analogy",
+        "jev_1_13": 6.9,
+        "v1_1": 12.7,
+        "v1_2": 6.3,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": -6.4,
+          "ci95": [
+            -8.8,
+            -3.6
+          ]
+        }
+      },
+      "P1": {
+        "name": "direct override",
+        "jev_1_13": 8.9,
+        "v1_1": 7.9,
+        "v1_2": 5.7,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": -2.2,
+          "ci95": [
+            -3.6,
+            -0.9
+          ]
+        }
+      },
+      "P2": {
+        "name": "authority impersonation",
+        "jev_1_13": 10.1,
+        "v1_1": 13.7,
+        "v1_2": 6.7,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": -7.0,
+          "ci95": [
+            -9.0,
+            -5.1
+          ]
+        }
+      },
+      "P3": {
+        "name": "fake validation note",
+        "jev_1_13": 8.1,
+        "v1_1": 10.3,
+        "v1_2": 7.8,
+        "v1_2_minus_v1_1_paired_pp": {
+          "point": -2.6,
+          "ci95": [
+            -4.2,
+            -1.0
+          ]
+        }
+      }
+    },
+    "mean_of_nine_delivered_attacks_pct": {
+      "jev_1_13": 6.1,
+      "v1_1": 9.2,
+      "v1_2": 4.6,
+      "v1_2_minus_v1_1_paired_pp": {
+        "point": -4.6,
+        "ci95": [
+          -5.5,
+          -3.6
+        ]
+      },
+      "v1_2_minus_jev_pp": {
+        "point": -1.6,
+        "ci95": [
+          -2.7,
+          -0.4
+        ]
+      }
+    },
+    "questions_flipped_by_at_least_one_attack_pct": {
+      "jev_1_13": 29.2,
+      "v1_1": 41.7,
+      "v1_2": 20.7
+    },
+    "clean_accuracy_143_human_reviewed_pct": {
+      "jev_1_13": 87.4,
+      "v1_1": 79.0,
+      "v1_2": 76.2,
+      "v1_2_minus_v1_1_paired_pp": {
+        "point": -2.8,
+        "ci95": [
+          -6.2,
+          -0.6
+        ]
+      }
+    },
+    "clean_decisions_equal_to_v1_1_pct": 98.6,
+    "note": "The perturbation kinds used to train v1.2 were chosen after v1.1's per-attack results were known. No JevAdvBench text was used in training (8-gram overlap 0)."
+  },
+  "jevbench_public_231": {
+    "harness": "fstandhartinger/jevbench@9ec6f15a, jevbench.cli run + summarize, typesafe adapter, serial, loopback",
+    "dataset_hash": "dc3995d8ae1e2fc8e81ce38431add509eb8bb39b85aadfd0c7c32079382dde51",
+    "v1_2": {
+      "none": {
+        "correct": 204,
+        "of": 231,
+        "easy": "48/48",
+        "original": "72/72",
+        "hard": "84/111",
+        "ece": 0.045,
+        "brier": 0.191,
+        "gpu": "RTX 5090"
+      },
+      "medium": {
+        "correct": 198,
+        "of": 231,
+        "ece": 0.037,
+        "brier": 0.208,
+        "gpu": "RTX 5090",
+        "runs": 1
+      },
+      "high": {
+        "correct": 198,
+        "of": 231,
+        "ece": 0.072,
+        "brier": 0.204,
+        "gpu": "RTX 5090",
+        "runs": 1
+      }
+    },
+    "v1_1": {
+      "none": {
+        "correct": 203,
+        "of": 231,
+        "ece": 0.041,
+        "brier": 0.188,
+        "gpu": "RTX PRO 6000"
+      },
+      "medium": {
+        "correct": 205,
+        "of": 231,
+        "gpu": "RTX PRO 6000",
+        "runs": 1
+      }
+    },
+    "note": "The public items were a development scoreboard (never training data); not a held-out result. Latency was not measured for v1.2."
+  },
+  "decision_index_0_2_1_sample": {
+    "requests": 6948,
+    "read": "one pass (no thinking), both versions on the same RTX 5090",
+    "metric": "balanced_skill, bootstrap B=300",
+    "v1_1": {
+      "value": 49.76,
+      "ci95": [
+        47.82,
+        51.35
+      ]
+    },
+    "v1_2": {
+      "value": 50.03,
+      "ci95": [
+        48.18,
+        51.65
+      ]
+    },
+    "v1_2_minus_v1_1_paired": {
+      "point": 0.27,
+      "ci95": [
+        -0.36,
+        1.05
+      ]
+    },
+    "note": "A sample, not the complete suite. Not comparable with the 54.59 complete-suite result, which was measured on v1.1 with effort high. v1.2 has no complete-suite run."
+  },
+  "internal_non_regression_sets": {
+    "note": "Our own sets, not public benchmarks; one pass.",
+    "xl_int": {
+      "v1_1": 56.0,
+      "v1_2": 56.4
+    },
+    "tool_selection_2857_items_accuracy_pct": {
+      "v1_1": 87.15,
+      "v1_2": 87.22
+    }
+  }
+}

@@ -8,6 +8,11 @@ or attaches to a vLLM server that is already running:
 
     wald-serve --vllm http://127.0.0.1:8011 --served wald --temperature /path/to/temperature.json --port 8000
 
+GGUF weights run on llama.cpp instead (`llama-server` on PATH, or --llama-server):
+
+    wald-serve --gguf Wald-4B-Q8_0.gguf --temperature temperature.json --port 8000
+    wald-serve --llamacpp http://127.0.0.1:8080 --temperature temperature.json --port 8000
+
 Defaults come from `<model>/serving.json` when present (`effort`, `prompt_format`, `max_model_len`), else the built-in
 ones below; command-line flags override both. The response carries TypeSafe's answer keys plus `mode` (A = one pass,
 B = after a thought, K = knockout) and `usage`.
@@ -30,7 +35,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from . import __version__
-from .engine import Capacity, Client, answer, load_tables, policy
+from .engine import Capacity, Client, LlamaCppClient, answer, load_tables, policy
 from .prompt import PROMPT_FORMATS
 
 DEFAULTS = {"effort": "medium", "prompt_format": "plain", "max_model_len": 131072}
@@ -47,6 +52,16 @@ def launch_vllm(model: str, served: str, port: int, max_len: int, mem: float, ex
     cmd = [sys.executable, "-m", "vllm.entrypoints.openai.api_server", "--model", model, "--served-model-name", served,
            "--host", "127.0.0.1", "--port", str(port), "--max-model-len", str(max_len), "--gpu-memory-utilization",
            str(mem), "--max-num-seqs", "256", "--seed", "0", *shlex.split(extra)]
+    return launch(cmd, port, "vLLM")
+
+
+def launch_llama(binary: str, gguf: str, port: int, max_len: int, parallel: int, extra: str) -> subprocess.Popen:
+    cmd = [binary, "-m", gguf, "--host", "127.0.0.1", "--port", str(port), "-c", str(max_len * parallel),
+           "-np", str(parallel), "-ngl", "999", "--seed", "0", *shlex.split(extra)]
+    return launch(cmd, port, "llama-server")
+
+
+def launch(cmd: list, port: int, name: str) -> subprocess.Popen:
     print(json.dumps({"launching": cmd}), flush=True)
     proc = subprocess.Popen(cmd, start_new_session=True)
 
@@ -58,13 +73,13 @@ def launch_vllm(model: str, served: str, port: int, max_len: int, mem: float, ex
     url = f"http://127.0.0.1:{port}/health"
     for _ in range(1200):
         if proc.poll() is not None:
-            raise SystemExit(f"vLLM exited with code {proc.returncode}")
+            raise SystemExit(f"{name} exited with code {proc.returncode}")
         try:
             with urllib.request.urlopen(url, timeout=5):
                 return proc
         except OSError:
             time.sleep(2)
-    raise SystemExit("vLLM did not become healthy within 40 minutes")
+    raise SystemExit(f"{name} did not become healthy within 40 minutes")
 
 
 def make_handler(cl: Client, pol: dict, tables: dict, info: dict, workers: int):
@@ -109,6 +124,9 @@ def main(argv=None):
     src = ap.add_mutually_exclusive_group(required=True)
     src.add_argument("--model", help="weights directory: start vLLM on it (serving.json / temperature.json read from it)")
     src.add_argument("--vllm", help="URL of a running vLLM OpenAI-compatible server")
+    src.add_argument("--gguf", help="GGUF weights file: start llama.cpp's llama-server on it (serving.json / temperature.json "
+                     "read from its folder)")
+    src.add_argument("--llamacpp", help="URL of a running llama.cpp llama-server")
     ap.add_argument("--served", default="wald", help="vLLM served model name")
     ap.add_argument("--model-name", default="wald-4b", help="name reported in responses")
     ap.add_argument("--effort", default=None, help="none | low | medium | high | high-k<k> (default: serving.json, else medium)")
@@ -119,16 +137,20 @@ def main(argv=None):
     ap.add_argument("--vllm-port", type=int, default=8011)
     ap.add_argument("--gpu-memory-utilization", type=float, default=0.90)
     ap.add_argument("--vllm-args", default="", help="extra `vllm serve` arguments, e.g. \"--quantization fp8\"")
+    ap.add_argument("--llama-server", default="llama-server", help="llama-server binary for --gguf")
+    ap.add_argument("--llama-parallel", type=int, default=4, help="llama-server slots for --gguf (context = max-model-len x slots)")
+    ap.add_argument("--llama-args", default="", help="extra llama-server arguments for --gguf")
     ap.add_argument("--host", default="0.0.0.0")
     ap.add_argument("--port", type=int, default=8000)
     a = ap.parse_args(argv)
 
-    cfg = {**DEFAULTS, **read_serving(a.model)}
+    home = a.model or (str(Path(a.gguf).parent) if a.gguf else None)
+    cfg = {**DEFAULTS, **read_serving(home)}
     effort = a.effort or cfg["effort"]
     fmt = a.prompt_format or cfg["prompt_format"]
     max_len = a.max_model_len or int(cfg["max_model_len"])
     pol = policy(effort)
-    temps = a.temperature or (str(Path(a.model) / cfg.get("temperature", "temperature.json")) if a.model else None)
+    temps = a.temperature or (str(Path(home) / cfg.get("temperature", "temperature.json")) if home else None)
     if temps and not Path(temps).is_file():
         raise SystemExit(f"temperature table not found: {temps}")
     tables = load_tables(temps, pol["budget"])
@@ -136,10 +158,14 @@ def main(argv=None):
     if a.model:
         launch_vllm(a.model, a.served, a.vllm_port, max_len, a.gpu_memory_utilization, a.vllm_args)
         endpoint = f"http://127.0.0.1:{a.vllm_port}"
+    elif a.gguf:
+        launch_llama(a.llama_server, a.gguf, a.vllm_port, max_len, a.llama_parallel, a.llama_args)
+        endpoint = f"http://127.0.0.1:{a.vllm_port}"
     else:
-        endpoint = a.vllm
-    cl = Client(endpoint, a.served, max_len, prompt_format=fmt)
-    info = {"model": a.model_name, "version": __version__, "effort": pol["name"], "gate": pol["gate"],
+        endpoint = a.vllm or a.llamacpp
+    cl = (LlamaCppClient if a.gguf or a.llamacpp else Client)(endpoint, a.served, max_len, prompt_format=fmt)
+    info = {"model": a.model_name, "version": __version__, "backend": "llama.cpp" if a.gguf or a.llamacpp else "vllm",
+            "effort": pol["name"], "gate": pol["gate"],
             "budget": pol["budget"], "think_k": pol["k"], "prompt_format": fmt, "max_model_len": max_len,
             "wide": "knockout", "max_options": 676, "temperature": bool(tables)}
     ThreadingHTTPServer.daemon_threads = True

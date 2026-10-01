@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use Wald-Q4B, please cite it as below."
 type: software
-title: "Wald-Q4B v1.1: an open-weight 4B decision model with calibrated option probabilities"
+title: "Wald-Q4B v1.2: an open-weight 4B decision model with calibrated option probabilities"
 abstract: >-
   Wald-Q4B is an open-weight 4B decision model built on Qwen3.5-4B-Base. Given a
   state and typed questions (choice, yes/no, score), it returns a calibrated
@@ -12,8 +12,8 @@ authors:
   - name: "Wald-4B authors"
     alias: Harry19081
     website: "https://huggingface.co/Harry19081"
-version: "v1.1"
-date-released: "2026-09-29"
+version: "v1.2"
+date-released: "2026-10-01"
 license: Apache-2.0
 url: "https://huggingface.co/org2ai/Wald-4B"
 repository-code: "https://github.com/org2AI/wald-4b"
